@@ -7,9 +7,7 @@ interface SidebarProps {}
 export function Sidebar({}: SidebarProps) {
   const routes = [
     { name: "home", url: "/", icon: <Home /> },
-    { name: "viewer", url: "/viewer", icon: <Github /> },
-    { name: "test", url: "/test", icon: <TestTube /> },
-    { name: "pb", url: "/pb", icon: <TestTube /> },
+
   ];
   return (
     <header
