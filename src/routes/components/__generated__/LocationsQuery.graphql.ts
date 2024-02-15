@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d518e2b947890fe55491c84df1353c28>>
+ * @generated SignedSource<<316b4cb4f04b2dc6767d927b49b8f73c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,7 @@ export type LocationsQuery$data = {
       readonly name: string | null | undefined;
       readonly residents: ReadonlyArray<{
         readonly id: string | null | undefined;
+        readonly image: string | null | undefined;
         readonly name: string | null | undefined;
         readonly status: string | null | undefined;
       } | null | undefined>;
@@ -153,6 +154,13 @@ v2 = [
                 "kind": "ScalarField",
                 "name": "status",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "image",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -182,16 +190,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "10dc0266a42b430bc284a3ef58e3c6b5",
+    "cacheID": "a0008ffbc0a52598652c71e03287c1b8",
     "id": null,
     "metadata": {},
     "name": "LocationsQuery",
     "operationKind": "query",
-    "text": "query LocationsQuery {\n  locations(page: 1) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      dimension\n      id\n      name\n      type\n      residents {\n        id\n        name\n        status\n      }\n    }\n  }\n}\n"
+    "text": "query LocationsQuery {\n  locations(page: 1) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      dimension\n      id\n      name\n      type\n      residents {\n        id\n        name\n        status\n        image\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0d73d001f68e22173f67aa8e5a247741";
+(node as any).hash = "92a2e6cb65a0d6373ea074815fcdb9c6";
 
 export default node;

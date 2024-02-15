@@ -110,8 +110,7 @@ I also picked this because I've been brushing up on it and having lots of fun wi
 - Pocketbase: The challenge seems to require some trivial database activity and going full postgres + drizzle feels overkill
   
 
-> **Note**
-I am abandoning this approach due to the GraphQL server not being relay friendly , switching to the REST API instead
+
 
 
 
