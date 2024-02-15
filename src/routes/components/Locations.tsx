@@ -31,6 +31,11 @@ export const locationsQuery = graphql`
         id
         name
         type
+        residents {
+          id
+          name
+          status
+        }
       }
     }
   }

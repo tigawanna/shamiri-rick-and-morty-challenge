@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<77cc1c4bba408f8b0a104a7baf70d0d9>>
+ * @generated SignedSource<<d518e2b947890fe55491c84df1353c28>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,11 @@ export type LocationsQuery$data = {
       readonly dimension: string | null | undefined;
       readonly id: string | null | undefined;
       readonly name: string | null | undefined;
+      readonly residents: ReadonlyArray<{
+        readonly id: string | null | undefined;
+        readonly name: string | null | undefined;
+        readonly status: string | null | undefined;
+      } | null | undefined>;
       readonly type: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
@@ -33,7 +38,21 @@ export type LocationsQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": [
@@ -109,25 +128,33 @@ var v0 = [
             "name": "dimension",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
+          (v0/*: any*/),
+          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "type",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Character",
+            "kind": "LinkedField",
+            "name": "residents",
+            "plural": true,
+            "selections": [
+              (v0/*: any*/),
+              (v1/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "status",
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
         ],
@@ -143,7 +170,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "LocationsQuery",
-    "selections": (v0/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -152,19 +179,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "LocationsQuery",
-    "selections": (v0/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "15b03cbd352c5f251de15200725e4ae5",
+    "cacheID": "10dc0266a42b430bc284a3ef58e3c6b5",
     "id": null,
     "metadata": {},
     "name": "LocationsQuery",
     "operationKind": "query",
-    "text": "query LocationsQuery {\n  locations(page: 1) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      dimension\n      id\n      name\n      type\n    }\n  }\n}\n"
+    "text": "query LocationsQuery {\n  locations(page: 1) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      dimension\n      id\n      name\n      type\n      residents {\n        id\n        name\n        status\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "59be9724f255e09ef9ad8e84932ddc9b";
+(node as any).hash = "0d73d001f68e22173f67aa8e5a247741";
 
 export default node;
