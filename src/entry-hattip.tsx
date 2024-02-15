@@ -10,8 +10,7 @@ function createRelayEnvironment(ctx: RequestContext) {
    return new Environment({
     network: Network.create((request, variables, cacheConfig, uploadables) =>
       fetchFn({
-        fetchVars: { request, variables, cacheConfig, uploadables },
-        token:undefined,
+        fetchVars: { request, variables, cacheConfig, uploadables }
       }),
     ),
     store: new Store(new RecordSource()),

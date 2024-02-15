@@ -12,17 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu";
 import {
-  Redirect,
   useQueryClient,
   useMutation,
-  useSSQ,
   useLocation,
   usePageContext,
-  useQuery,
   navigate,
 } from "rakkasjs";
 import { Loader } from "lucide-react";
-import { testGithubToken } from "@/lib/relay/RelayEnvironment";
+
 import { ThemeToggle } from "./ThemeToggle";
 import { hotToast } from "@/components/wrappers/toast";
 import { useViewer } from "@/lib/pb/hooks/useViewer";
@@ -32,30 +29,8 @@ interface MiniSettingsModalProps {}
 export function MiniSettingsModal({}: MiniSettingsModalProps) {
   const qc = useQueryClient();
   const { current } = useLocation();
-
   const { locals } = usePageContext();
-
-  // const query = useSSQ(async (ctx) => {
-  //   try {
-  //     const user = ctx.locals?.pb?.authStore?.model
-  //     const gh_token = user?.accessToken
-  //     console.log(" ===== mini settings user ,gh_token ==== ", user,gh_token);
-  //     if (!gh_token) {
-  //       return { viewer: null, error: "no github token" };
-  //     }
-  //     const viewer = await testGithubToken(gh_token);
-  //     // console.log("viewer ==== ",viewer?.data.viewer)
-  //     if (!viewer) {
-  //       return { viewer: null, error: "invalid github token" };
-  //     }
-
-  //     return { viewer, error: null };
-  //   } catch (error: any) {
-  //     return { viewer: null, error: error.message };
-  //   }
-  // });
   const query = useViewer();
-
   const mutation = useMutation(
     async () => {
       try {
@@ -94,17 +69,6 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
   );
   const viewer = query.data?.viewer;
 
-  // console.log(" ====  logging out with url  ===== ", current.pathname);
-  // if (mutation.data?.success) {
-  //   const new_url = new URL(current);
-  //   new_url.pathname = "/auth";
-  //   new_url.searchParams.set("return_to", current.pathname + current.search);
-  //   return <Redirect href={new_url.toString()} />;
-  // }
-
-  // if (!viewer) {
-  //   return null;
-  // }
 
   return (
     <DropdownMenu>
@@ -148,7 +112,7 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
             </Button>
           </div>
           <DropdownMenuSeparator />
-        <ThemeToggle />
+          <ThemeToggle />
         </DropdownMenuContent>
       ) : (
         <DropdownMenuContent className="w-fit">

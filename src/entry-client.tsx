@@ -6,18 +6,13 @@ import { fetchFn } from "./lib/relay/RelayEnvironment";
 import { PocketBaseClient } from "./lib/pb/client";
 import PocketBase from "pocketbase";
 
-
-
-
 const relay_data_from_server = (window as any)?.__RELAY_DATA__;
 
-
 function createRelayEnvironment() {
-return new Environment({
+  return new Environment({
     network: Network.create((request, variables, cacheConfig, uploadables) =>
       fetchFn({
         fetchVars: { request, variables, cacheConfig, uploadables },
-        token:undefined,
       }),
     ),
     store: new Store(RecordSource.create(relay_data_from_server)),
