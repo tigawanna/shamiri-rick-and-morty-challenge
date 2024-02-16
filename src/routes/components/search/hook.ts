@@ -3,7 +3,7 @@ import { navigate, useLocation } from "rakkasjs";
 import { useDebouncedValue } from "@/utils/hooks/debounce";
 import { SearchType } from "./types";
 
-export function useGithubSearch() {
+export function useDebouncedSearchWithhParams() {
   const { current } = useLocation();
   const initSearchType = current.searchParams.get("st") as SearchType | null;
   const initSearchValue = current.searchParams.get("sq") ?? "";
