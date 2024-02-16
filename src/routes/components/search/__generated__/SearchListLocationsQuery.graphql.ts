@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<43472b1243f02c83db042e69fd583223>>
+ * @generated SignedSource<<182848126a6b303bf630ae7b45364cc5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,8 @@ export type SearchListLocationsQuery$data = {
           readonly name: string | null | undefined;
         } | null | undefined;
       } | null | undefined>;
+      readonly id: string | null | undefined;
+      readonly name: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
   readonly locations: {
@@ -57,6 +59,7 @@ export type SearchListLocationsQuery$data = {
       readonly id: string | null | undefined;
       readonly name: string | null | undefined;
       readonly residents: ReadonlyArray<{
+        readonly id: string | null | undefined;
         readonly image: string | null | undefined;
         readonly name: string | null | undefined;
         readonly status: string | null | undefined;
@@ -118,25 +121,63 @@ v3 = {
 v4 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "type",
+  "concreteType": "Character",
+  "kind": "LinkedField",
+  "name": "residents",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "image",
+      "storageKey": null
+    },
+    (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "status",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v5 = {
   "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "image",
+  "args": (v1/*: any*/),
+  "concreteType": "Locations",
+  "kind": "LinkedField",
+  "name": "locations",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Location",
+      "kind": "LinkedField",
+      "name": "results",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "type",
+          "storageKey": null
+        },
+        (v4/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "status",
-  "storageKey": null
-},
-v7 = {
   "alias": null,
   "args": null,
   "concreteType": "Info",
@@ -175,7 +216,7 @@ v7 = {
   ],
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": (v1/*: any*/),
   "concreteType": "Characters",
@@ -183,7 +224,7 @@ v8 = {
   "name": "characters",
   "plural": false,
   "selections": [
-    (v7/*: any*/),
+    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -204,21 +245,7 @@ v8 = {
           "selections": [
             (v2/*: any*/),
             (v3/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Character",
-              "kind": "LinkedField",
-              "name": "residents",
-              "plural": true,
-              "selections": [
-                (v2/*: any*/),
-                (v5/*: any*/),
-                (v3/*: any*/),
-                (v6/*: any*/)
-              ],
-              "storageKey": null
-            }
+            (v4/*: any*/)
           ],
           "storageKey": null
         }
@@ -228,7 +255,7 @@ v8 = {
   ],
   "storageKey": null
 },
-v9 = {
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": "Location",
@@ -248,46 +275,8 @@ return {
     "metadata": null,
     "name": "SearchListLocationsQuery",
     "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Locations",
-        "kind": "LinkedField",
-        "name": "locations",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Location",
-            "kind": "LinkedField",
-            "name": "results",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Character",
-                "kind": "LinkedField",
-                "name": "residents",
-                "plural": true,
-                "selections": [
-                  (v5/*: any*/),
-                  (v3/*: any*/),
-                  (v6/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      (v8/*: any*/),
+      (v5/*: any*/),
+      (v7/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
@@ -296,7 +285,7 @@ return {
         "name": "episodes",
         "plural": false,
         "selections": [
-          (v7/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -305,6 +294,8 @@ return {
             "name": "results",
             "plural": true,
             "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -313,7 +304,7 @@ return {
                 "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v9/*: any*/)
+                  (v8/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -333,36 +324,36 @@ return {
     "kind": "Operation",
     "name": "SearchListLocationsQuery",
     "selections": [
+      (v5/*: any*/),
+      (v7/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Locations",
+        "concreteType": "Episodes",
         "kind": "LinkedField",
-        "name": "locations",
+        "name": "episodes",
         "plural": false,
         "selections": [
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "Location",
+            "concreteType": "Episode",
             "kind": "LinkedField",
             "name": "results",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
-              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "concreteType": "Character",
                 "kind": "LinkedField",
-                "name": "residents",
+                "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
-                  (v3/*: any*/),
-                  (v6/*: any*/),
+                  (v8/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
@@ -372,58 +363,20 @@ return {
           }
         ],
         "storageKey": null
-      },
-      (v8/*: any*/),
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Episodes",
-        "kind": "LinkedField",
-        "name": "episodes",
-        "plural": false,
-        "selections": [
-          (v7/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Episode",
-            "kind": "LinkedField",
-            "name": "results",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Character",
-                "kind": "LinkedField",
-                "name": "characters",
-                "plural": true,
-                "selections": [
-                  (v9/*: any*/),
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              },
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0df71883f899c25c90366b5134a89510",
+    "cacheID": "94e66c6a5c0912d8d7bed63d84430951",
     "id": null,
     "metadata": {},
     "name": "SearchListLocationsQuery",
     "operationKind": "query",
-    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    results {\n      id\n      name\n      type\n      residents {\n        image\n        name\n        status\n        id\n      }\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n        residents {\n          id\n          image\n          name\n          status\n        }\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    results {\n      id\n      name\n      type\n      residents {\n        id\n        image\n        name\n        status\n      }\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n        residents {\n          id\n          image\n          name\n          status\n        }\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "31c2db8fa2f10aaae8940cb7ecbbf31e";
+(node as any).hash = "5c849b125192dfad2d4da7a54096e6cc";
 
 export default node;

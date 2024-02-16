@@ -9,8 +9,9 @@ import { Link } from "rakkasjs";
 import { SearchType } from "./types";
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQuery.graphql";
-import { Locations } from "../Locations";
-
+import { Locations } from "../location/Locations";
+import { CharacterLocations } from "../location/CharacterLocations";
+import { EpisodeLocations } from "../location/EpisodeLocations";
 
 interface SearchListProps {
   searchvalue: string;
@@ -24,14 +25,18 @@ export function SearchList({
   setSearchType,
 }: SearchListProps) {
   const [, startTransition] = useTransition();
-  const query = useLazyLoadQuery<SearchListLocationsQuery>(searchLocationsQuery, { name: searchvalue,page:1 });
+  const query = useLazyLoadQuery<SearchListLocationsQuery>(
+    searchLocationsQuery,
+    { name: searchvalue, page: 1 },
+  );
   const location_locations = query?.locations?.results ?? [];
-  const character_locations = query?.characters?.results?.flatMap((c) => c?.location) ?? [];
-  const episode_locations = query?.episodes?.results?.flatMap((e) => e?.characters)
-  .flatMap((c) => c?.location)
-  ?? [];
+  const character_locations =
+    query?.characters?.results?.flatMap((c) => c?.location) ?? [];
+  const episode_locations =
+    query?.episodes?.results
+      ?.flatMap((e) => e?.characters)
+      .flatMap((c) => c?.location) ?? [];
 
-  console.log(" ====  charcter_locations  === ",query)
   return (
     <div className="w-full h-full flex  overflow-auto">
       <Tabs
@@ -42,21 +47,25 @@ export function SearchList({
         className="w-full h-full "
       >
         <TabsList className="grid w-full grid-cols-3 sticky top-0 z-50">
-          <TabsTrigger value="LOCATION">Location name {location_locations.length}</TabsTrigger>
-          <TabsTrigger value="CHARACTER">Character name {character_locations.length}</TabsTrigger>
-          <TabsTrigger value="EPISODE">Episode name {episode_locations.length}</TabsTrigger>
+          <TabsTrigger value="LOCATION">
+            Location name {location_locations.length}
+          </TabsTrigger>
+          <TabsTrigger value="CHARACTER">
+            Character name {character_locations.length}
+          </TabsTrigger>
+          <TabsTrigger value="EPISODE">
+            Episode name {episode_locations.length}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="LOCATION" className="z-30">
-          {/* @ts-expect-error */}
-          <Locations locations={location_locations} />
+          <Locations locations={query.locations} />
         </TabsContent>
         <TabsContent value="CHARACTER" className="z-30">
-          {/* @ts-expect-error */}
-          <Locations locations={character_locations} />
+          <CharacterLocations characters={query.characters} />
         </TabsContent>
         <TabsContent value="EPISODE" className="z-30">
-          Search results by episode name
+          <EpisodeLocations episodes={query.episodes} />
         </TabsContent>
       </Tabs>
     </div>
@@ -95,17 +104,17 @@ export function SearchInputNoItems() {
   );
 }
 
-
 export const searchLocationsQuery = graphql`
-  query SearchListLocationsQuery($name: String!,$page:Int) {
+  query SearchListLocationsQuery($name: String!, $page: Int) {
     # start of query
     #  start of locations query
-    locations(page:$page, filter: { name: $name }) {
+    locations(page: $page, filter: { name: $name }) {
       results {
         id
         name
         type
         residents {
+          id
           image
           name
           status
@@ -115,7 +124,7 @@ export const searchLocationsQuery = graphql`
     #  end of locations query
 
     # start of characters query
-    characters(page:$page, filter: { name: $name }) {
+    characters(page: $page, filter: { name: $name }) {
       info {
         count
         next
@@ -143,7 +152,7 @@ export const searchLocationsQuery = graphql`
     # unlike the rest of the queries , this one cannot return the residets of the episode locations
     #  as the query would exceed maximum depth allowance
     #  we'll return the loactions ids and fetch the locations in the child component
-    episodes(page:$page, filter: { name: $name }) {
+    episodes(page: $page, filter: { name: $name }) {
       info {
         count
         next
@@ -151,6 +160,8 @@ export const searchLocationsQuery = graphql`
         prev
       }
       results {
+        id
+        name
         characters {
           location {
             id
