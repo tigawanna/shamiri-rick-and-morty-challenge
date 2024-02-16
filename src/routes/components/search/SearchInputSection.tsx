@@ -36,7 +36,7 @@ export function SearchInputSection({
 
   return (
     <div
-      className="w-full flex items-center justify-center"
+      className="w-full flex items-center justify-center sticky top-0"
       onKeyDownCapture={(e) => {
         //  naviaget on hit enter key
         if (e.key === "Enter"  && debouncedValue.length > 0) {

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { SearchList, SearchListSuspenseFalllback } from "./SearchList";
-import { useGithubSearch } from "./hook";
+import { useDebouncedSearchWithhParams } from "./hook";
 import { SearchInputSection } from "./SearchInputSection";
 interface SearchComponentProps {}
 
@@ -12,7 +12,7 @@ export function SearchComponent({}: SearchComponentProps) {
     setDebouncedValue,
     searchType,
     setSearchType,
-  } = useGithubSearch();
+  } = useDebouncedSearchWithhParams();
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-3">
       <SearchInputSection

@@ -1,7 +1,7 @@
 import { PageProps } from "rakkasjs";
 import { Locations, LocationsSuspenseFallback } from "./components/Locations";
 import { Suspense } from "react";
-import { SearchComponent } from "./components/search/SearchBar";
+import { SearchComponent } from "./components/search/Searchcomponent";
 
 export default function HomePage({ url }: PageProps) {
   return (

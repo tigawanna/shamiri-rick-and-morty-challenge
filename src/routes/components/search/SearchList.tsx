@@ -7,6 +7,9 @@ import {
 } from "@/components/shadcn/ui/tabs";
 import { Link } from "rakkasjs";
 import { SearchType } from "./types";
+import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
+import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQuery.graphql";
+import { Locations } from "../Locations";
 
 
 interface SearchListProps {
@@ -21,7 +24,14 @@ export function SearchList({
   setSearchType,
 }: SearchListProps) {
   const [, startTransition] = useTransition();
+  const query = useLazyLoadQuery<SearchListLocationsQuery>(searchLocationsQuery, { name: searchvalue,page:1 });
+  const location_locations = query?.locations?.results ?? [];
+  const character_locations = query?.characters?.results?.flatMap((c) => c?.location) ?? [];
+  const episode_locations = query?.episodes?.results?.flatMap((e) => e?.characters)
+  .flatMap((c) => c?.location)
+  ?? [];
 
+  console.log(" ====  charcter_locations  === ",query)
   return (
     <div className="w-full h-full flex  overflow-auto">
       <Tabs
@@ -32,16 +42,18 @@ export function SearchList({
         className="w-full h-full "
       >
         <TabsList className="grid w-full grid-cols-3 sticky top-0 z-50">
-          <TabsTrigger value="LOCATION">Loaction name</TabsTrigger>
-          <TabsTrigger value="CHARACTER">Character name</TabsTrigger>
-          <TabsTrigger value="EPISODE">Episode name</TabsTrigger>
+          <TabsTrigger value="LOCATION">Location name {location_locations.length}</TabsTrigger>
+          <TabsTrigger value="CHARACTER">Character name {character_locations.length}</TabsTrigger>
+          <TabsTrigger value="EPISODE">Episode name {episode_locations.length}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="LOCATION" className="z-30">
-          Search results by location name
+          {/* @ts-expect-error */}
+          <Locations locations={location_locations} />
         </TabsContent>
         <TabsContent value="CHARACTER" className="z-30">
-          Search results by character name
+          {/* @ts-expect-error */}
+          <Locations locations={character_locations} />
         </TabsContent>
         <TabsContent value="EPISODE" className="z-30">
           Search results by episode name
@@ -82,3 +94,73 @@ export function SearchInputNoItems() {
     </div>
   );
 }
+
+
+export const searchLocationsQuery = graphql`
+  query SearchListLocationsQuery($name: String!,$page:Int) {
+    # start of query
+    #  start of locations query
+    locations(page:$page, filter: { name: $name }) {
+      results {
+        id
+        name
+        type
+        residents {
+          image
+          name
+          status
+        }
+      }
+    }
+    #  end of locations query
+
+    # start of characters query
+    characters(page:$page, filter: { name: $name }) {
+      info {
+        count
+        next
+        pages
+        prev
+      }
+      results {
+        id
+        name
+        location {
+          id
+          name
+          residents {
+            id
+            image
+            name
+            status
+          }
+        }
+      }
+    }
+    # end of characters query
+
+    # start of episodes query
+    # unlike the rest of the queries , this one cannot return the residets of the episode locations
+    #  as the query would exceed maximum depth allowance
+    #  we'll return the loactions ids and fetch the locations in the child component
+    episodes(page:$page, filter: { name: $name }) {
+      info {
+        count
+        next
+        pages
+        prev
+      }
+      results {
+        characters {
+          location {
+            id
+            name
+          }
+        }
+      }
+    }
+    # end of episodes query
+
+    #  end of query
+  }
+`;

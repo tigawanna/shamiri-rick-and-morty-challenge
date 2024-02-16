@@ -1,17 +1,27 @@
-import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
-import { LocationsQuery } from "./__generated__/LocationsQuery.graphql";
-interface LocationsProps {}
+interface LocationsProps {
+  locations:{
+    id:number;
+    name:string;
+    residents:{
+      id:number;
+      name:string;
+      status:string;
+      image:string;
+    }[]
 
-export function Locations({}: LocationsProps) {
-  const query = useLazyLoadQuery<LocationsQuery>(locationsQuery, {});
+  }[]
+}
+
+export function Locations({locations}: LocationsProps) {
+
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="flex flex-wrap gap-4 justify-center w-full ">
-        {query.locations?.results?.map((location) => {
+        {locations?.map((location) => {
           if (!location) return null;
           return (
             <div
-              key={location.id}
+              key={location.id + location.name}
               className="flex flex-col rounded-lg w-full  gap-3 p-2"
             >
               <h1 className="text-4xl font-bold text-secondary">
@@ -36,7 +46,7 @@ export function Locations({}: LocationsProps) {
                   };
                   return (
                     <li
-                      key={resident?.id}
+                      key={resident?.id + resident?.name}
                       className="flex flex-col p-2 rounded-lg bg-base-300 gap-2 w-[95%] sm:w-[46%] md:w-[30%] lg:w-[24%]"
                     >
                       <img
@@ -115,28 +125,4 @@ export function LocationsSuspenseFallback() {
   );
 }
 
-export const locationsQuery = graphql`
-  query LocationsQuery {
-    locations(page: 1) {
-      info {
-        count
-        next
-        pages
-        prev
-      }
-      results {
-        created
-        dimension
-        id
-        name
-        type
-        residents {
-          id
-          name
-          status
-          image
-        }
-      }
-    }
-  }
-`;
+;
