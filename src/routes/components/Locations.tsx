@@ -22,6 +22,18 @@ export function Locations({}: LocationsProps) {
                 {location.residents.map((resident) => {
                   if (!resident) return null;
 
+                  const status_badge_styles = () => {
+                    switch (resident.status) {
+                      case "Alive":
+                        return "badge-success";
+                      case "Dead":
+                        return "badge-error";
+                      case "unknown":
+                        return "badge-warning";
+                      default:
+                        return "badge-info";
+                    }
+                  };
                   return (
                     <li
                       key={resident?.id}
@@ -35,8 +47,19 @@ export function Locations({}: LocationsProps) {
                         height={250}
                         width={250}
                       />
-                      <h2 className="text-lg font-bold">{resident?.name}</h2>
-                      <h3>{resident?.status}</h3>
+                      <div className="flex flex-col  justify-center ">
+                        <h2 className="text-lg font-bold">{resident?.name}</h2>
+                        <span
+                          data-tip={"status:" + resident?.status}
+                          className="flex  items-center gap-1 text-lg tooltip hover:tooltip-open tooltip-bottom"
+                        >
+                          status:
+                          <h3 className={`badge ${status_badge_styles()}`}>
+                            {" "}
+                            {resident?.status}
+                          </h3>
+                        </span>
+                      </div>
                     </li>
                   );
                 })}
