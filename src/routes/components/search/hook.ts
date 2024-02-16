@@ -1,8 +1,7 @@
-import { useTransition, useState, useEffect } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { navigate, useLocation } from "rakkasjs";
 import { useDebouncedValue } from "@/utils/hooks/debounce";
 import { SearchType } from "./types";
-
 
 export function useGithubSearch() {
   const { current } = useLocation();
@@ -24,6 +23,9 @@ export function useGithubSearch() {
   }, []);
   useEffect(() => {
     const new_url = new URL(current);
+    if ((!debouncedValue || debouncedValue === "") && !isDebouncing) {
+      new_url.searchParams.set("sq", "");
+    }
     if (debouncedValue && debouncedValue !== initSearchValue) {
       new_url.searchParams.set("sq", debouncedValue);
     }
