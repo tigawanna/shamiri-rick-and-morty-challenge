@@ -1,13 +1,15 @@
 import { PageProps } from "rakkasjs";
 import { Locations, LocationsSuspenseFallback } from "./components/Locations";
 import { Suspense } from "react";
+import { SearchComponent } from "./components/search/SearchBar";
 
 export default function HomePage({ url }: PageProps) {
   return (
     <main className="  w-full flex flex-col gap-3 ">
-    <Suspense fallback={<LocationsSuspenseFallback />}>
+    {/* <Suspense fallback={<LocationsSuspenseFallback />}>
         <Locations />
-      </Suspense>
+      </Suspense> */}
+      <SearchComponent/>
     </main>
   );
 }

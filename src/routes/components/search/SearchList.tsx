@@ -31,7 +31,7 @@ export function SearchList({
         }
         className="w-full h-full "
       >
-        <TabsList className="grid w-full grid-cols-2 sticky top-0 z-50">
+        <TabsList className="grid w-full grid-cols-3 sticky top-0 z-50">
           <TabsTrigger value="LOCATION">Loaction name</TabsTrigger>
           <TabsTrigger value="CHARACTER">Character name</TabsTrigger>
           <TabsTrigger value="EPISODE">Episode name</TabsTrigger>

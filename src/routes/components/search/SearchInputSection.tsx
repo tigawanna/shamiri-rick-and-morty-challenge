@@ -79,9 +79,9 @@ export function SearchInputSection({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Type</SelectLabel>
-              <SelectItem value="LOCATION">Rick</SelectItem>
-              <SelectItem value="CHARACTER">Character</SelectItem>
-              <SelectItem value="EPISODE">Episode</SelectItem>
+              <SelectItem value="LOCATION">Location name</SelectItem>
+              <SelectItem value="CHARACTER">Character name</SelectItem>
+              <SelectItem value="EPISODE">Episode name</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
