@@ -1,6 +1,8 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { CharactersRouteListQuery } from "./__generated__/CharactersRouteListQuery.graphql";
 import { OneResidentCard } from "@/routes/components/shared/OneResidentCard";
+import { ListPagination } from "@/components/shared/ReactresponsivePagination";
+import { OneItemHeader } from "@/routes/components/shared/OneItemHeader";
 
 interface CharacterRouteListProps {
   searchvalue: string;
@@ -11,7 +13,7 @@ export function CharacterRouteList({
   page,
   searchvalue,
 }: CharacterRouteListProps) {
-  const page_to_fetch = searchvalue != null ? undefined : page;
+  const page_to_fetch = page;
   const query = useLazyLoadQuery<CharactersRouteListQuery>(charactersQuery, {
     name: searchvalue,
     page: page_to_fetch,
@@ -27,10 +29,8 @@ export function CharacterRouteList({
 
   return (
     <div className="w-full h-full flex flex-col items-center  gap-2">
-      <div className="w-full flex  p-1">
-        <h1 className="text-3xl font-bold text-secondary">Characters</h1>
-      </div>
-      <ul className="flex flex-wrap justify-center w-full gap-2">
+ 
+      <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
         {characters.map((character) => {
           if (!character) return null;
           const key = `${character?.id}${character?.name}`;
@@ -47,6 +47,7 @@ export function CharacterRouteList({
           );
         })}
       </ul>
+      <ListPagination query_key="cp" total_pages={query?.characters?.info?.pages??10}/>
     </div>
   );
 }

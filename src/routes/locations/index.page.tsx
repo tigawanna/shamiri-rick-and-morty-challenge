@@ -13,6 +13,7 @@ export default function LocationsPage({params}:PageProps) {
     default_value: "1",
   });
   const page = parseInt(search_param);
+  console.log("page", page);
 return (
   <div className="w-full h-full  flex flex-col items-center justify-center">
     <SearchBox

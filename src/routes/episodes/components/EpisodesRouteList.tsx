@@ -1,6 +1,7 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { EpisodesRouteListQuery } from "./__generated__/EpisodesRouteListQuery.graphql";
 import { OneItemCard } from "@/routes/components/shared/OneItemCard";
+import { ListPagination } from "@/components/shared/ReactresponsivePagination";
 
 interface EpisodesRouteListProps {
   searchvalue: string;
@@ -11,7 +12,7 @@ export function EpisodesRouteList({
   page,
   searchvalue,
 }: EpisodesRouteListProps) {
-  const page_to_fetch = searchvalue != null ? undefined : page;
+  const page_to_fetch = page;
   const query = useLazyLoadQuery<EpisodesRouteListQuery>(episodesQuery, {
     name: searchvalue,
     page: page_to_fetch,
@@ -25,8 +26,8 @@ export function EpisodesRouteList({
     );
   }
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
-      <ul className="flex flex-wrap justify-center w-full gap-2">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+      <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
         {episodes.map((episode) => {
           if (!episode) return null;
           const key = `${episode?.id}${episode?.name}`;
@@ -40,6 +41,10 @@ export function EpisodesRouteList({
           );
         })}
       </ul>
+      <ListPagination
+        query_key="ep"
+        total_pages={query?.episodes?.info?.pages ?? 10}
+      />
     </div>
   );
 }
