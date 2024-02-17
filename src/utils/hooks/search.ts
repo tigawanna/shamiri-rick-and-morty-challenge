@@ -53,19 +53,36 @@ export function useDebouncedSearchWithhParams<SQ extends string,ST extends strin
   );
   const [searchType, setSearchType] = useState<ST|undefined>(defaultSearchType);
   useEffect(() => {
+    console.log("useEffect 1  fired");
     if (debouncedValue !== initSearchValue) {
+   console.log("useEffect 1  fired   debouncedValue !== initSearchValue  ",debouncedValue!==initSearchValue);
       setDebouncedValue(initSearchValue);
     }
   }, []);
+
   useEffect(() => {
+    console.log("useEffect 2  fired");
+    // console.log({debouncedValue,initSearchValue,searchType,initSearchType})
     const new_url = new URL(current);
     if ((!debouncedValue || debouncedValue === "") ) {
+      console.log(
+        "useEffect 2  fired   debouncedValue !== initSearchValue deleting sq  ",
+        !debouncedValue || debouncedValue === "",
+      );
       new_url.searchParams.delete("sq");
     }
     if (debouncedValue && debouncedValue !== initSearchValue) {
+      console.log(
+        "useEffect 2  fired   debouncedValue !== initSearchValue setting sq  ",
+        debouncedValue && debouncedValue !== initSearchValue,
+      );
       new_url.searchParams.set("sq", debouncedValue);
     }
     if (searchType && searchType !== initSearchType) {
+      console.log(
+        "useEffect 2  fired   debouncedValue !== initSearchValue  setting st ",
+        searchType && searchType !== initSearchType,
+      );
       new_url.searchParams.set("st", searchType);
     }
     startTransition(() => {

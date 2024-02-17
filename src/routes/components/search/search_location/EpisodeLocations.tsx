@@ -36,7 +36,7 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
           );
         })}
       </ul>
-      <ListPagination query_key="sep" total_pages={episodes?.info?.count ?? 1} />
+      <ListPagination query_key="sep" total_pages={episodes?.info?.pages ?? 1} />
     </div>
   );
 }

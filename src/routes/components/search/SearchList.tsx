@@ -12,7 +12,6 @@ import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQue
 import { Locations } from "./search_location/Locations";
 import { CharacterLocations } from "./search_location/CharacterLocations";
 import { EpisodeLocations } from "./search_location/EpisodeLocations";
-import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
 
 interface SearchListProps {
@@ -42,15 +41,24 @@ export function SearchList({
         return "slp";      
     }
   };
-  const{ search_param:page_no,updateSeachparams:updagePageNos} =useCustomSearchParams({
-   key: getTabPageKey(searchType),
-   default_value:"1", 
+  const{ search_param:page_no} =useCustomSearchParams({
+    key: getTabPageKey(searchType),
+    default_value:"1", 
   })
+  const pageNumberParser=(pageNum?:string)=>{
+    if(!pageNum || pageNum.length===0){
+      return 1
+    }else{
+      return parseInt(pageNum)
+    }
+  }
+  const pageNo=pageNumberParser(page_no)
+  // console.log("  ==========  pNo ======== ", pageNo)
   const query = useLazyLoadQuery<SearchListLocationsQuery>(
     searchLocationsQuery,
-    { name: searchvalue, page: parseInt(page_no) },
+    { name: searchvalue, page: pageNo },
   );
-  console.log(" ====  search query  ===== ",query)
+// console.log(" ====== query ===== ", query)
   const location_locations = query?.locations?.results ?? [];
   const character_locations =
     query?.characters?.results?.flatMap((c) => c?.location) ?? [];

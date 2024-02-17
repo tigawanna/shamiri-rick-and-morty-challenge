@@ -35,7 +35,7 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
       </ul>
       <ListPagination
         query_key="scp"
-        total_pages={characters?.info?.count ?? 1}
+        total_pages={characters?.info?.pages ?? 1}
       />
     </div>
   );

@@ -6,7 +6,7 @@ interface UseCustomSearchParams {
 }
 export function useCustomSearchParams({ key,default_value }: UseCustomSearchParams) {
   const { current } = useLocation();
-  const search_param = current.searchParams.get(key)??default_value??""
+  const search_param = current.searchParams.get(key)??default_value
   function updateSeachparams(value?: string) {
     const new_url = new URL(current);
     if (!value) {

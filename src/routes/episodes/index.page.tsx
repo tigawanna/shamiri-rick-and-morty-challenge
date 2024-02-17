@@ -12,8 +12,8 @@ export default function EpisodesPage({}: PageProps) {
   } = useDebouncedSearchWithhParams({
     default_search_query: "",
     });
-    const {search_param,updateSeachparams } = useCustomSearchParams({key:"ep",default_value:"1"});
-    const page=parseInt(search_param)
+    const {search_param} = useCustomSearchParams({key:"ep",default_value:"1"});
+    const page=parseInt(search_param??"1");
   return (
     <div className="w-full h-full flex flex-col  ">
       <SearchBox

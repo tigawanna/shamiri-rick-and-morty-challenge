@@ -38,7 +38,7 @@ export function Locations({ locations }: LocationsProps) {
       </ul>
       <ListPagination
         query_key="slp"
-        total_pages={locations?.info?.count ?? 1}
+        total_pages={locations?.info?.pages ?? 1}
       />
     </div>
   );

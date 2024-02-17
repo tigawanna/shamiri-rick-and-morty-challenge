@@ -8,11 +8,11 @@ export default function LocationsPage({params}:PageProps) {
     useDebouncedSearchWithhParams({
       default_search_query: "",
     });
-  const { search_param, updateSeachparams } = useCustomSearchParams({
+  const { search_param } = useCustomSearchParams({
     key: "lp",
     default_value: "1",
   });
-  const page = parseInt(search_param);
+  const page = parseInt(search_param??"1");
   console.log("page", page);
 return (
   <div className="w-full h-full  flex flex-col gap-2 overflow-y-auto  ">

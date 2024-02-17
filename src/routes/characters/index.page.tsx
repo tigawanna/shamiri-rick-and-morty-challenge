@@ -12,7 +12,7 @@ export default function CharactersPage({}: PageProps) {
     key: "cp",
     default_value: "1",
   });
-  const page = parseInt(search_param);
+  const page = parseInt(search_param??"1");
   return (
     <div className="w-full h-full  flex flex-col gap-2 overflow-y-auto ">
       <SearchBox
