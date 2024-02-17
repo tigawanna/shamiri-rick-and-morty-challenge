@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<35a57c75c40a594134b9f9f6bb7bfeff>>
+ * @generated SignedSource<<3dec83e56edcecce04130b4b2e3adc94>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,15 +15,10 @@ export type OneCharacterRouteComponentQuery$variables = {
 export type OneCharacterRouteComponentQuery$data = {
   readonly character: {
     readonly created: string | null | undefined;
-    readonly episode: ReadonlyArray<{
-      readonly air_date: string | null | undefined;
-      readonly created: string | null | undefined;
-      readonly id: string | null | undefined;
-      readonly name: string | null | undefined;
-    } | null | undefined>;
     readonly id: string | null | undefined;
     readonly image: string | null | undefined;
     readonly name: string | null | undefined;
+    readonly status: string | null | undefined;
   } | null | undefined;
 };
 export type OneCharacterRouteComponentQuery = {
@@ -39,28 +34,7 @@ var v0 = [
     "name": "id"
   }
 ],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "created",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v4 = [
+v1 = [
   {
     "alias": null,
     "args": [
@@ -78,26 +52,17 @@ v4 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "Episode",
-        "kind": "LinkedField",
-        "name": "episode",
-        "plural": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "air_date",
-            "storageKey": null
-          },
-          (v1/*: any*/),
-          (v2/*: any*/),
-          (v3/*: any*/)
-        ],
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
       },
-      (v2/*: any*/),
-      (v3/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -105,7 +70,20 @@ v4 = [
         "name": "image",
         "storageKey": null
       },
-      (v1/*: any*/)
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "created",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "status",
+        "storageKey": null
+      }
     ],
     "storageKey": null
   }
@@ -116,7 +94,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "OneCharacterRouteComponentQuery",
-    "selections": (v4/*: any*/),
+    "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -125,19 +103,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "OneCharacterRouteComponentQuery",
-    "selections": (v4/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "8954bb8a54b1bf156f532060a2655067",
+    "cacheID": "d149c46e8713c076f8daab0b4268ec08",
     "id": null,
     "metadata": {},
     "name": "OneCharacterRouteComponentQuery",
     "operationKind": "query",
-    "text": "query OneCharacterRouteComponentQuery(\n  $id: ID!\n) {\n  character(id: $id) {\n    episode {\n      air_date\n      created\n      id\n      name\n    }\n    id\n    name\n    image\n    created\n  }\n}\n"
+    "text": "query OneCharacterRouteComponentQuery(\n  $id: ID!\n) {\n  character(id: $id) {\n    id\n    name\n    image\n    created\n    status\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "00ba0bce53ff3fe959205568683b3b66";
+(node as any).hash = "4150461e34122157aa0bf83ba6ecd79c";
 
 export default node;

@@ -14,7 +14,7 @@ export function OneCharacterComponent({
     id,
   });
   const character = query?.character;
-  const episodes = character?.episode;
+
   if (!character) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center">
@@ -24,16 +24,46 @@ export function OneCharacterComponent({
       </div>
     );
   }
-
+  const status_badge_styles = (status?: string|null) => {
+    switch (status) {
+      case "Alive":
+        return "badge-success";
+      case "Dead":
+        return "badge-error";
+      case "unknown":
+        return "badge-warning";
+      default:
+        return "badge-info";
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-4">
+      <div className="w-full  flex justify-center items-center   flex-col sm:flex-row gap-3">
+        <div className="w-full p-2 flex h-full flex-col justify-center  items-center bg-base-300 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold">{character.id}.</h2>
+          <h2 className="text-3xl font-bold">{character.name}.</h2>
+          <span
+            data-tip={"status:" + status}
+            className="flex items-center gap-1 text-lg tooltip hover:tooltip-open tooltip-bottom"
+          >
+            status:
+            <h3 className={`badge ${status_badge_styles(character?.status)}`}>
+              {character.status}
+            </h3>
+          </span>
+        </div>
+        <img
+          className="w-full max-w-[300px] h-auto max-h-[200px] sm:max-h-auto sm:w-auto sm:h-full aspect-square object-cover"
+          src={character.image ?? "/placeholder.webp"}
+          loading="lazy"
+          alt={character.name ?? "resident"}
+          height={"200px"}
+          width={"200px"}
+        />
+      </div>
 
-      <OneItemHeader 
-      id={character.id}
-      name={character.name}
-      title={<h2 className="text-xl font-bold">Episodes</h2>} />
-      <div className="w-full h-full flex flex-col items-center justify-beteween">
+      {/* <div className="w-full h-full flex flex-col items-center justify-beteween">
         {episodes && (
           <ul className="flex flex-wrap justify-center w-full gap-2">
             {episodes.map((chr) => {
@@ -47,7 +77,7 @@ export function OneCharacterComponent({
             })}
           </ul>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -56,17 +86,13 @@ export const oneCharacterQuery = graphql`
   query OneCharacterRouteComponentQuery($id: ID!) {
     # start of query
     character(id: $id) {
-      episode {
-        air_date
-        created
-        id
-        name
-      }
+
   
       id
       name
       image
       created
+      status
     }
     # end of episodes query
 
