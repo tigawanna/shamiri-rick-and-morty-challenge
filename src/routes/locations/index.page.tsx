@@ -13,9 +13,9 @@ export default function LocationsPage({params}:PageProps) {
     default_value: "1",
   });
   const page = parseInt(search_param??"1");
-  console.log("page", page);
+
 return (
-  <div className="w-full h-full  flex flex-col gap-2 overflow-y-auto  ">
+  <div className="w-full h-fit   ">
     <SearchBox
       debouncedValue={debouncedValue}
       isDebouncing={isDebouncing}
