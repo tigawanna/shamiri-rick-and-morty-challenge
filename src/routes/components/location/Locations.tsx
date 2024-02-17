@@ -1,6 +1,4 @@
-import { Residents } from "../resident/Residents";
 import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
-import { Virtuoso } from "react-virtuoso";
 import { OneItemCard } from "../shared/OneItemCard";
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 type LocationsResponse = SearchListLocationsQuery$data["locations"];

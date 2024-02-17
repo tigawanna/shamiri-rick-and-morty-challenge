@@ -1,5 +1,5 @@
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
-import { SearchListLocationsQuery, SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
+import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
 import { OneItemCard } from "../shared/OneItemCard";
 type EpisodesResponse =SearchListLocationsQuery$data["episodes"]
 
