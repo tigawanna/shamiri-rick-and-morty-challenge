@@ -15,7 +15,7 @@ export default function EpisodesPage({}: PageProps) {
     const {search_param,updateSeachparams } = useCustomSearchParams({key:"ep",default_value:"1"});
     const page=parseInt(search_param)
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col  overflow-y-scroll">
       <SearchBox
         debouncedValue={debouncedValue}
         isDebouncing={isDebouncing}

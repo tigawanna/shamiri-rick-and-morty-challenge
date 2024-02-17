@@ -55,7 +55,7 @@ function Layout({ children }: LayoutProps) {
                 <BreadCrumbs />
               </ClientSuspense>
             </div>
-            <div className="w-full  h-[95vh] md:pl-6 p-2 flex flex-col overflow-y-auto gap-2 ">
+            <div className="w-full  h-[94vh] md:pl-4  p-2 flex flex-col overflow-y-auto gap-2 ">
               <ErrorBoundaryComponent>{children}</ErrorBoundaryComponent>
             </div>
           </div>

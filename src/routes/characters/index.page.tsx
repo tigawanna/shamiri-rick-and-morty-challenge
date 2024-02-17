@@ -14,7 +14,7 @@ export default function CharactersPage({}: PageProps) {
   });
   const page = parseInt(search_param);
   return (
-    <div className="w-full h-full  flex flex-col items-center justify-center">
+    <div className="w-full h-full  flex flex-col gap-2 overflow-y-auto ">
       <SearchBox
         debouncedValue={debouncedValue}
         isDebouncing={isDebouncing}

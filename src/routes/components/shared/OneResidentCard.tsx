@@ -33,8 +33,8 @@ export function OneResidentCard({ href, id, name, img, status }: OneItemCardProp
           src={img ?? "/placeholder.webp"}
           loading="lazy"
           alt={name ?? "resident"}
-          height={250}
-          width={250}
+          height={"250px"}
+          width={"250px"}
         />
       )}
       <span className="flex  justify-start items-start gap-2 w-full">

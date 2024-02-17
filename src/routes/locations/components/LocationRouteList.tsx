@@ -27,7 +27,7 @@ export function LocationRouteList({
     );
   }
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+    <div className="w-full h-full flex flex-col gap-2">
       <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
         {locations.map((location) => {
           if (!location) return null;

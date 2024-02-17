@@ -16,7 +16,8 @@ export function SearchBox({
 }: SearchBoxProps) {
   const [, startTransition] = useTransition();
   return (
-    <div className="w-full relative">
+    <div className="w-full sticky top-0 ">
+    <div className="w-full relative border border-secondary ">
       <Input
         placeholder="Search"
         className="w-full"
@@ -34,6 +35,7 @@ export function SearchBox({
           <Loader className="animate-spin" />
         </div>
       )}
+    </div>
     </div>
   );
 }
