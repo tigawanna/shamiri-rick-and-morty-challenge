@@ -2,6 +2,7 @@ import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import dayjs from "dayjs";
 import { OneResidentCard } from "@/routes/components/shared/OneResidentCard";
 import { OneEpisodeRouteComponentQuery } from "./__generated__/OneEpisodeRouteComponentQuery.graphql";
+import { OneItemHeader } from "@/routes/components/shared/OneItemHeader";
 interface OneEpisodeRouteComponentProps {
   id: string;
 }
@@ -29,11 +30,19 @@ export function OneEpisodeComponent({ id }: OneEpisodeRouteComponentProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-4">
       <div className="flex flex-col p-3  gap-2   w-full sticky top-0 bg-base-200 rounded-lg">
-        <span className="flex gap-2 underline">
-          <h1 className="text-xl font-bold">{episode.id}.</h1>
-          <h1 className="text-xl ">{episode.name}</h1>
-          {episode_date && <h1 className="text-xl">{episode_date}</h1>}
-        </span>
+        {/* <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
+            <h1 className="text-xl font-bold">{episode.id}.</h1>
+            <h1 className="text-xl ">{episode.name}</h1>
+          </div>
+          {episode_date && <h1 className="text-">created: {episode_date}</h1>}
+        </div> */}
+        <OneItemHeader
+          name={episode.name}
+          date={episode_date}
+          id={episode.id}
+          list_title="Characters"
+        />
         <h2 className="text-2xl font-bold">Characters</h2>
       </div>
 

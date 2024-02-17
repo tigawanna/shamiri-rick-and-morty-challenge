@@ -2,6 +2,8 @@ import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { OneLocationRouteComponentQuery } from "./__generated__/OneLocationRouteComponentQuery.graphql";
 import dayjs from "dayjs";
 import { OneResidentCard } from "@/routes/components/shared/OneResidentCard";
+import { OneItemCard } from "@/routes/components/shared/OneItemCard";
+import { OneItemHeader } from "@/routes/components/shared/OneItemHeader";
 
 interface OneLocationRouteComponentProps {
 id:string
@@ -28,14 +30,21 @@ export function OneLocationRouteComponent({id}:OneLocationRouteComponentProps){
       const location_date = dayjs(location?.created).format("DD-MM-YYYY");
 return (
   <div className="w-full h-full flex flex-col items-center justify-between gap-4">
-    <div className="flex flex-col p-3  gap-2  w-full sticky top-0 bg-base-200 rounded-lg">
+    {/* <div className="flex flex-col p-3  gap-2  w-full sticky top-0 bg-base-200 rounded-lg">
       <span className="flex gap-2 underline">
         <h1 className="text-xl font-bold">{location.id}.</h1>
         <h1 className="text-xl ">{location.name}</h1>
         {location_date && <h1 className="text-xl">{location_date}</h1>}
       </span>
       <h2 className="text-2xl font-bold">Characters</h2>
-    </div>
+    </div> */}
+    <OneItemHeader
+    date={location_date}
+    id={location.id}
+    name={location.name}
+    list_title={"Characters"}
+    
+    />
 
     <div className="w-full h-full flex flex-col items-center justify-beteween">
       {characters && (
@@ -56,7 +65,7 @@ return (
           })}
         </ul>
       )}
-    </div>
+    O</div>
   </div>
 );
 }
