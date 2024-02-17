@@ -1,6 +1,5 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { EpisodesRouteListQuery } from "./__generated__/EpisodesRouteListQuery.graphql";
-import { Link } from "rakkasjs";
 import { OneItemCard } from "@/routes/components/shared/OneItemCard";
 
 interface EpisodesRouteListProps {

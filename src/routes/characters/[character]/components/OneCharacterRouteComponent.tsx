@@ -1,6 +1,8 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import dayjs from "dayjs"
 import { OneCharacterRouteComponentQuery } from "./__generated__/OneCharacterRouteComponentQuery.graphql";
+import { OneItemHeader } from "@/routes/components/shared/OneItemHeader";
+import { OneItemCard } from "@/routes/components/shared/OneItemCard";
 interface OneCharacterRouteComponentProps {
   id: string;
 }
@@ -22,19 +24,15 @@ export function OneCharacterComponent({
       </div>
     );
   }
-  const character_date = dayjs(character?.created).format("DD-MM-YYYY");
+
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-4">
-      <div className="flex flex-col p-3  gap-2   w-full sticky top-0 bg-base-200 rounded-lg">
-        <span className="flex gap-2 underline">
-          <h1 className="text-xl font-bold">{character.id}.</h1>
-          <h1 className="text-xl ">{character.name}</h1>
-          {character_date && <h1 className="text-xl">{character_date}</h1>}
-        </span>
-        <h2 className="text-2xl font-bold">Episodes</h2>
-      </div>
 
+      <OneItemHeader 
+      id={character.id}
+      name={character.name}
+      title={<h2 className="text-xl font-bold">Episodes</h2>} />
       <div className="w-full h-full flex flex-col items-center justify-beteween">
         {episodes && (
           <ul className="flex flex-wrap justify-center w-full gap-2">
@@ -42,16 +40,9 @@ export function OneCharacterComponent({
               if (!chr) return null;
               const key = `${chr?.id}${chr?.name}`;
               return (
-                <li
-                  key={key}
-                  className="flex flex-col items-center p-2 rounded-lg bg-base-300
-               gap-2 w-fit"
-                >
-                  <span className="flex justify-start items-start gap-2">
-                    <h1 className="">{chr.id}.</h1>
-                    <h1 className="">{chr.name}</h1>
-                  </span>
-                </li>
+   
+                <OneItemCard href={`/episodes/${chr.id}`} key={key} id={chr.id} name={chr.name} 
+                created={chr.created}/>
               );
             })}
           </ul>
