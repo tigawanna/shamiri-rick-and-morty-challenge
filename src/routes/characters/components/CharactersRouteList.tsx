@@ -77,6 +77,7 @@ export function CharacterRouteList({
             //     </span>
             // </Link>
             <OneResidentCard
+              key={key}
               href={`/characters/${character.id}`}
               id={character.id}
               name={character.name}

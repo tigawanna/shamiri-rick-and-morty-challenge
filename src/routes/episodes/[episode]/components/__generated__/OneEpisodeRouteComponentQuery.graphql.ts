@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afa2d53c6066d05229a1a083c5642516>>
+ * @generated SignedSource<<b5156128a6a7bf1d21e0a429c8f3d3dd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,24 +9,25 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type OneEpisodesRouteListQuery$variables = {
+export type OneEpisodeRouteComponentQuery$variables = {
   id: string;
 };
-export type OneEpisodesRouteListQuery$data = {
+export type OneEpisodeRouteComponentQuery$data = {
   readonly episode: {
     readonly characters: ReadonlyArray<{
       readonly id: string | null | undefined;
       readonly image: string | null | undefined;
       readonly name: string | null | undefined;
+      readonly status: string | null | undefined;
     } | null | undefined>;
     readonly created: string | null | undefined;
     readonly id: string | null | undefined;
     readonly name: string | null | undefined;
   } | null | undefined;
 };
-export type OneEpisodesRouteListQuery = {
-  response: OneEpisodesRouteListQuery$data;
-  variables: OneEpisodesRouteListQuery$variables;
+export type OneEpisodeRouteComponentQuery = {
+  response: OneEpisodeRouteComponentQuery$data;
+  variables: OneEpisodeRouteComponentQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -91,7 +92,14 @@ v3 = [
             "name": "image",
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "status",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -104,7 +112,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "OneEpisodesRouteListQuery",
+    "name": "OneEpisodeRouteComponentQuery",
     "selections": (v3/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -113,20 +121,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "OneEpisodesRouteListQuery",
+    "name": "OneEpisodeRouteComponentQuery",
     "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "3ede2ea8ed527920f8ae9deab8343eef",
+    "cacheID": "b9b5401620a5264d6fe622de0abec037",
     "id": null,
     "metadata": {},
-    "name": "OneEpisodesRouteListQuery",
+    "name": "OneEpisodeRouteComponentQuery",
     "operationKind": "query",
-    "text": "query OneEpisodesRouteListQuery(\n  $id: ID!\n) {\n  episode(id: $id) {\n    id\n    name\n    created\n    characters {\n      id\n      image\n      name\n    }\n  }\n}\n"
+    "text": "query OneEpisodeRouteComponentQuery(\n  $id: ID!\n) {\n  episode(id: $id) {\n    id\n    name\n    created\n    characters {\n      id\n      image\n      name\n      status\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2836ec982d56771733a3255c53f44b1e";
+(node as any).hash = "b1091a26bc255185a1c1ec53e3a661ba";
 
 export default node;

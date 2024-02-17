@@ -1,14 +1,14 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import dayjs from "dayjs"
-import { OneCharacterRouteListQuery } from "./__generated__/OneCharacterRouteListQuery.graphql";
-interface CharactersRouteListProps {
+import { OneCharacterRouteComponentQuery } from "./__generated__/OneCharacterRouteComponentQuery.graphql";
+interface OneCharacterRouteComponentProps {
   id: string;
 }
 
 export function OneCharacterComponent({
   id,
-}: CharactersRouteListProps) {
-  const query = useLazyLoadQuery<OneCharacterRouteListQuery>(oneCharacterQuery, {
+}: OneCharacterRouteComponentProps) {
+  const query = useLazyLoadQuery<OneCharacterRouteComponentQuery>(oneCharacterQuery, {
     id,
   });
   const character = query?.character;
@@ -62,7 +62,7 @@ export function OneCharacterComponent({
 }
 
 export const oneCharacterQuery = graphql`
-  query OneCharacterRouteListQuery($id: ID!) {
+  query OneCharacterRouteComponentQuery($id: ID!) {
     # start of query
     character(id: $id) {
       episode {

@@ -33,6 +33,7 @@ export function EpisodesRouteList({
           const key = `${episode?.id}${episode?.name}`;
           return (
             <OneItemCard
+              key={key}
               id={episode.id}
               name={episode.name}
               href={`/episodes/${episode.id}`}

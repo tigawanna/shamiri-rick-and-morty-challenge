@@ -4,7 +4,7 @@ import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
 import { PageProps } from "rakkasjs";
 import { EpisodesRouteList } from "./components/EpisodesRouteList";
 
-export default function Page({}: PageProps) {
+export default function EpisodesPage({}: PageProps) {
   const {
     isDebouncing,
     debouncedValue,

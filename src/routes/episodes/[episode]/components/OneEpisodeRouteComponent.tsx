@@ -1,17 +1,18 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
-import { OneEpisodesRouteListQuery } from "./__generated__/OneEpisodesRouteListQuery.graphql";
-import { OneCharacter } from "@/routes/components/character/OneCharacter";
-import dayjs from "dayjs"
-interface EpisodesRouteListProps {
+import dayjs from "dayjs";
+import { OneResidentCard } from "@/routes/components/shared/OneResidentCard";
+import { OneEpisodeRouteComponentQuery } from "./__generated__/OneEpisodeRouteComponentQuery.graphql";
+interface OneEpisodeRouteComponentProps {
   id: string;
 }
 
-export function OneEpisodeComponent({
-  id,
-}: EpisodesRouteListProps) {
-  const query = useLazyLoadQuery<OneEpisodesRouteListQuery>(oneEpisodesQuery, {
-    id,
-  });
+export function OneEpisodeComponent({ id }: OneEpisodeRouteComponentProps) {
+  const query = useLazyLoadQuery<OneEpisodeRouteComponentQuery>(
+    oneEpisodesQuery,
+    {
+      id,
+    },
+  );
   const episode = query?.episode;
   const characters = episode?.characters;
   if (!episode) {
@@ -43,16 +44,14 @@ export function OneEpisodeComponent({
               if (!chr) return null;
               const key = `${chr?.id}${chr?.name}`;
               return (
-                <li
+                <OneResidentCard
+                  href={`/characters/${chr.id}`}
                   key={key}
-                  className="flex flex-col items-center p-2 rounded-lg bg-base-300
-               gap-2 w-fit"
-                >
-                  <span className="flex justify-start items-start gap-2">
-                    <h1 className="">{chr.id}.</h1>
-                    <h1 className="">{chr.name}</h1>
-                  </span>
-                </li>
+                  id={chr.id}
+                  name={chr.name}
+                  img={chr.image}
+                  status={chr.status}
+                />
               );
             })}
           </ul>
@@ -63,16 +62,17 @@ export function OneEpisodeComponent({
 }
 
 export const oneEpisodesQuery = graphql`
-  query OneEpisodesRouteListQuery($id:ID!) {
+  query OneEpisodeRouteComponentQuery($id: ID!) {
     # start of query
-  episode(id: $id) {
+    episode(id: $id) {
       id
       name
-    created
+      created
       characters {
         id
         image
         name
+        status
       }
     }
     # end of episodes query
