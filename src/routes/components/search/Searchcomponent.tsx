@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { SearchList, SearchListSuspenseFalllback } from "./SearchList";
-import { useDebouncedSearchWithhParams } from "./hook";
+import { useDebouncedSearchWithhParams } from "@/utils/hooks/search";
 import { SearchInputSection } from "./SearchInputSection";
+import { SearchType } from "./types";
 interface SearchComponentProps {}
 
 export function SearchComponent({}: SearchComponentProps) {
@@ -12,14 +13,17 @@ export function SearchComponent({}: SearchComponentProps) {
     setDebouncedValue,
     searchType,
     setSearchType,
-  } = useDebouncedSearchWithhParams();
+  } = useDebouncedSearchWithhParams<string, SearchType>({
+    default_search_type: "LOCATION",
+    default_search_query: "",
+  });
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-3">
       <SearchInputSection
         debouncedValue={debouncedValue}
         isDebouncing={isDebouncing}
-        searchType={searchType}
         setDebouncedValue={setDebouncedValue}
+        searchType={searchType}
         setSearchType={setSearchType}
         startTransition={startTransition}
       />

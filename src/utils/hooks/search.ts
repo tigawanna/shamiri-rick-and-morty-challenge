@@ -33,3 +33,53 @@ export function useSearchWithQuery(
   }, [debouncedValue]);
   return { debouncedValue, isDebouncing, keyword, setKeyword };
 }
+
+
+
+interface UseDebouncedSearchWithhParams<SQ extends string,ST extends string> {
+  default_search_query?:SQ;
+  default_search_type?:ST
+}
+
+export function useDebouncedSearchWithhParams<SQ extends string,ST extends string>({default_search_query,default_search_type}:UseDebouncedSearchWithhParams<SQ ,ST>) {
+  const { current } = useLocation();
+  const initSearchType = current.searchParams.get("st") as ST| null;
+  const initSearchValue = current.searchParams.get("sq") ?? "";
+  const defaultSearchType = initSearchType ?? default_search_type
+  const [, startTransition] = useTransition();
+  const { debouncedValue, setDebouncedValue, isDebouncing } = useDebouncedValue(
+    initSearchValue,
+    2000,
+  );
+  const [searchType, setSearchType] = useState<ST|undefined>(defaultSearchType);
+  useEffect(() => {
+    if (debouncedValue !== initSearchValue) {
+      setDebouncedValue(initSearchValue);
+    }
+  }, []);
+  useEffect(() => {
+    const new_url = new URL(current);
+    if ((!debouncedValue || debouncedValue === "") && !isDebouncing) {
+      new_url.searchParams.delete("sq");
+    }
+    if (debouncedValue && debouncedValue !== initSearchValue) {
+      new_url.searchParams.set("sq", debouncedValue);
+    }
+    if (searchType && searchType !== initSearchType) {
+      new_url.searchParams.set("st", searchType);
+    }
+    startTransition(() => {
+      navigate(new_url.toString());
+    });
+  }, [debouncedValue, searchType]);
+
+  return {
+    debouncedValue,
+    setDebouncedValue,
+    isDebouncing,
+    searchType,
+    setSearchType,
+    startTransition,
+    current,
+  };
+}

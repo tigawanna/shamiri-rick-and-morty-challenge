@@ -16,9 +16,9 @@ interface SearchInputSectionProps {
   isDebouncing: boolean;
   startTransition: React.TransitionStartFunction;
   setDebouncedValue: React.Dispatch<React.SetStateAction<string>>;
-  searchType: SearchType;
+  searchType?: SearchType;
   debouncedValue: string;
-  setSearchType: React.Dispatch<React.SetStateAction<SearchType>>;
+  setSearchType: React.Dispatch<React.SetStateAction<SearchType|undefined>>;
 }
 
 export function SearchInputSection({

@@ -15,8 +15,8 @@ import { EpisodeLocations } from "../location/EpisodeLocations";
 
 interface SearchListProps {
   searchvalue: string;
-  searchType: SearchType;
-  setSearchType: React.Dispatch<React.SetStateAction<SearchType>>;
+  searchType?: SearchType;
+  setSearchType: React.Dispatch<React.SetStateAction<SearchType|undefined>>;
 }
 
 export function SearchList({
