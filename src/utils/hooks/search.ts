@@ -59,7 +59,7 @@ export function useDebouncedSearchWithhParams<SQ extends string,ST extends strin
   }, []);
   useEffect(() => {
     const new_url = new URL(current);
-    if ((!debouncedValue || debouncedValue === "") && !isDebouncing) {
+    if ((!debouncedValue || debouncedValue === "") ) {
       new_url.searchParams.delete("sq");
     }
     if (debouncedValue && debouncedValue !== initSearchValue) {
