@@ -1,5 +1,5 @@
 import { PageProps } from "rakkasjs";
-import { Locations, LocationsSuspenseFallback } from "./components/location/Locations";
+import { Locations, LocationsSuspenseFallback } from "./components/search/search_location/Locations";
 import { Suspense } from "react";
 import { SearchComponent } from "./components/search/Searchcomponent";
 

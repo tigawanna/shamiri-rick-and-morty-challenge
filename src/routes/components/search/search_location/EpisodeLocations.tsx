@@ -1,6 +1,6 @@
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
-import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
-import { OneItemCard } from "../shared/OneItemCard";
+import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocationsQuery.graphql";
+import { OneItemCard } from "../../shared/OneItemCard";
 type EpisodesResponse =SearchListLocationsQuery$data["episodes"]
 
 
@@ -36,7 +36,7 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
           );
         })}
       </ul>
-      <ListPagination query_key="sp" total_pages={episodes?.info?.count ?? 1} />
+      <ListPagination query_key="sep" total_pages={episodes?.info?.count ?? 1} />
     </div>
   );
 }

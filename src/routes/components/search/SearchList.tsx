@@ -9,9 +9,9 @@ import { Link } from "rakkasjs";
 import { SearchType } from "./types";
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQuery.graphql";
-import { Locations } from "../location/Locations";
-import { CharacterLocations } from "../location/CharacterLocations";
-import { EpisodeLocations } from "../location/EpisodeLocations";
+import { Locations } from "./search_location/Locations";
+import { CharacterLocations } from "./search_location/CharacterLocations";
+import { EpisodeLocations } from "./search_location/EpisodeLocations";
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
 
@@ -27,8 +27,23 @@ export function SearchList({
   setSearchType,
 }: SearchListProps) {
   const [, startTransition] = useTransition();
+  const getTabPageKey = (searchType?: SearchType) => {
+    switch (searchType) {
+      case "LOCATION":
+        return "slp"
+        break;
+      case "CHARACTER":
+        return "scp"
+        break;
+      case "EPISODE":
+        return "sep"
+        break;
+      default:
+        return "slp";      
+    }
+  };
   const{ search_param:page_no,updateSeachparams:updagePageNos} =useCustomSearchParams({
-   key: "sp",
+   key: getTabPageKey(searchType),
    default_value:"1", 
   })
   const query = useLazyLoadQuery<SearchListLocationsQuery>(

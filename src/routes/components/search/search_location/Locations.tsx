@@ -1,5 +1,5 @@
-import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
-import { OneItemCard } from "../shared/OneItemCard";
+import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocationsQuery.graphql";
+import { OneItemCard } from "../../shared/OneItemCard";
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 type LocationsResponse = SearchListLocationsQuery$data["locations"];
 type OneLocationsResponseResults = NonNullable<LocationsResponse>;
@@ -37,7 +37,7 @@ export function Locations({ locations }: LocationsProps) {
         })}
       </ul>
       <ListPagination
-        query_key="sp"
+        query_key="slp"
         total_pages={locations?.info?.count ?? 1}
       />
     </div>

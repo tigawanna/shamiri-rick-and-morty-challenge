@@ -1,5 +1,5 @@
-import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
-import { OneItemCard } from "../shared/OneItemCard";
+import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocationsQuery.graphql";
+import { OneItemCard } from "../../shared/OneItemCard";
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 type CharactersResponse = SearchListLocationsQuery$data["characters"];
 interface CharacterLocationsProps {
@@ -34,7 +34,7 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
         })}
       </ul>
       <ListPagination
-        query_key="sp"
+        query_key="scp"
         total_pages={characters?.info?.count ?? 1}
       />
     </div>
