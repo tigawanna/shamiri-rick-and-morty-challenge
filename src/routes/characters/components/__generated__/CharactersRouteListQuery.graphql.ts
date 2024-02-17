@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<172b7ebc5723c67a880a962810873396>>
+ * @generated SignedSource<<40b7f329b85e4c254c5d07d367a135bb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,12 +9,12 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type EpisodesRouteListQuery$variables = {
+export type CharactersRouteListQuery$variables = {
   name: string;
   page?: number | null | undefined;
 };
-export type EpisodesRouteListQuery$data = {
-  readonly episodes: {
+export type CharactersRouteListQuery$data = {
+  readonly characters: {
     readonly info: {
       readonly count: number | null | undefined;
       readonly next: number | null | undefined;
@@ -23,13 +23,15 @@ export type EpisodesRouteListQuery$data = {
     } | null | undefined;
     readonly results: ReadonlyArray<{
       readonly id: string | null | undefined;
+      readonly image: string | null | undefined;
       readonly name: string | null | undefined;
+      readonly status: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
 };
-export type EpisodesRouteListQuery = {
-  response: EpisodesRouteListQuery$data;
-  variables: EpisodesRouteListQuery$variables;
+export type CharactersRouteListQuery = {
+  response: CharactersRouteListQuery$data;
+  variables: CharactersRouteListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -66,9 +68,9 @@ v1 = [
         "variableName": "page"
       }
     ],
-    "concreteType": "Episodes",
+    "concreteType": "Characters",
     "kind": "LinkedField",
-    "name": "episodes",
+    "name": "characters",
     "plural": false,
     "selections": [
       {
@@ -113,7 +115,7 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "Episode",
+        "concreteType": "Character",
         "kind": "LinkedField",
         "name": "results",
         "plural": true,
@@ -131,6 +133,20 @@ v1 = [
             "kind": "ScalarField",
             "name": "name",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "image",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "status",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -144,7 +160,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "EpisodesRouteListQuery",
+    "name": "CharactersRouteListQuery",
     "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -153,20 +169,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "EpisodesRouteListQuery",
+    "name": "CharactersRouteListQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "2aef32b4baa8f22bc8cd81beee8bfe6f",
+    "cacheID": "ebd763222e95f3a32c667ecc51fef020",
     "id": null,
     "metadata": {},
-    "name": "EpisodesRouteListQuery",
+    "name": "CharactersRouteListQuery",
     "operationKind": "query",
-    "text": "query EpisodesRouteListQuery(\n  $name: String!\n  $page: Int\n) {\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query CharactersRouteListQuery(\n  $name: String!\n  $page: Int\n) {\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      image\n      status\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b68e67df04baf4334ee001a53273e992";
+(node as any).hash = "d00c1ec0057d9f63b59d039769464657";
 
 export default node;

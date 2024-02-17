@@ -1,35 +1,52 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { EpisodesRouteListQuery } from "./__generated__/EpisodesRouteListQuery.graphql";
+import { Link } from "rakkasjs";
 
 interface EpisodesRouteListProps {
-    searchvalue: string;
-    page:number
+  searchvalue: string;
+  page: number;
 }
 
-export function EpisodesRouteList({page,searchvalue}: EpisodesRouteListProps) {
+export function EpisodesRouteList({
+  page,
+  searchvalue,
+}: EpisodesRouteListProps) {
+  const page_to_fetch = searchvalue != null ? undefined : page;
   const query = useLazyLoadQuery<EpisodesRouteListQuery>(episodesQuery, {
     name: searchvalue,
-    page:searchvalue?undefined:page,
+    page: page_to_fetch,
   });
-  const episodes = query?.episodes?.results
-  if(!episodes||episodes?.length===0){
-    return(
+  const episodes = query?.episodes?.results;
+  if (!episodes || episodes?.length === 0) {
+    return (
       <div className="w-full h-full flex flex-col items-center justify-center">
         <h1 className="text-xl font-bold">No episodes found</h1>
       </div>
-    )
+    );
   }
-return( <div className="w-full h-full flex flex-col items-center justify-center">
-{episodes.map((episode)=>{
-  if(!episode) return null
-  const key = `${episode?.id}${episode?.name}`
-  return(
-    <div key={key} className="w-full h-full flex flex-col items-center justify-center">
-      <h1 className="text-xl font-bold">{episode.name}</h1>
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center">
+      <ul className="flex flex-wrap justify-center w-full gap-2">
+        {episodes.map((episode) => {
+          if (!episode) return null;
+          const key = `${episode?.id}${episode?.name}`;
+          return (
+            <Link
+            href={`/episodes/${episode.id}`}
+              key={key}
+              className="flex flex-col items-center p-2 rounded-lg bg-base-300
+               gap-2 w-fit"
+            >
+              <span className="flex justify-start items-start gap-2">
+                <h1 className="text-xl font-bold">{episode.id}.</h1>
+                <h1 className="text-xl font-bold">{episode.name}</h1>
+              </span>
+            </Link>
+          );
+        })}
+      </ul>
     </div>
-  )
-})}
-</div>)
+  );
 }
 
 export const episodesQuery = graphql`
@@ -49,12 +66,6 @@ export const episodesQuery = graphql`
       results {
         id
         name
-        characters {
-          location {
-            id
-            name
-          }
-        }
       }
     }
     # end of episodes query

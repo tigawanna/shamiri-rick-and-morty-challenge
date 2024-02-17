@@ -1,5 +1,5 @@
 import { Link } from "rakkasjs";
-import { Home,} from "lucide-react";
+import { Home, Tv, Users,} from "lucide-react";
 import { MiniSettingsModal } from "./mini-settings/MiniSettings";
 
 interface SidebarProps {}
@@ -7,7 +7,8 @@ interface SidebarProps {}
 export function Sidebar({}: SidebarProps) {
   const routes = [
     { name: "home", url: "/", icon: <Home /> },
-
+    { name: "episodes", url: "/episodes", icon: <Tv /> },
+    { name: "characters", url: "/characters", icon: <Users /> },
   ];
   return (
     <header
