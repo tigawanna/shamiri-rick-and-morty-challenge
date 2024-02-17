@@ -9,9 +9,27 @@ interface EpisodesRouteListProps {
 export function EpisodesRouteList({page,searchvalue}: EpisodesRouteListProps) {
   const query = useLazyLoadQuery<EpisodesRouteListQuery>(episodesQuery, {
     name: searchvalue,
-    page: 1,
+    page:searchvalue?undefined:page,
   });
-  return <div className="w-full h-full flex items-center justify-center"></div>;
+  const episodes = query?.episodes?.results
+  if(!episodes||episodes?.length===0){
+    return(
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        <h1 className="text-xl font-bold">No episodes found</h1>
+      </div>
+    )
+  }
+return( <div className="w-full h-full flex flex-col items-center justify-center">
+{episodes.map((episode)=>{
+  if(!episode) return null
+  const key = `${episode?.id}${episode?.name}`
+  return(
+    <div key={key} className="w-full h-full flex flex-col items-center justify-center">
+      <h1 className="text-xl font-bold">{episode.name}</h1>
+    </div>
+  )
+})}
+</div>)
 }
 
 export const episodesQuery = graphql`
