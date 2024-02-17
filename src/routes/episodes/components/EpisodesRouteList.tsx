@@ -1,7 +1,7 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { EpisodesRouteListQuery } from "./__generated__/EpisodesRouteListQuery.graphql";
 import { OneItemCard } from "@/routes/components/shared/OneItemCard";
-import { ListPagination } from "@/components/shared/ReactresponsivePagination";
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 
 interface EpisodesRouteListProps {
   searchvalue: string;

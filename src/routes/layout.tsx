@@ -13,7 +13,8 @@ import BreadCrumbs from "@/components/navigation/BreadCrumbs";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import "./index.css";
-import "react-responsive-pagination/themes/minimal.css";
+
+import "../components/shared/pagination/pagination.css"
 
 function Layout({ children }: LayoutProps) {
   const location = useLocation();

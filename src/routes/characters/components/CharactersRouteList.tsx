@@ -1,7 +1,7 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { CharactersRouteListQuery } from "./__generated__/CharactersRouteListQuery.graphql";
 import { OneResidentCard } from "@/routes/components/shared/OneResidentCard";
-import { ListPagination } from "@/components/shared/ReactresponsivePagination";
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { OneItemHeader } from "@/routes/components/shared/OneItemHeader";
 
 interface CharacterRouteListProps {
