@@ -2,6 +2,7 @@ import { Residents } from "../resident/Residents";
 import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
 import { Virtuoso } from "react-virtuoso";
 import { OneItemCard } from "../shared/OneItemCard";
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 type LocationsResponse = SearchListLocationsQuery$data["locations"];
 type OneLocationsResponseResults = NonNullable<LocationsResponse>;
 
@@ -22,17 +23,25 @@ export function Locations({ locations }: LocationsProps) {
       );
     }
   return (
-    <div className="w-full h-full flex items-center justify-center">
-
+    <div className="w-full h-full flex flex-col gap-3 ">
       <ul className="flex flex-wrap gap-4 justify-center w-full ">
         {locations_list?.map((loc, idx) => {
           if (!loc) return null;
           const key = `${loc?.id}${loc?.name}`;
           return (
-            <OneItemCard href={`/locations/${loc?.id}`} key={key} id={loc.id} name={loc?.name} />
+            <OneItemCard
+              href={`/locations/${loc?.id}`}
+              key={key}
+              id={loc.id}
+              name={loc?.name}
+            />
           );
         })}
       </ul>
+      <ListPagination
+        query_key="sp"
+        total_pages={locations?.info?.count ?? 1}
+      />
     </div>
   );
 }
@@ -45,8 +54,8 @@ export function LocationsSuspenseFallback() {
     })),
   }));
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="flex flex-wrap gap-4 justify-center w-full ">
+    <div className="w-full h-full flex flex-col ">
+      <ul className="flex flex-wrap gap-4 justify-center w-full ">
         {dummy_locations?.map((loc) => {
           if (!loc) return null;
           return (
@@ -75,7 +84,8 @@ export function LocationsSuspenseFallback() {
             </div>
           );
         })}
-      </div>
+      </ul>
+
     </div>
   );
 }

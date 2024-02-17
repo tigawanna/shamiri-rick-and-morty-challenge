@@ -12,6 +12,8 @@ import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQue
 import { Locations } from "../location/Locations";
 import { CharacterLocations } from "../location/CharacterLocations";
 import { EpisodeLocations } from "../location/EpisodeLocations";
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
+import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
 
 interface SearchListProps {
   searchvalue: string;
@@ -25,10 +27,15 @@ export function SearchList({
   setSearchType,
 }: SearchListProps) {
   const [, startTransition] = useTransition();
+  const{ search_param:page_no,updateSeachparams:updagePageNos} =useCustomSearchParams({
+   key: "sp",
+   default_value:"1", 
+  })
   const query = useLazyLoadQuery<SearchListLocationsQuery>(
     searchLocationsQuery,
-    { name: searchvalue, page: 1 },
+    { name: searchvalue, page: parseInt(page_no) },
   );
+  console.log(" ====  search query  ===== ",query)
   const location_locations = query?.locations?.results ?? [];
   const character_locations =
     query?.characters?.results?.flatMap((c) => c?.location) ?? [];
@@ -68,6 +75,7 @@ export function SearchList({
           <EpisodeLocations episodes={query.episodes} />
         </TabsContent>
       </Tabs>
+
     </div>
   );
 }
@@ -109,6 +117,12 @@ export const searchLocationsQuery = graphql`
     # start of query
     #  start of locations query
     locations(page: $page, filter: { name: $name }) {
+      info {
+        count
+        next
+        pages
+        prev
+      }
       results {
         id
         name

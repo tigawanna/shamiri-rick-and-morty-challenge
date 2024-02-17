@@ -1,3 +1,4 @@
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { SearchListLocationsQuery, SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
 import { OneItemCard } from "../shared/OneItemCard";
 type EpisodesResponse =SearchListLocationsQuery$data["episodes"]
@@ -20,8 +21,8 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
     );
   }
   return (
-    <div className="w-full h-full flex flex-col ">
-      <div className="flex flex-wrap gap-4 justify-center w-full">
+    <div className="w-full h-full flex flex-col gap-3 ">
+      <ul className="flex flex-wrap gap-4 justify-center w-full">
         {episodes?.results?.map((item, idx) => {
           if (!item) return null;
           const key = `${item?.id}${item?.name}${idx}`;
@@ -34,7 +35,8 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
             />
           );
         })}
-      </div>
+      </ul>
+      <ListPagination query_key="sp" total_pages={episodes?.info?.count ?? 1} />
     </div>
   );
 }

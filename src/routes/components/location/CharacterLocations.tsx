@@ -1,7 +1,6 @@
 import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
-import { Residents } from "../resident/Residents";
-import { Virtuoso } from "react-virtuoso";
 import { OneItemCard } from "../shared/OneItemCard";
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 type CharactersResponse = SearchListLocationsQuery$data["characters"];
 interface CharacterLocationsProps {
   characters: CharactersResponse;
@@ -19,8 +18,8 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
     );
   }
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="flex flex-wrap gap-4 justify-center w-full">
+    <div className="w-full h-full flex flex-col gap-3 ">
+      <ul className="flex flex-wrap gap-4 justify-center w-full">
         {characters?.results?.map((char, idx) => {
           if (!char) return null;
           const key = `${char?.id}${char?.name}${idx}`;
@@ -33,7 +32,11 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
             />
           );
         })}
-      </div>
+      </ul>
+      <ListPagination
+        query_key="sp"
+        total_pages={characters?.info?.count ?? 1}
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { OneLocation } from "../location/OneLocation";
 import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
 
@@ -25,11 +26,12 @@ if(!characters) return null
             >
               <h1 className="text-4xl font-bold text-secondary"> {chr.name}</h1>
               {/* @ts-expect-error */}
-              <OneLocation key={key}  location={chr?.location}/>
+              <OneLocation key={key} location={chr?.location} />
             </li>
           );
         })}
       </ul>
+
     </div>
   );
 }
