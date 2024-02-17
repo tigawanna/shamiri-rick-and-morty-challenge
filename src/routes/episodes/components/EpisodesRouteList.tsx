@@ -1,6 +1,7 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { EpisodesRouteListQuery } from "./__generated__/EpisodesRouteListQuery.graphql";
 import { Link } from "rakkasjs";
+import { OneItemCard } from "@/routes/components/shared/OneItemCard";
 
 interface EpisodesRouteListProps {
   searchvalue: string;
@@ -31,17 +32,11 @@ export function EpisodesRouteList({
           if (!episode) return null;
           const key = `${episode?.id}${episode?.name}`;
           return (
-            <Link
-            href={`/episodes/${episode.id}`}
-              key={key}
-              className="flex flex-col items-center p-2 rounded-lg bg-base-300
-               gap-2 w-fit"
-            >
-              <span className="flex justify-start items-start gap-2">
-                <h1 className="text-xl font-bold">{episode.id}.</h1>
-                <h1 className="text-xl font-bold">{episode.name}</h1>
-              </span>
-            </Link>
+            <OneItemCard
+              id={episode.id}
+              name={episode.name}
+              href={`/episodes/${episode.id}`}
+            />
           );
         })}
       </ul>
