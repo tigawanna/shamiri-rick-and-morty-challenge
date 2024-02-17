@@ -30,7 +30,7 @@ export function Sidebar({}: SidebarProps) {
                 data-tip={route.name}
                 className="text-3xl  items-center flex gap-3 
                 hover:bg-base-300 
-              rounded-lg p-2 lg:p-4 tooltip hover:tooltip-top"
+                 rounded-lg p-2 lg:p-4 tooltip hover:tooltip-right"
               >
                 {route.icon}
                 {/* <div className="hidden lg:flex text-xl font-bold">
