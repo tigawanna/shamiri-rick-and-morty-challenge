@@ -26,8 +26,8 @@ export function EpisodesRouteList({
     );
   }
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2 ">
-      <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
+    <div className="w-full h-full  gap-5  ">
+      <ul className="flex flex-wrap  w-full gap-2 pb-5 ">
         {episodes.map((episode) => {
           if (!episode) return null;
           const key = `${episode?.id}${episode?.name}`;
