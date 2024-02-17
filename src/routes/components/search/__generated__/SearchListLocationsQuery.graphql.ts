@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<182848126a6b303bf630ae7b45364cc5>>
+ * @generated SignedSource<<cfe930ed933d115b14a61876f416dfda>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,12 +26,6 @@ export type SearchListLocationsQuery$data = {
       readonly location: {
         readonly id: string | null | undefined;
         readonly name: string | null | undefined;
-        readonly residents: ReadonlyArray<{
-          readonly id: string | null | undefined;
-          readonly image: string | null | undefined;
-          readonly name: string | null | undefined;
-          readonly status: string | null | undefined;
-        } | null | undefined>;
       } | null | undefined;
       readonly name: string | null | undefined;
     } | null | undefined> | null | undefined;
@@ -58,12 +52,6 @@ export type SearchListLocationsQuery$data = {
     readonly results: ReadonlyArray<{
       readonly id: string | null | undefined;
       readonly name: string | null | undefined;
-      readonly residents: ReadonlyArray<{
-        readonly id: string | null | undefined;
-        readonly image: string | null | undefined;
-        readonly name: string | null | undefined;
-        readonly status: string | null | undefined;
-      } | null | undefined>;
       readonly type: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
@@ -120,33 +108,6 @@ v3 = {
 },
 v4 = {
   "alias": null,
-  "args": null,
-  "concreteType": "Character",
-  "kind": "LinkedField",
-  "name": "residents",
-  "plural": true,
-  "selections": [
-    (v2/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "image",
-      "storageKey": null
-    },
-    (v3/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "status",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
   "args": (v1/*: any*/),
   "concreteType": "Locations",
   "kind": "LinkedField",
@@ -169,15 +130,14 @@ v5 = {
           "kind": "ScalarField",
           "name": "type",
           "storageKey": null
-        },
-        (v4/*: any*/)
+        }
       ],
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Info",
@@ -216,46 +176,7 @@ v6 = {
   ],
   "storageKey": null
 },
-v7 = {
-  "alias": null,
-  "args": (v1/*: any*/),
-  "concreteType": "Characters",
-  "kind": "LinkedField",
-  "name": "characters",
-  "plural": false,
-  "selections": [
-    (v6/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Character",
-      "kind": "LinkedField",
-      "name": "results",
-      "plural": true,
-      "selections": [
-        (v2/*: any*/),
-        (v3/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Location",
-          "kind": "LinkedField",
-          "name": "location",
-          "plural": false,
-          "selections": [
-            (v2/*: any*/),
-            (v3/*: any*/),
-            (v4/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v8 = {
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "Location",
@@ -267,6 +188,32 @@ v8 = {
     (v3/*: any*/)
   ],
   "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": (v1/*: any*/),
+  "concreteType": "Characters",
+  "kind": "LinkedField",
+  "name": "characters",
+  "plural": false,
+  "selections": [
+    (v5/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Character",
+      "kind": "LinkedField",
+      "name": "results",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/),
+        (v6/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -275,7 +222,7 @@ return {
     "metadata": null,
     "name": "SearchListLocationsQuery",
     "selections": [
-      (v5/*: any*/),
+      (v4/*: any*/),
       (v7/*: any*/),
       {
         "alias": null,
@@ -285,7 +232,7 @@ return {
         "name": "episodes",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -304,7 +251,7 @@ return {
                 "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -324,7 +271,7 @@ return {
     "kind": "Operation",
     "name": "SearchListLocationsQuery",
     "selections": [
-      (v5/*: any*/),
+      (v4/*: any*/),
       (v7/*: any*/),
       {
         "alias": null,
@@ -334,7 +281,7 @@ return {
         "name": "episodes",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -353,7 +300,7 @@ return {
                 "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/),
+                  (v6/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
@@ -367,16 +314,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "94e66c6a5c0912d8d7bed63d84430951",
+    "cacheID": "7d7b605fe998e9ec6784f1dfe6836370",
     "id": null,
     "metadata": {},
     "name": "SearchListLocationsQuery",
     "operationKind": "query",
-    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    results {\n      id\n      name\n      type\n      residents {\n        id\n        image\n        name\n        status\n      }\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n        residents {\n          id\n          image\n          name\n          status\n        }\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    results {\n      id\n      name\n      type\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5c849b125192dfad2d4da7a54096e6cc";
+(node as any).hash = "1c6fc48134cd493b4a7743f95d3ec9e8";
 
 export default node;

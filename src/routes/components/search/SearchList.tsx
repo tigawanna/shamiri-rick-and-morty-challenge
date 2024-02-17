@@ -1,4 +1,4 @@
-import { Suspense, useTransition } from "react";
+import { useTransition } from "react";
 import {
   Tabs,
   TabsContent,
@@ -16,7 +16,7 @@ import { EpisodeLocations } from "../location/EpisodeLocations";
 interface SearchListProps {
   searchvalue: string;
   searchType?: SearchType;
-  setSearchType: React.Dispatch<React.SetStateAction<SearchType|undefined>>;
+  setSearchType: React.Dispatch<React.SetStateAction<SearchType | undefined>>;
 }
 
 export function SearchList({
@@ -113,12 +113,12 @@ export const searchLocationsQuery = graphql`
         id
         name
         type
-        residents {
-          id
-          image
-          name
-          status
-        }
+        #  residents {
+        #   id
+        #  image
+        # name
+        #status
+        # }
       }
     }
     #  end of locations query
@@ -137,12 +137,12 @@ export const searchLocationsQuery = graphql`
         location {
           id
           name
-          residents {
-            id
-            image
-            name
-            status
-          }
+          #     residents {
+          #      id
+          #     image
+          #    name
+          #   status
+          #}
         }
       }
     }

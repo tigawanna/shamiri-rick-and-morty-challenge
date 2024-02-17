@@ -1,6 +1,7 @@
 import { Residents } from "../resident/Residents";
 import { SearchListLocationsQuery$data } from "../search/__generated__/SearchListLocationsQuery.graphql";
 import { Virtuoso } from "react-virtuoso";
+import { OneItemCard } from "../shared/OneItemCard";
 type LocationsResponse = SearchListLocationsQuery$data["locations"];
 type OneLocationsResponseResults = NonNullable<LocationsResponse>;
 
@@ -22,38 +23,16 @@ export function Locations({ locations }: LocationsProps) {
     }
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <Virtuoso
-        style={{ height: "100%" }}
-        data={locations_list}
-        itemContent={(idx, loc) => {
-          if (!loc) return null;
-          const key = `${loc?.id}${loc?.name}${idx}`;
-          return (
-            <li
-              key={key}
-              className="flex flex-col rounded-lg w-full  gap-3 p-2"
-            >
-              <h1 className="text-xl font-bold text-secondary"> {loc.name}</h1>
-              <Residents key={key} residents={loc?.residents} />
-            </li>
-          );
-        }}
-      />
-      {/* <ul className="flex flex-wrap gap-4 justify-center w-full ">
+
+      <ul className="flex flex-wrap gap-4 justify-center w-full ">
         {locations_list?.map((loc, idx) => {
           if (!loc) return null;
           const key = `${loc?.id}${loc?.name}`;
           return (
-            <li
-              key={key}
-              className="flex flex-col rounded-lg w-full  gap-3 p-2"
-            >
-              <h1 className="text-xl font-bold text-secondary"> {loc.name}</h1>
-              <Residents key={key} residents={loc?.residents} />
-            </li>
+            <OneItemCard href={`/locations/${loc?.id}`} key={key} id={loc.id} name={loc?.name} />
           );
         })}
-      </ul> */}
+      </ul>
     </div>
   );
 }
