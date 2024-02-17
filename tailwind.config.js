@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
-
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
@@ -12,7 +9,6 @@ export default {
     require("daisyui"),
     require("tailwindcss-animate"),
     require("daisify-shadcn"),
-
   ],
   daisyui: {
     //  3 themes
@@ -24,7 +20,7 @@ export default {
           fontFamily: "",
           primary: "#433922",
           secondary: "#34d399",
-          accent: "#343232",
+          accent: "#95c979",
           neutral: "#ffe4e6",
           info: "#62c2d5",
           accent: "#966919",
@@ -46,7 +42,7 @@ export default {
           "color-scheme": "dark",
           primary: "#433922",
           secondary: "#34d399",
-          accent: "#966919",
+          accent: "#95c979",
           info: "#62c2d5",
           success: "#25bbac",
           warning: "#c88314",
@@ -55,12 +51,9 @@ export default {
           "--tab-border": "2px",
           "--tab-radius": ".5rem",
         },
-
       },
     ],
-
-
   },
-}
+};
 
 
