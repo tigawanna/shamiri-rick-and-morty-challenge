@@ -12,7 +12,7 @@ export function EpisodesRouteList({
   page,
   searchvalue,
 }: EpisodesRouteListProps) {
-  const page_to_fetch = page;
+  const page_to_fetch = searchvalue ? 1 : page;
   const query = useLazyLoadQuery<EpisodesRouteListQuery>(episodesQuery, {
     name: searchvalue,
     page: page_to_fetch,

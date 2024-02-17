@@ -13,7 +13,7 @@ export function LocationRouteList({
   searchvalue,
 
 }: LocationRouteListProps) {
-  const page_to_fetch = page;
+  const page_to_fetch = searchvalue ? 1 : page;
   const query = useLazyLoadQuery<LocationRouteListQuery>(locationsQuery, {
     name: searchvalue,
     page: page_to_fetch,

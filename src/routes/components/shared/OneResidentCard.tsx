@@ -25,16 +25,16 @@ export function OneResidentCard({ href, id, name, img, status }: OneItemCardProp
     <Link
       href={href??"."}
       className="flex flex-col items-center p-2 rounded-lg bg-base-300
-     gap-1 w-fit"
+     gap-1 w-[90%] sm:w-[40%] md:w-[30%] lg:w-[24%] xl:w-[19%]"
     >
       {img && (
         <img
-          className="w-auto aspect-square h-250px"
+          className="w-full h-auto"
           src={img ?? "/placeholder.webp"}
           loading="lazy"
           alt={name ?? "resident"}
           height={"250px"}
-          width={"250px"}
+          width={"200px"}
         />
       )}
       <span className="flex  justify-start items-start gap-2 w-full">
