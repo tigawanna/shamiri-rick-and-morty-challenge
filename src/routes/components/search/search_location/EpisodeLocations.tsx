@@ -38,7 +38,6 @@ const episode_locations = React.useMemo(() => {
   return (
     <div className="w-full flex flex-col relative gap-3 h-full min-h-[60vh]">
 
-      <div>
         <VirtuosoGrid
           style={{ height: "80vh", width: "100%" }}
           totalCount={episode_locations?.length}
@@ -60,26 +59,8 @@ const episode_locations = React.useMemo(() => {
             );
           }}
         />
-        {/* <Virtuoso
-          style={{ height: "80vh" }}
-          className="flex gap-3 "
-          data={episode_locations}
-          itemContent={(index, user) => {
-            if (!user) return null;
-            return (
-              <div
-                className="bg-red-500 rounded-lg"
-                style={{
-                  padding: "1rem 0.5rem",
-                }}
-              >
-                <h4>{user?.id}</h4>
-                <div style={{ marginTop: "1rem" }}>{user.name}</div>
-              </div>
-            );
-          }}
-        /> */}
-      </div>
+
+
 
       <div className="w-full flex  ">
         <ListPagination
