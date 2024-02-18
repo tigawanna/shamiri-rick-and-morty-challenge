@@ -3,6 +3,12 @@ import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocati
 import { OneItemCard } from "../../shared/OneItemCard";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
+import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
+import { forwardRef } from "react";
+import {
+  ItemWrapper,
+  gridComponents,
+} from "@/components/shared/VirtuosoVirtualList";
 
 type EpisodesResponse = SearchListLocationsQuery$data["episodes"];
 
@@ -11,25 +17,15 @@ interface EpisodeLocationsProps {
 }
 
 export function EpisodeLocations({ episodes }: EpisodeLocationsProps) {
-  const parentRef = React.useRef(null);
-
-  // const episode_locations =
-  //   episodes?.results
-  //     ?.flatMap((e) => e?.characters)
-  //     .flatMap((c) => c?.location) ?? [];
 const episode_locations = React.useMemo(() => {
-  return (
-    episodes?.results
-      ?.flatMap((e) => e?.characters)
-      .flatMap((c) => c?.location) ?? []
-  );
-}, [episodes]);
+    return (
+      episodes?.results
+        ?.flatMap((e) => e?.characters)
+        .flatMap((c) => c?.location) ?? []
+    );
+  }, [episodes]);
 
-  const rowVirtualizer = useVirtualizer({
-    count: episode_locations?.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 35,
-  });
+
   if (!episode_locations || episode_locations?.length === 0) {
     return (
       <div className="w-full min-h-[60vh] h-full flex items-center justify-center">
@@ -40,28 +36,57 @@ const episode_locations = React.useMemo(() => {
     );
   }
   return (
-    <div className="w-full h-full flex flex-col gap-3 ">
-      <div ref={parentRef} className="h-fit">
-        <ul className="flex flex-wrap gap-4 justify-center w-full ">
-          {/* Only the visible items in the virtualizer, manually positioned to be in view */}
-          {rowVirtualizer.getVirtualItems().map((virtualItem) => {
-            const one_episode = episode_locations[virtualItem.index];
+    <div className="w-full flex flex-col relative gap-3 h-full min-h-[60vh]">
+
+      <div>
+        <VirtuosoGrid
+          style={{ height: "80vh", width: "100%" }}
+          totalCount={episode_locations?.length}
+          data={episode_locations}
+          // @ts-expect-error
+          components={gridComponents}
+          itemContent={(index, one_episode) => {
+            if (!one_episode) return null;
+            const key = `${one_episode?.id}${one_episode?.name}`;
             return (
-              <OneItemCard
-                href={`/locations/${one_episode?.id}`}
-                key={virtualItem.key}
-                id={one_episode?.id}
-                name={one_episode?.name}
-              />
+              <ItemWrapper>
+                <OneItemCard
+                  href={`/locations/${one_episode?.id}`}
+                  key={key}
+                  id={one_episode?.id}
+                  name={one_episode?.name}
+                />
+              </ItemWrapper>
             );
-          })}
-        </ul>
+          }}
+        />
+        {/* <Virtuoso
+          style={{ height: "80vh" }}
+          className="flex gap-3 "
+          data={episode_locations}
+          itemContent={(index, user) => {
+            if (!user) return null;
+            return (
+              <div
+                className="bg-red-500 rounded-lg"
+                style={{
+                  padding: "1rem 0.5rem",
+                }}
+              >
+                <h4>{user?.id}</h4>
+                <div style={{ marginTop: "1rem" }}>{user.name}</div>
+              </div>
+            );
+          }}
+        /> */}
       </div>
 
-      <ListPagination
-        query_key="sep"
-        total_pages={episodes?.info?.pages ?? 1}
-      />
+      <div className="w-full flex  ">
+        <ListPagination
+          query_key="sep"
+          total_pages={episodes?.info?.pages ?? 1}
+        />
+      </div>
     </div>
   );
 }
