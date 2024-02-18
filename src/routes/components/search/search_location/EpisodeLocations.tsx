@@ -1,15 +1,14 @@
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocationsQuery.graphql";
 import { OneItemCard } from "../../shared/OneItemCard";
-type EpisodesResponse =SearchListLocationsQuery$data["episodes"]
 
-
+type EpisodesResponse = SearchListLocationsQuery$data["episodes"];
 
 interface EpisodeLocationsProps {
   episodes: EpisodesResponse | undefined;
 }
 
-export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
+export function EpisodeLocations({ episodes }: EpisodeLocationsProps) {
   if (!episodes) return null;
   if (!episodes?.results || episodes?.results?.length === 0) {
     return (
@@ -26,6 +25,11 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
         {episodes?.results?.map((item, idx) => {
           if (!item) return null;
           const key = `${item?.id}${item?.name}${idx}`;
+          // return(
+          //   <div className="w-full bg-secondary/5 p-3">
+          //     <OneItemHeader air_date={item.air_date} list_title={"Locations"} id={item.id} name={item?.name}/>
+          //   </div>
+          // )
           return (
             <OneItemCard
               href={`/episodes/${item?.id}`}
@@ -36,9 +40,13 @@ export function EpisodeLocations({episodes}: EpisodeLocationsProps) {
           );
         })}
       </ul>
-      <ListPagination query_key="sep" total_pages={episodes?.info?.pages ?? 1} />
+
+
+
+      <ListPagination
+        query_key="sep"
+        total_pages={episodes?.info?.pages ?? 1}
+      />
     </div>
   );
 }
-
-

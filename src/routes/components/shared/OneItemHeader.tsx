@@ -1,11 +1,12 @@
 interface OneItemHeaderProps {
 id?: string|null;
 name?: string|null;
-date?:string
+date?:string | null;
+air_date?:string | null;
 list_title?:React.ReactNode
 }
 
-export function OneItemHeader({id,name,date,list_title}:OneItemHeaderProps){
+export function OneItemHeader({id,name,date,air_date,list_title}:OneItemHeaderProps){
 return (
   <div className="flex flex-col p-3  gap-2   w-full sticky top-0 bg-base-200 rounded-lg">
     <div className="flex items-center gap-2 ">
@@ -13,6 +14,7 @@ return (
       <div className="flex flex-col gap-2 ">
         <h1 className="text-2xl ">{name}</h1>
         {date && <h1 className="text-xs">Created {date}</h1>}
+        {air_date && <h1 className="text-xs">Aired {air_date}</h1>}
       </div>
     </div>
     <div className="">{list_title}</div>

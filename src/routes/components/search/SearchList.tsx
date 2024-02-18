@@ -129,14 +129,7 @@ export function SearchInputNoItems() {
   return (
     <div className="w-full min-h-[50vh] h-full flex justify-center items-center  rounded-lg ">
       <div className="flex flex-col items-center justify-center gap-2 bg-base-200 rounded-lg p-5 ">
-        <p> No results found, try some keywords </p>
-        <> ---- or ----- </>
-        <Link
-          href="/viewer"
-          className="text-secondary hover:text-accent text-xl font-bold"
-        >
-          View your profile
-        </Link>{" "}
+        <p> No results found</p>
       </div>
     </div>
   );
@@ -206,6 +199,8 @@ export const searchLocationsQuery = graphql`
       results {
         id
         name
+        created
+        air_date
         characters {
           location {
             id

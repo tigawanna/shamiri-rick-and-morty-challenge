@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5405596cbff1eb61b91b1c3781f62097>>
+ * @generated SignedSource<<bf700d60b96dc8aa7c763f456cb937a2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -38,12 +38,14 @@ export type SearchListLocationsQuery$data = {
       readonly prev: number | null | undefined;
     } | null | undefined;
     readonly results: ReadonlyArray<{
+      readonly air_date: string | null | undefined;
       readonly characters: ReadonlyArray<{
         readonly location: {
           readonly id: string | null | undefined;
           readonly name: string | null | undefined;
         } | null | undefined;
       } | null | undefined>;
+      readonly created: string | null | undefined;
       readonly id: string | null | undefined;
       readonly name: string | null | undefined;
     } | null | undefined> | null | undefined;
@@ -221,6 +223,20 @@ v7 = {
     }
   ],
   "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "created",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "air_date",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -250,6 +266,8 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -299,6 +317,8 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -321,16 +341,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a3c75055149a5c3ce9a6b85711846d0a",
+    "cacheID": "a384434ece7608b769df53ee64b3aa7d",
     "id": null,
     "metadata": {},
     "name": "SearchListLocationsQuery",
     "operationKind": "query",
-    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      type\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      type\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      created\n      air_date\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e288597bad3a48b96606f7a9a4c98b86";
+(node as any).hash = "b98ead05e68d0c405807e07d42f354e8";
 
 export default node;

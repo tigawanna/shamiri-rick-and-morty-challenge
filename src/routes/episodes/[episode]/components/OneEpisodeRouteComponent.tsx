@@ -43,7 +43,7 @@ export function OneEpisodeComponent({ id }: OneEpisodeRouteComponentProps) {
           id={episode.id}
           list_title="Characters"
         />
-        <h2 className="text-2xl font-bold">Characters</h2>
+
       </div>
 
       <div className="w-full h-full flex flex-col items-center justify-beteween">
