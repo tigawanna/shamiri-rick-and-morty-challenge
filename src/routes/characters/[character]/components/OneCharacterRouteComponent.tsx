@@ -38,7 +38,7 @@ export function OneCharacterComponent({
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-4">
       {/* character details */}
-      <div className="w-full  flex justify-center items-center   flex-col sm:flex-row gap-3">
+      <div className="w-full  flex justify-center items-center   flex-col sm:flex-row gap-3 px-4">
         <div className="w-full p-2 flex gap-4  h-full justify-center  items-center bg-base-300 rounded-lg shadow-md">
           <h2 className="text-6xl font-bold lg:text-8xl  p-3 aspect-square rounded-xl">{character.id}</h2>
           <div className="flex flex-col">
@@ -64,7 +64,7 @@ export function OneCharacterComponent({
           width={"200px"}
         />
       </div>
-
+      {/* user generated charcater note section  */}
 
     </div>
   );
