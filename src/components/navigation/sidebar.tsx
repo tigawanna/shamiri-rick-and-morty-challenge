@@ -1,5 +1,5 @@
 import { Link, StyledLink, useLocation } from "rakkasjs";
-import { Home, Pin, Tv, Users } from "lucide-react";
+import { Home, Pin, Tv, Users,Beaker } from "lucide-react";
 import { MiniSettingsModal } from "./mini-settings/MiniSettings";
 
 interface SidebarProps {}
@@ -11,6 +11,7 @@ export function Sidebar({}: SidebarProps) {
     { name: "episodes", url: "/episodes", icon: <Tv /> },
     { name: "characters", url: "/characters", icon: <Users /> },
     { name: "locations", url: "/locations", icon: <Pin /> },
+    { name: "test", url: "/test", icon: <Beaker /> },
   ];
 
   return (

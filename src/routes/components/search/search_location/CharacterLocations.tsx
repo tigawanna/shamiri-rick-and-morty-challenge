@@ -10,9 +10,9 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
   if (!characters) return null;
   if (!characters?.results || characters?.results?.length === 0) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
-        <h1 className="text-xl font-bold text-secondary">
-          No characters found
+      <div className="w-full min-h-[60vh] h-full flex items-center justify-center">
+        <h1 className="text-xl font-bold text-secondary bg-base-300 p-[10%] rounded-lg">
+          No locations found for that character
         </h1>
       </div>
     );
