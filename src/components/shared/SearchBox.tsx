@@ -1,4 +1,4 @@
-import { useDebouncedSearchWithhParams } from "@/utils/hooks/search";
+
 import { Input } from "../shadcn/ui/input";
 import { Loader } from "lucide-react";
 import { useTransition } from "react";
@@ -7,18 +7,21 @@ interface SearchBoxProps {
   debouncedValue: string;
   setDebouncedValue: React.Dispatch<React.SetStateAction<string>>;
   isDebouncing: boolean;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
 export function SearchBox({
   debouncedValue,
   isDebouncing,
   setDebouncedValue,
+  inputProps
 }: SearchBoxProps) {
   const [, startTransition] = useTransition();
   return (
     <div className="w-full sticky top-0 ">
     <div className="w-full relative border border-secondary ">
       <Input
+      {...inputProps}
         placeholder="Search"
         className="w-full"
         defaultValue={debouncedValue}

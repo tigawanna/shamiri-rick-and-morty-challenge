@@ -47,7 +47,7 @@ export function SearchInputSection({
       <div className="w-full flex items-center justify-center gap-2">
         <div className="w-full relative">
           <Input
-            placeholder="Search"
+            placeholder="Enter search keyword"
             className="w-full"
             defaultValue={debouncedValue}
             onChange={(e) => {

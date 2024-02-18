@@ -5,7 +5,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/shadcn/ui/tabs";
-import { Link } from "rakkasjs";
 import { SearchType } from "./types";
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { SearchListLocationsQuery } from "./__generated__/SearchListLocationsQuery.graphql";
@@ -130,7 +129,7 @@ export function SearchInputNoItems() {
     <div className="w-full min-h-[50vh] h-full flex justify-center items-center  rounded-lg ">
       <div className="flex flex-col items-center justify-center gap-2 bg-base-200 rounded-lg p-5 ">
         <p> No results found</p>
-      </div>
+    </div>
     </div>
   );
 }
