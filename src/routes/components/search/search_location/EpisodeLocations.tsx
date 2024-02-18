@@ -10,7 +10,10 @@ interface EpisodeLocationsProps {
 
 export function EpisodeLocations({ episodes }: EpisodeLocationsProps) {
   if (!episodes) return null;
-  if (!episodes?.results || episodes?.results?.length === 0) {
+    const episode_locations = episodes?.results
+        ?.flatMap((e) => e?.characters)
+        .flatMap((c) => c?.location) ?? [];
+  if (!episode_locations || episode_locations?.length === 0) {
     return (
       <div className="w-full min-h-[60vh] h-full flex items-center justify-center">
         <h1 className="text-xl font-bold text-secondary bg-base-300 p-[10%] rounded-lg">
@@ -22,17 +25,12 @@ export function EpisodeLocations({ episodes }: EpisodeLocationsProps) {
   return (
     <div className="w-full h-full flex flex-col gap-3 ">
       <ul className="flex flex-wrap gap-4 justify-center w-full">
-        {episodes?.results?.map((item, idx) => {
+        {episode_locations?.map((item, idx) => {
           if (!item) return null;
           const key = `${item?.id}${item?.name}${idx}`;
-          // return(
-          //   <div className="w-full bg-secondary/5 p-3">
-          //     <OneItemHeader air_date={item.air_date} list_title={"Locations"} id={item.id} name={item?.name}/>
-          //   </div>
-          // )
           return (
             <OneItemCard
-              href={`/episodes/${item?.id}`}
+              href={`/locations/${item?.id}`}
               key={key}
               id={item.id}
               name={item?.name}

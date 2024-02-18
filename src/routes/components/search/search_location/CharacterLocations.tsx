@@ -8,24 +8,26 @@ interface CharacterLocationsProps {
 
 export function CharacterLocations({ characters }: CharacterLocationsProps) {
   if (!characters) return null;
-  if (!characters?.results || characters?.results?.length === 0) {
+  const locations = characters?.results?.flatMap((char) => char?.location)??[]
+  if (!locations || locations?.length === 0) {
     return (
       <div className="w-full min-h-[60vh] h-full flex items-center justify-center">
         <h1 className="text-xl font-bold text-secondary bg-base-300 p-[10%] rounded-lg">
-          No locations found for that character
+          No locations found for that location name
         </h1>
       </div>
     );
   }
+  console.log("===== locations in chracter ==== ", characters);
   return (
     <div className="w-full h-full flex flex-col gap-3 ">
       <ul className="flex flex-wrap gap-4 justify-center w-full">
-        {characters?.results?.map((char, idx) => {
+        {locations?.map((char, idx) => {
           if (!char) return null;
           const key = `${char?.id}${char?.name}${idx}`;
           return (
             <OneItemCard
-              href={`/characters/${char?.id}`}
+              href={`/locations/${char?.id}`}
               key={key}
               id={char.id}
               name={char?.name}
