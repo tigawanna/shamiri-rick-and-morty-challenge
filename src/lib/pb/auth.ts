@@ -91,6 +91,23 @@ export async function createUser<T extends CollectionName>({
   document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
   return res;
 }
+export interface UpdatePocketbaseUser<T extends CollectionName>
+  extends BasePocketbaseOperations<T> {
+  id:string;  
+  data: Schema[T]["update"];
+}
+
+
+export async function updateUser<T extends CollectionName>({
+  pb,
+  id,
+  data,
+  collection,
+}: UpdatePocketbaseUser<T>) {
+  const res = await tryCatchWrapper(pb.collection(collection).update(id,data));
+  document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+  return res;
+}
 
 
 export interface VerifyPocketbaseUserEmail<T extends CollectionName>

@@ -136,37 +136,40 @@ type MaybeArray<T> = T | T[];
 
 // ===== shamiri_rick_and_morty_notes =====
 
-export interface ShamiriRickAndMortyNotesResponse
-  extends BaseCollectionResponse {
-  collectionName: "shamiri_rick_and_morty_notes";
-  character_name: string;
-  character_id: string;
-  user: string;
+export interface ShamiriRickAndMortyNotesResponse extends BaseCollectionResponse {
+	collectionName: 'shamiri_rick_and_morty_notes';
+	character_name: string;
+	character_id: string;
+	user: string;
+	note: string;
 }
 
 export interface ShamiriRickAndMortyNotesCreate extends BaseCollectionCreate {
-  character_name?: string;
-  character_id?: string;
-  user?: string;
+	character_name: string;
+	character_id: string;
+	user: string;
+	note: string;
 }
 
 export interface ShamiriRickAndMortyNotesUpdate extends BaseCollectionUpdate {
-  character_name?: string;
-  character_id?: string;
-  user?: string;
+	character_name?: string;
+	character_id?: string;
+	user?: string;
+	note?: string;
 }
 
 export interface ShamiriRickAndMortyNotesCollection {
-  type: "base";
-  collectionId: string;
-  collectionName: "shamiri_rick_and_morty_notes";
-  response: ShamiriRickAndMortyNotesResponse;
-  create: ShamiriRickAndMortyNotesCreate;
-  update: ShamiriRickAndMortyNotesUpdate;
-  relations: {
-    user: ShamiriUsersCollection;
-  };
+	type: 'base';
+	collectionId: string;
+	collectionName: 'shamiri_rick_and_morty_notes';
+	response: ShamiriRickAndMortyNotesResponse;
+	create: ShamiriRickAndMortyNotesCreate;
+	update: ShamiriRickAndMortyNotesUpdate;
+	relations: {
+		user: ShamiriUsersCollection;
+	};
 }
+
 
 // ===== shamiri_users =====
 
