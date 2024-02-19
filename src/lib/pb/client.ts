@@ -1,4 +1,4 @@
-import PocketBase, { OAuth2AuthConfig } from "pocketbase";
+import PocketBase from "pocketbase";
 import { RequestContext } from "rakkasjs";
 import { TypedPocketBase } from "typed-pocketbase";
 import { Schema } from "./database";

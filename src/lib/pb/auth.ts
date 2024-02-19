@@ -163,10 +163,11 @@ export async function oneClickOauthLogin<T extends CollectionName>({
     const authData = await pb
       .collection(collection)
       .authWithOAuth2<RecordManualTypes>(oauth_config);
-    console.log(" ===== oneClickOauthLogin ====== ", authData);
+
+    // console.log(" ===== oneClickOauthLogin ====== ", authData);
 
     const updated_user = await pb
-      .collection("shamiri_users")
+      .collection(collection)
       .update(authData.record.id, {
         accessToken: authData?.meta?.accessToken,
         avataUrl: authData?.meta?.avatarUrl,

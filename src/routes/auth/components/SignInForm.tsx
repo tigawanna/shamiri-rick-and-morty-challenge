@@ -46,8 +46,8 @@ export function SignInForm({}: SignInFormProps) {
         if (data && data?.data) {
           qc.invalidateQueries(["viewer"]);
           // navigate("/dashboard");
-                    const return_to = current.searchParams.get("return_to");
-                    navigate(return_to ?? "/");
+           const return_to = current.searchParams.get("return_to");
+          navigate(return_to ?? "/");
           hotToast({
             title: `Welcome ${data?.data?.record.username}`,
             type: "success",

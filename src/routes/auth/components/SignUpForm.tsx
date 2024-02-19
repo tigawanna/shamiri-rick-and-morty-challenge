@@ -6,10 +6,10 @@ import { TSignupformSchema } from "./auth";
 import { useMutation, useQueryClient } from "rakkasjs";
 import { useFormHook } from "@/components/form/useForm";
 import { useState } from "react";
-import { tryCatchWrapper } from "@/utils/helpers/async";
 import { Loader } from "lucide-react";
 import { hotToast } from "@/components/wrappers/toast";
 import { PbTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
+import { createUser } from "@/lib/pb/auth";
 
 interface SignupFormProps {}
 
@@ -31,9 +31,14 @@ export function SignUpForm({}: SignupFormProps) {
     });
   const mutation = useMutation(
     (vars: typeof input) => {
-      return tryCatchWrapper(
-        page_ctx.locals.pb?.collection("utility_staff").create(input),
-      );
+      return createUser({
+        pb: page_ctx.locals.pb,
+        collection:"shamiri_users",
+        data: vars
+      })
+      // return tryCatchWrapper(
+      //   page_ctx.locals.pb?.collection("utility_staff").create(input),
+      // );
     },
     {
       onError(error: any) {
@@ -46,8 +51,9 @@ export function SignUpForm({}: SignupFormProps) {
       onSuccess(data) {
         if (data && data?.data) {
           qc.invalidateQueries(["viewer"]);
+          console.log({data})
           hotToast({
-            title: `Welcome ${data?.data?.record.username}`,
+            title: `Welcome ${data?.data?.record?.username}`,
             type: "success",
           });
           navigate("/dashboard");
@@ -81,7 +87,7 @@ export function SignUpForm({}: SignupFormProps) {
     // mutation.mutate(input);
   }
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center p-5 gap-5">
+    <div className="w-full  h-fit flex flex-col items-center justify-center p-5 pb-5 gap-5">
       <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col gap-5">
         <h1 className="text-3xl font-bold">Sign Up</h1>
         {show_form && (
@@ -102,7 +108,7 @@ export function SignUpForm({}: SignupFormProps) {
             />
             <PbTheTextInput
               field_key={"username"}
-              field_name="Useranme"
+              field_name="Username"
               required
               min={4}
               val={input.username}
@@ -179,7 +185,7 @@ export function SignUpForm({}: SignupFormProps) {
         <OAuthproviders />
       </div>
       {show_form && (
-        <p className=" text-sm">
+        <p className=" text-sm pb-5">
           Already have an account ?{" "}
           <Link href="/auth" className="text-accent">
             Log in
