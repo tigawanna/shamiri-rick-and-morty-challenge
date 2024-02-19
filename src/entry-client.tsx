@@ -3,8 +3,8 @@ import { startClient } from "rakkasjs/client";
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 import { RelayEnvironmentProvider } from "@/lib/relay/modules";
 import { fetchFn } from "./lib/relay/RelayEnvironment";
-import { PocketBaseClient } from "./lib/pb/client";
-import PocketBase from "pocketbase";
+import { TypedPocketBase } from "typed-pocketbase";
+import { Schema } from "@/lib/pb/database";
 
 const relay_data_from_server = (window as any)?.__RELAY_DATA__;
 
@@ -35,15 +35,15 @@ startClient({
       );
     },
 
-    extendPageContext(ctx) {
-      if (!ctx.locals.pb) {
-        ctx.locals.pb = new PocketBase(
+    extendPageContext(pageContext) {
+      if (!pageContext.locals.pb) {
+        pageContext.locals.pb = new TypedPocketBase<Schema>(
           import.meta.env.RAKKAS_PB_URL,
-        ) as PocketBaseClient;
-        ctx.locals.pb?.authStore.onChange(() => {
-          ctx.requestContext?.setCookie?.(
+        );
+        pageContext.locals.pb?.authStore.onChange(() => {
+          pageContext.requestContext?.setCookie?.(
             "set-cookie",
-            ctx.locals.pb?.authStore.exportToCookie(),
+            pageContext.locals.pb?.authStore.exportToCookie(),
           );
         });
       }

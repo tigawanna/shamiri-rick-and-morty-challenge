@@ -126,8 +126,8 @@ dependencies:
     specifier: ^2.2.1
     version: 2.2.1
   typed-pocketbase:
-    specifier: ^0.0.9
-    version: 0.0.9(pocketbase@0.21.1)
+    specifier: ^0.1.0
+    version: 0.1.0(pocketbase@0.21.1)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -6385,11 +6385,11 @@ packages:
       is-typed-array: 1.1.12
     dev: true
 
-  /typed-pocketbase@0.0.9(pocketbase@0.21.1):
-    resolution: {integrity: sha512-mpr9uuEbpV3LV7JI/eZ1l2XIXx+XfJ6hin9RMdQ9j1ahCNfvRJMw+axPVApd7FojEgAlp29quCeSM93knjB3iw==}
+  /typed-pocketbase@0.1.0(pocketbase@0.21.1):
+    resolution: {integrity: sha512-bNXguPdRHXQ4p2sS38zGIlDhih7QNWilP21Igka6TwWwkQvBYo253MIIooRGX3znBJ0BxzwVNBz1o3X9V63A+A==}
     hasBin: true
     peerDependencies:
-      pocketbase: ^0.20.0
+      pocketbase: ^0.21.0
     dependencies:
       pocketbase: 0.21.1
       sade: 1.8.1

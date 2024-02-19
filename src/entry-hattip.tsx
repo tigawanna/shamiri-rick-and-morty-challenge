@@ -6,6 +6,9 @@ import { fetchFn } from "./lib/relay/RelayEnvironment";
 import { RequestContext } from "rakkasjs";
 import { PocketBaseClient } from "./lib/pb/client";
 import PocketBase from "pocketbase";
+import { TypedPocketBase } from "typed-pocketbase";
+import { Schema } from "@/lib/pb/database";
+
 function createRelayEnvironment(ctx: RequestContext) {
    return new Environment({
     network: Network.create((request, variables, cacheConfig, uploadables) =>
@@ -63,9 +66,12 @@ export default createRequestHandler({
         if (!request) return;
 
         if (!pageContext.locals.pb) {
-          pageContext.locals.pb = new PocketBase(
+          pageContext.locals.pb = new TypedPocketBase<Schema>(
             import.meta.env.RAKKAS_PB_URL,
-          ) as PocketBaseClient;
+          );
+          // pageContext.locals.pb = new PocketBase(
+          //   import.meta.env.RAKKAS_PB_URL,
+          // ) as PocketBaseClient;
           // load the store data from the request cookie string
           pageContext.locals.pb.authStore.loadFromCookie(
             request.headers.get("cookie") || "",

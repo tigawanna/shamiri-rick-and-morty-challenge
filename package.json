@@ -86,7 +86,7 @@
         "react-virtuoso": "^4.6.3",
         "relay-runtime": "16.2.0",
         "tailwind-merge": "^2.2.1",
-        "typed-pocketbase": "^0.0.9",
+        "typed-pocketbase": "^0.1.0",
         "zod": "^3.22.4"
     }
 }
