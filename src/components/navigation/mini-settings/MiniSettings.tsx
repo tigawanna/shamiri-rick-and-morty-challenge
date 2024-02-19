@@ -75,7 +75,7 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
       <DropdownMenuTrigger asChild>
         <Button className="relative h-7 w-7 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={viewer?.avatarUrl} alt="github viewer" />
+            <AvatarImage src={viewer?.avatarUrl} alt="viewer" />
             {viewer ? (
               <AvatarFallback>{viewer?.login?.slice(0, 2)}</AvatarFallback>
             ) : (
@@ -87,7 +87,7 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
       {viewer ? (
         <DropdownMenuContent className="w-fit">
           <DropdownMenuLabel className="font-bold text-xl">
-            Viewer
+            Profile
           </DropdownMenuLabel>
 
           <DropdownMenuSeparator />
