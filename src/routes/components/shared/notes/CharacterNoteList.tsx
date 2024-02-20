@@ -39,8 +39,8 @@ export function CharacterNoteList({ character_id }: CharacterNoteListProps) {
   }
 
   return (
-    <div className="w-full h-full flex flex-col  overflow-auto">
-      <ul className="flex flex-wrap justify-center w-full  gap-2 pb-5">
+    <div className="w-full h-full min-h-fit flex flex-col  overflow-auto gap-3">
+      <ul className="flex flex-wrap justify-center w-full  gap-2 ">
         {data?.items?.map((note) => {
           const is_me_tw_styles =
             user?.username === note.expand?.user?.username
@@ -93,6 +93,7 @@ export function CharacterNoteList({ character_id }: CharacterNoteListProps) {
         query_key="pbnp"
         total_pages={query.data.data?.totalPages ?? 1}
       />
+          <div className="w-full h-fit flex flex-col items-center  gap-2"></div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ return (
             <div
               key={index}
               className="flex flex-col items-center justify-between p-2 rounded-xl bg-base-300
-            gap-2 px-3 py-2 h-44 w-[80%] sm:w-[40%] md:w-[30%]  min-w-[20%] flex-grow skeleton"
+            gap-2 px-3 py-2 h-44 w-[80%] sm:w-[33%] md:w-[24%]  min-w-[20%] flex-grow skeleton"
             ></div>
           );
         })}
