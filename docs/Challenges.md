@@ -1,4 +1,4 @@
-# Challenges
+## Challenges
 
 ### 1. The GraphQL API
 The GraphQL API was the most efficient way to accomplish the task as it minimizes the number of requests we have to make , `client-server` waterfalls waterfalls are can be one of the biggest performance issues in your average site , Dan Abramov had some claims on how react server components avoid this and a lively debate ensued on the topic , Ryan Carniato (SolidJS creator) dedicated his 

@@ -1,6 +1,6 @@
-# File structure
+## File structure
 
-## Directory structure
+### Directory structure
 
 RakkasJS uses a file based router just like Nextjs files in 
 `src/pages` that matches `*.page.tsx` and exports a default component will be treated as a page
