@@ -12,6 +12,7 @@ import { Locations } from "./search_location/Locations";
 import { CharacterLocations } from "./search_location/CharacterLocations";
 import { EpisodeLocations } from "./search_location/EpisodeLocations";
 import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
+import { pageNumberParser } from "@/utils/helpers/others";
 
 interface SearchListProps {
   searchvalue: string;
@@ -44,13 +45,7 @@ export function SearchList({
     key: getTabPageKey(searchType),
     default_value: "1",
   });
-  const pageNumberParser = (pageNum?: string) => {
-    if (!pageNum || pageNum.length === 0) {
-      return 1;
-    } else {
-      return parseInt(pageNum);
-    }
-  };
+
   const pageNo = pageNumberParser(page_no);
   // console.log("  ==========  pNo ======== ", pageNo)
   const query = useLazyLoadQuery<SearchListLocationsQuery>(

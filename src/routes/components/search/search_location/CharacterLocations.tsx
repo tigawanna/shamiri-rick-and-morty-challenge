@@ -2,9 +2,11 @@ import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocati
 import { OneItemCard } from "../../shared/OneItemCard";
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { useMemo } from "react";
-import { ItemWrapper, gridComponents } from "@/components/shared/VirtuosoVirtualList";
+import {
+  ItemWrapper,
+  gridComponents,
+} from "@/components/shared/VirtuosoVirtualList";
 import { VirtuosoGrid } from "react-virtuoso";
-
 
 type CharactersResponse = SearchListLocationsQuery$data["characters"];
 interface CharacterLocationsProps {
@@ -15,9 +17,9 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
   if (!characters) return null;
 
   // const locations = characters?.results?.flatMap((char) => char?.location)??[]
-  const character_locations = useMemo(()=>{
-    return characters?.results?.flatMap((char) => char?.location)??[]
-  },[characters])
+  const character_locations = useMemo(() => {
+    return characters?.results?.flatMap((char) => char?.location) ?? [];
+  }, [characters]);
 
   if (!character_locations || character_locations?.length === 0) {
     return (
@@ -31,21 +33,6 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
 
   return (
     <div className="w-full h-full flex flex-col gap-3 ">
-      {/* <ul className="flex flex-wrap gap-4 justify-center w-full">
-        {locations?.map((char, idx) => {
-          if (!char) return null;
-          const key = `${char?.id}${char?.name}${idx}`;
-          return (
-            <OneItemCard
-              href={`/locations/${char?.id}`}
-              key={key}
-              id={char.id}
-              name={char?.name}
-            />
-          );
-        })}
-      </ul> */}
-
       <VirtuosoGrid
         style={{ height: "80vh", width: "100%" }}
         totalCount={character_locations?.length}

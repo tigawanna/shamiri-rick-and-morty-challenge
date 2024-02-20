@@ -61,3 +61,11 @@ export function randomImageURL(img_url?: string) {
   if (img_url && isStringaUrl(img_url)) return img_url;
   return `https://picsum.photos/id/${randownNumber(1, 1000)}/900/300`;
 }
+
+  export const pageNumberParser = (pageNum?: string) => {
+    if (!pageNum || pageNum.length === 0) {
+      return 1;
+    } else {
+      return parseInt(pageNum);
+    }
+  };

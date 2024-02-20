@@ -1,10 +1,9 @@
 import { ListPagination } from "@/components/shared/pagination/ReactresponsivePagination";
 import { SearchListLocationsQuery$data } from "../__generated__/SearchListLocationsQuery.graphql";
 import { OneItemCard } from "../../shared/OneItemCard";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
-import { Virtuoso, VirtuosoGrid } from "react-virtuoso";
-import { forwardRef } from "react";
+import { VirtuosoGrid } from "react-virtuoso";
+
 import {
   ItemWrapper,
   gridComponents,

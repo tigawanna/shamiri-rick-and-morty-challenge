@@ -1,7 +1,3 @@
-import { TypedPocketBase } from "typed-pocketbase";
-import { Schema } from "src/lib/pb/db-types";
-import { postgresInstance } from "@/lib/pg/pg";
-import { DbAuthProps } from "@/lib/pg/pg";
 import { PocketBaseClient } from "@/lib/pb/client";
 
 declare module "rakkasjs" {
