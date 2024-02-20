@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/shadcn/ui/label";
 import { Textarea } from "@/components/shadcn/ui/textarea";
 import { ShamiriRickAndMortyNotesUpdate } from "@/lib/pb/database";
-import { useUpsertCharacterNote } from "./hook";
+import { useUpsertCharacterNote } from "./hooks";
 
 interface CharachterNoteModalProps {
   user_id: string;

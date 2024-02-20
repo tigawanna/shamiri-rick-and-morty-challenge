@@ -5,6 +5,10 @@ import { Schema } from "./database";
 
 export type PocketBaseClient = TypedPocketBase<Schema>;
 
+const db = new TypedPocketBase<Schema>("http://localhost:8090");
+
+
+
 const RAKKAS_PB_URL = import.meta.env.RAKKAS_PB_URL;
 
 export type CollectionName = keyof Schema;

@@ -4,7 +4,8 @@ import {
   ShamiriRickAndMortyNotesUpdate,
 } from "@/lib/pb/database";
 import { tryCatchWrapper } from "@/utils/helpers/async";
-import { useMutation, usePageContext } from "rakkasjs";
+import { useMutation, usePageContext, useQuery } from "rakkasjs";
+import { and, eq } from "typed-pocketbase";
 
 
 export function useUpsertCharacterNote() {
@@ -77,3 +78,32 @@ export function useUpsertCharacterNote() {
     update_note_mutation,
   };
 }
+
+
+interface UseCharacterNotesProps{
+  user_id?:string|null|undefined;
+  character_id:string;
+}
+export function useCharacterNotes({ character_id,user_id }: UseCharacterNotesProps) {
+  const { locals } = usePageContext();
+  const query_key = user_id
+    ? `character_notes/${character_id}/${user_id}`
+    : `character_notes/${character_id}`;
+    const notes_filter = user_id?
+    locals.pb.from("shamiri_rick_and_morty_notes")
+      .createFilter(and(eq("character_id", character_id), eq("user.id", user_id))):
+    locals.pb.from("shamiri_rick_and_morty_notes")
+      .createFilter(eq("character_id", character_id))
+      console.log(" === query filer  ==== ",notes_filter);
+  const query  =useQuery(query_key, () => {
+    return tryCatchWrapper(
+      locals.pb.collection("shamiri_rick_and_morty_notes").getList(1, 20, {
+        filter:notes_filter?.toString(),
+      }),
+    );
+  });
+
+  return query
+  
+}
+

@@ -8,12 +8,12 @@ declare module "rakkasjs" {
     interface PageLocals {
         /** My application-specific stuff */
         pb: PocketBaseClient;
-        pg: DbAuthProps|null
+
     }
     interface ServerSideLocals {
       /** My application-specific stuff */
       pb: PocketBaseClient;
-      pg: DbAuthProps | null;
+
     }
 }
 
