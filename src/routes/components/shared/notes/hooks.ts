@@ -136,7 +136,7 @@ export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
 
 
 
-  console.log(" === query filer  ==== ", notes_filter);
+
 
 
   const query = useQuery(

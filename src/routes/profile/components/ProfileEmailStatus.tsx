@@ -54,7 +54,7 @@ export function ProfileEmailStatus({
       },
     },
   );
-  if (!verified) {
+  if (verified) {
     return (
       <div className="flex gap-2 items-center justify-center ">
         <h1 className="text- font-bold text-success">{email}</h1>
