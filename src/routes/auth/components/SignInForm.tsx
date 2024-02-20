@@ -16,7 +16,7 @@ export function SignInForm({}: SignInFormProps) {
   const [show, setShow] = useState(false);
   const {current} = useLocation()
   const qc = useQueryClient();
-  const show_form = true;
+
   const { handleChange, input, setError, setInput, validateInputs } =
     useFormHook<{ usernameOrEmail: string; password: string }>({
       initialValues: {
@@ -108,7 +108,7 @@ function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     <div className="w-full h-fit flex flex-col items-center justify-center p-5 gap-5">
       <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col gap-5">
         <h1 className="text-3xl font-bold">Sign In</h1>
-        {show_form && (
+   
           <form
             className="w-full h-full  flex flex-col items-center justify-center gap-4"
             // method="POST"
@@ -155,8 +155,7 @@ function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
               )}
             </Button>
           </form>
-        )}
-        {show_form && (
+     
           <div className="w-full flex items-center justify-center">
             <span className="w-full border-t" />
             <span className="bg-background px-2 text-muted-foreground min-w-fit">
@@ -164,10 +163,10 @@ function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
             </span>
             <span className="w-full border-t" />
           </div>
-        )}
+        
         <OAuthproviders />
       </div>
-      {show_form && (
+ 
         <div className="flex flex-col gap-2">
           <p className=" text-sm">
             New here ? Create an account ?{" "}
@@ -191,7 +190,7 @@ function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
             )}
           </button>
         </div>
-      )}
+      
     </div>
   );
 }
