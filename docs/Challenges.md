@@ -11,7 +11,7 @@ The main issues with it were
     
 - lack of fragments : everything is just a scalar making us clever caching react relay does
 - Lack of nested pagination :
--  
+  
 ```graphql
     episodes(page: $page, filter: { name: $name }) {
       info {
@@ -152,3 +152,48 @@ const episode_locations = React.useMemo(() => {
  This part had me trying to fit the residents as a nested list under the locations list.
 
 I spent the first day of trying out approaches to see how many perfomance and UX challenges this would present and am glad that after reaching out to the team they determined that rendering the location results as links to the characters would be an acceptable solution and I went with  that as I did not have to worry about the virtualized nested data with images  
+
+### 3. React relay and suspense
+Relay is built around suspense data fetching , it doesn't have an `isLoading` or `isError` field from it's data fetching hooks `uselazyLoadQuery` and `useLFragment` so they need to be wrapped with a `<Suspense/>` component.
+
+Having a search bar inside a suspense boundary would cause a lot of flickering while the data is loading.
+
+To remedy this I tried hoisting out the search component and state into the parent component and passing down the current keyword into the data fetching component  
+
+```tsx
+export function SearchComponentParet() {
+  const [keyword, setKeyword] = React.useState("");
+  return (
+      <div className="w-full">
+      <input onChange={(e) => setKeyword(e.target.value)} value={keyword}/>
+      <Suspense>
+        <DataFetchingComponent keyword={keyword}/>
+      </Suspense>
+      </div>
+  )
+
+}
+```
+
+Even though the suspense boundary isn't covering our search bar ,the suspense boundary will still keep showing after every value change (even with debouncing) ,
+Lucky for us React 18 came with some more stuff along `Suspense` that help in concurrent rendering in particular I used the `useTransition` hook that allows us to mark the input changes as more urgent hence forcing all other renders to the background , including the suspending component
+
+
+```tsx
+export function SearchComponentParet() {
+  const [keyword, setKeyword] = React.useState("");
+  const [isPending, startTransition] = useTransition();
+  return (
+      <div className="w-full">
+      <input onChange={(e) => startTransition(setKeyword(e.target.value))} value={keyword}/>
+      <Suspense>
+        <DataFetchingComponent keyword={keyword}/>
+      </Suspense>
+      </div>
+  )
+
+}
+```
+
+This way , we'll maintain the view of the old results as the new ones are fetched in between typing giving us better UX overall
+
