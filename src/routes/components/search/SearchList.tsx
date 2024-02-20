@@ -144,12 +144,7 @@ export const searchLocationsQuery = graphql`
         id
         name
         type
-        #  residents {
-        #   id
-        #  image
-        # name
-        #status
-        # }
+ 
       }
     }
     #  end of locations query
@@ -169,21 +164,14 @@ export const searchLocationsQuery = graphql`
           id
           name
           type
-          #     residents {
-          #      id
-          #     image
-          #    name
-          #   status
-          #}
+
         }
       }
     }
     # end of characters query
 
     # start of episodes query
-    # unlike the rest of the queries , this one cannot return the residets of the episode locations
-    #  as the query would exceed maximum depth allowance
-    #  we'll return the loactions ids and fetch the locations in the child component
+
     episodes(page: $page, filter: { name: $name }) {
       info {
         count
