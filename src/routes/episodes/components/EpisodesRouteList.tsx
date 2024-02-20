@@ -26,7 +26,7 @@ export function EpisodesRouteList({
     );
   }
   return (
-    <div className="w-full h-full  gap-5  ">
+    <div className="w-full h-fit flex flex-col items-center  gap-2">
       <ul className="flex flex-wrap  w-full gap-2 pb-5 ">
         {episodes.map((episode) => {
           if (!episode) return null;
@@ -45,6 +45,7 @@ export function EpisodesRouteList({
         query_key="ep"
         total_pages={query?.episodes?.info?.pages ?? 10}
       />
+      <div className="h-5"></div>
     </div>
   );
 }

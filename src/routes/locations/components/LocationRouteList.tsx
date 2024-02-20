@@ -27,7 +27,7 @@ export function LocationRouteList({
     );
   }
   return (
-    <div className="w-full h-full flex flex-col gap-2">
+    <div className="w-full h-fit flex flex-col items-center  gap-2">
       <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
         {locations.map((location) => {
           if (!location) return null;
@@ -47,6 +47,7 @@ export function LocationRouteList({
         query_key="lp"
         total_pages={query?.locations?.info?.pages ?? 10}
       />
+      <div className="h-5"></div>
     </div>
   );
 }

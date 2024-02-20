@@ -21,15 +21,14 @@ export function CharacterRouteList({
   const characters = query?.characters?.results;
   if (!characters || characters?.length === 0) {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center">
+      <div className="w-full h-fit flex flex-col items-center justify-center">
         <h1 className="text-xl font-bold">No characters found</h1>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center  gap-2">
- 
+    <div className="w-full h-fit flex flex-col items-center  gap-2">
       <ul className="flex flex-wrap justify-center w-full gap-2 pb-5">
         {characters.map((character) => {
           if (!character) return null;
@@ -47,7 +46,11 @@ export function CharacterRouteList({
           );
         })}
       </ul>
-      <ListPagination query_key="cp" total_pages={query?.characters?.info?.pages??10}/>
+      <ListPagination
+        query_key="cp"
+        total_pages={query?.characters?.info?.pages ?? 10}
+      />
+      <div className="h-5"></div>
     </div>
   );
 }

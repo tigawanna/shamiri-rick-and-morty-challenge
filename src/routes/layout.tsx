@@ -43,7 +43,7 @@ function Layout({ children }: LayoutProps) {
           <div className="hidden  min-w-[5%] w-fit sm:flex h-screen gap-2">
             <Sidebar />
           </div>
-          <div className="w-full flex flex-col  gap-2 ">
+          <div className="w-full flex flex-col gap-2">
             {open && (
               <div
                 className="sm:hidden fixed top-0 right-[20%] w-full h-screen z-40
@@ -51,12 +51,12 @@ function Layout({ children }: LayoutProps) {
                 onClick={() => setOpen(!open)}
               ></div>
             )}
-            <div className="w-fit flex rounded-xl">
-              <ClientSuspense fallback={null}>
+            <div className="w-fit flex rounded-xl ">
+              <ClientSuspense fallback={<div className="w-full h-5"></div>}>
                 <BreadCrumbs />
               </ClientSuspense>
             </div>
-            <div className="w-full h-[95vh]  overflow-y-auto md:pl-4  p-2  flex flex-col  gap-2 ">
+            <div className="w-full h-[95vh]  overflow-y-auto md:pl-4  px-2  flex flex-col  gap-2 ">
               <ErrorBoundaryComponent>{children}</ErrorBoundaryComponent>
             </div>
           </div>
