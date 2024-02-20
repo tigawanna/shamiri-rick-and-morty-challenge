@@ -1,5 +1,7 @@
 import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { OneCharacterRouteComponentQuery } from "./__generated__/OneCharacterRouteComponentQuery.graphql";
+import { CharachterNoteModal } from "@/routes/components/shared/notes/CharachterNoteModal";
+import { Plus } from "lucide-react";
 
 interface OneCharacterRouteComponentProps {
   id: string;
@@ -40,19 +42,35 @@ export function OneCharacterComponent({
       {/* character details */}
       <div className="w-full  flex justify-center items-center   flex-col sm:flex-row gap-3 px-4">
         <div className="w-full p-2 flex gap-4  h-full justify-center  items-center bg-base-300 rounded-lg shadow-md">
-          <h2 className="text-6xl font-bold lg:text-8xl  p-3 aspect-square rounded-xl">{character.id}</h2>
-          <div className="flex flex-col">
-          <h2 className="text-3xl lg:text-6xl font-bold">{character.name}.</h2>
-          <span
-            data-tip={"status:" + character.status}
-            className="flex items-center gap-1 text-2xl tooltip hover:tooltip-open tooltip-bottom"
-          >
-            status:
-            <h3 className={`badge ${status_badge_styles(character?.status)}`}>
-              {character.status}
-            </h3>
-          </span>
-
+          <h2 className="text-7xl font-bold lg:text-8xl  p-3 aspect-square rounded-xl">
+            {character.id}
+          </h2>
+          <div className="flex flex-col gap-2 justify-start">
+            <h2 className="text-3xl lg:text-6xl font-bold">
+              {character.name}.
+            </h2>
+            <span
+              data-tip={"status:" + character.status}
+              className="flex items-center gap-1 text-2xl tooltip hover:tooltip-open tooltip-bottom"
+            >
+              status:
+              <h3 className={`badge ${status_badge_styles(character?.status)}`}>
+                {character.status}
+              </h3>
+            </span>
+            <div className="btn btn-sm btn-wide">
+              {character.id && character.name && (
+                <CharachterNoteModal
+                  character_id={character.id}
+                  character_name={character.name}
+                  icon={
+                    <div className="flex gap-2 justify-center items-center ">
+                      <Plus /> Add note
+                    </div>
+                  }
+                />
+              )}
+            </div>
           </div>
         </div>
         <img
@@ -65,7 +83,6 @@ export function OneCharacterComponent({
         />
       </div>
       {/* user generated charcater note section  */}
-
     </div>
   );
 }

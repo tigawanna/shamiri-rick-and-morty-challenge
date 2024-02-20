@@ -8,11 +8,14 @@ import {
 import { tryCatchWrapper } from "@/utils/helpers/async";
 import { pageNumberParser } from "@/utils/helpers/others";
 import { useCustomSearchParams } from "@/utils/hooks/useCustomSearchParams";
-import { useMutation, usePageContext, useQuery } from "rakkasjs";
+import { useMutation, usePageContext, useQuery, useQueryClient } from "rakkasjs";
+import { useState } from "react";
 import { TypedPocketBase, and, eq } from "typed-pocketbase";
 
 export function useUpsertCharacterNote() {
   const { locals } = usePageContext();
+    const [open, setOpen] = useState(false);
+    const qc = useQueryClient()
   const create_note_mutation = useMutation(
     (data: ShamiriRickAndMortyNotesCreate) => {
       return tryCatchWrapper(
@@ -20,12 +23,15 @@ export function useUpsertCharacterNote() {
       );
     },
     {
+      invalidateTags: ["character_notes"],
       onSuccess(data) {
         if (data && data.data) {
           hotToast({
             title: "Note created",
             type: "success",
           });
+
+          setOpen(false);
         }
         if (data && data.error) {
           hotToast({
@@ -51,12 +57,15 @@ export function useUpsertCharacterNote() {
       );
     },
     {
+      invalidateTags: ["character_notes"],
       onSuccess(data) {
         if (data && data.data) {
           hotToast({
             title: "Note updated",
             type: "success",
           });
+
+          setOpen(false);
         }
         if (data && data.error) {
           hotToast({
@@ -77,18 +86,19 @@ export function useUpsertCharacterNote() {
   );
 
   return {
+    open,setOpen,
     create_note_mutation,
     update_note_mutation,
   };
 }
 
 interface UseCharacterNotesProps {
-  user_id?: string | null | undefined;
-  character_id: string;
+
+  character_id?: string;
 }
 export function useCharacterNotes({
   character_id,
-  user_id,
+
 }: UseCharacterNotesProps) {
   const { search_param: page_no } = useCustomSearchParams({
     key: "pbnp",
@@ -96,6 +106,7 @@ export function useCharacterNotes({
   });
   const page = pageNumberParser(page_no);
   const { locals } = usePageContext();
+  const user_id = locals.pb.authStore.model?.id;
   const query_key = user_id
     ? `character_notes/${character_id}/${user_id}`
     : `character_notes/${character_id}`;
@@ -103,11 +114,11 @@ export function useCharacterNotes({
     ? locals.pb
         .from("shamiri_rick_and_morty_notes")
         .createFilter(
-          and(eq("character_id", character_id), eq("user.id", user_id)),
+          and(eq("character_id", character_id??""), eq("user.id", user_id??"")),
         )
     : locals.pb
         .from("shamiri_rick_and_morty_notes")
-        .createFilter(eq("character_id", character_id));
+        .createFilter(eq("character_id", character_id??""));
   console.log(" === query filer  ==== ", notes_filter);
   const query = useQuery(query_key, () => {
     return tryCatchWrapper(
@@ -124,6 +135,8 @@ export function useCharacterNotes({
 
       // }),
     );
+  }, {
+    tags: ["character_notes"],
   });
 
   return query;

@@ -1,14 +1,15 @@
 import { useQuery } from "rakkasjs";
+import { ShamiriUsersResponse } from "../database";
 
 export function useViewer() {
   const query = useQuery({
     queryKey: "viewer",
     queryFn: async (ctx) => {
       try {
-        const user = ctx.locals?.pb?.authStore?.model;
-        return { viewer: user, error: null };
+        const user = ctx.locals?.pb?.authStore?.model as ShamiriUsersResponse
+        return { user, error: null };
       } catch (error: any) {
-        return { viewer: null, error: error.message };
+        return { user: null, error: error.message };
       }
     },
   });
