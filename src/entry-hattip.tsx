@@ -4,8 +4,6 @@ import { Environment, Network, RecordSource, Store } from "relay-runtime";
 import { RelayEnvironmentProvider } from "@/lib/relay/modules";
 import { fetchFn } from "./lib/relay/RelayEnvironment";
 import { RequestContext } from "rakkasjs";
-import { PocketBaseClient } from "./lib/pb/client";
-import PocketBase from "pocketbase";
 import { TypedPocketBase } from "typed-pocketbase";
 import { Schema } from "@/lib/pb/database";
 
@@ -43,7 +41,7 @@ export default createRequestHandler({
     const serverRelayEnvironment = createRelayEnvironment(requestContext);
     return {
       emitToDocumentHead() {
-        const cookie_theme = requestContext?.cookie?.theme;
+        const cookie_theme = requestContext?.cookie?.theme??"dark";
         const relay_data = serverRelayEnvironment
           ?.getStore()
           ?.getSource()
