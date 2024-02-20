@@ -1,7 +1,5 @@
 import { tryCatchWrapper } from "@/utils/helpers/async";
-import { ShamiriUsersCreate } from "./database";
 import { CollectionName, PocketBaseClient } from "./client";
-
 import { Schema } from "./database";
 import { OAuth2AuthConfig } from "pocketbase";
 
@@ -11,10 +9,6 @@ export interface BasePocketbaseOperations<T extends CollectionName> {
   pb: PocketBaseClient;
   collection: T;
 }
-
-
-
-
 
 export interface ResetPasswordPocketbaseUser<T extends CollectionName>
   extends BasePocketbaseOperations<T> {

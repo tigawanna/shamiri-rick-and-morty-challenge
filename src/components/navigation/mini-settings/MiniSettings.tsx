@@ -67,7 +67,7 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
       },
     },
   );
-  const viewer = query.data?.viewer;
+  const viewer = query.data.user
 
 
   return (
@@ -75,9 +75,10 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
       <DropdownMenuTrigger asChild>
         <Button className="relative h-7 w-7 rounded-full">
           <Avatar className="h-8 w-8">
+            {/*  */}
             <AvatarImage src={viewer?.avatarUrl} alt="viewer" />
             {viewer ? (
-              <AvatarFallback>{viewer?.login?.slice(0, 2)}</AvatarFallback>
+              <AvatarFallback>{viewer?.username?.slice(0, 2)}</AvatarFallback>
             ) : (
               <AvatarFallback>{"n/a"}</AvatarFallback>
             )}
@@ -93,9 +94,9 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
           <DropdownMenuSeparator />
           <div className="flex flex-col gap-1 p-3">
             <div className="flex flex-col gap-1 p-3">
-              <div>@{viewer?.login}</div>
-              <div>{viewer?.name}</div>
+              <div>@{viewer?.username}</div>
               <div>{viewer?.email}</div>
+         
             </div>
 
             <Button

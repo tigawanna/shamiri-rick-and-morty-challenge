@@ -1,9 +1,9 @@
-import { GithubOauthResponse } from "./database";
+
 
 
 export interface GithubOauthResponseType {
   meta: OauthMetaResponse;
-  record: GithubOauthResponse;
+  record: GithubOauthResponseType;
   token: string;
 }
 

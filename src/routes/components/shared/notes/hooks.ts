@@ -120,8 +120,8 @@ export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
   const query_key = user_id
     ? `character_notes/${character_id}/${user_id}`
     : `character_notes/${character_id}`;
-  
-    const notes_filter = character_id
+
+  const notes_filter = character_id
     ? locals.pb
         .from("shamiri_rick_and_morty_notes")
         .createFilter(
@@ -133,11 +133,6 @@ export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
     : locals.pb
         .from("shamiri_rick_and_morty_notes")
         .createFilter(eq("user.id", user_id ?? ""));
-
-
-
-
-
 
   const query = useQuery(
     query_key,
