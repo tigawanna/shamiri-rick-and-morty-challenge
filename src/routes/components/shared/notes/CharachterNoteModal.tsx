@@ -36,15 +36,10 @@ export function CharachterNoteModal({
   const {data:{user}}= useViewer()
   const user_id = user?.id!
 
-  const { handleChange, input, setError, setInput, validateInputs } =
-    useFormHook<{ note: string }>({
-      initialValues: {
-        note: note ?? "",
-      },
-    });
 
-  const { open,setOpen,create_note_mutation, update_note_mutation } =
-    useUpsertCharacterNote();
+
+  const { open,setOpen,create_note_mutation, update_note_mutation,input,handleChange } =
+    useUpsertCharacterNote({note});
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{icon}</DialogTrigger>
@@ -53,7 +48,6 @@ export function CharachterNoteModal({
           <DialogTitle>{note_id ? "Edit Note" : "Add Note"}</DialogTitle>
         </DialogHeader>
         <div className="flex gap-4 py-4">
-
           <PbTheTextAreaInput
             field_key={"note"}
             field_name="Note"
@@ -61,13 +55,18 @@ export function CharachterNoteModal({
             value={input.note}
             onChange={handleChange}
             // @ts-expect-error
-            pb_error={create_note_mutation.data?.error||update_note_mutation.data?.error}
+            pb_error={
+              create_note_mutation.data?.error ||
+              update_note_mutation.data?.error
+            }
           />
         </div>
         <DialogFooter className="flex items-center justify-center gap-2">
           {note_id && note ? (
             <Button
               type="button"
+              className="flex gap-2 items-center justify-center"
+              disabled={update_note_mutation.isLoading}
               onClick={() =>
                 update_note_mutation.mutate({
                   id: note_id,
@@ -76,10 +75,15 @@ export function CharachterNoteModal({
               }
             >
               Update
+              {update_note_mutation.isLoading && (
+                <Loader className="animate-spin" />
+              )}
             </Button>
           ) : (
             <Button
               type="button"
+              className="flex gap-2 items-center justify-center"
+              disabled={create_note_mutation.isLoading}
               onClick={() =>
                 create_note_mutation.mutate({
                   character_id,
@@ -90,10 +94,14 @@ export function CharachterNoteModal({
               }
             >
               Save changes
+              {create_note_mutation.isLoading && (
+                <Loader className="animate-spin" />
+              )}
             </Button>
           )}
-          {(create_note_mutation.isLoading||update_note_mutation.isLoading) && (
-            <Loader className="ml-2 h-4 w-4 animate-spin"/>
+          {(create_note_mutation.isLoading ||
+            update_note_mutation.isLoading) && (
+            <Loader className="animate-spin" />
           )}
         </DialogFooter>
       </DialogContent>
