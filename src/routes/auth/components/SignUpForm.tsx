@@ -47,7 +47,7 @@ export function SignUpForm({}: SignupFormProps) {
       onSuccess(data) {
         if (data && data?.data) {
           qc.invalidateQueries(["viewer"]);
-          console.log({ data });
+          // console.log({ data });
           hotToast({
             title: `Welcome ${data?.data?.record?.username}`,
             type: "success",
