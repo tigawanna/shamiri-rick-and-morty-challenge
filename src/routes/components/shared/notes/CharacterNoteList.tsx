@@ -8,10 +8,11 @@ import { Edit } from "lucide-react";
 
 interface CharacterNoteListProps {
   character_id?: string;
+  view:"character"|"user"
 }
 
-export function CharacterNoteList({ character_id }: CharacterNoteListProps) {
-  const query = useCharacterNotes({ character_id });
+export function CharacterNoteList({ character_id,view }: CharacterNoteListProps) {
+  const query = useCharacterNotes({ character_id,view });
   const {
     data: { user },
   } = useViewer();

@@ -9,7 +9,7 @@ export default function OneCharacterPage({ params }: PageProps) {
     <div className="w-full h-full  flex flex-col  items-center justify-center gap-5">
       <OneCharacterComponent id={one_character} />
       <Suspense fallback={<GridSuspenseFallback />}>
-        <CharacterNoteList character_id={one_character} />
+        <CharacterNoteList character_id={one_character} view="character"/>
       </Suspense>
     </div>
   );

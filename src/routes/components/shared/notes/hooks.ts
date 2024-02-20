@@ -108,8 +108,12 @@ export function useUpsertCharacterNote({ note }: { note?: string }) {
 
 interface UseCharacterNotesProps {
   character_id?: string;
+  view: "character" | "user";
 }
-export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
+export function useCharacterNotes({
+  character_id,
+  view,
+}: UseCharacterNotesProps) {
   const { search_param: page_no } = useCustomSearchParams({
     key: "pbnp",
     default_value: "1",
@@ -121,19 +125,19 @@ export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
     ? `character_notes/${character_id}/${user_id}`
     : `character_notes/${character_id}`;
 
-  const notes_filter = character_id
-    ? locals.pb
-        .from("shamiri_rick_and_morty_notes")
-        .createFilter(
-          and(
-            eq("character_id", character_id ?? ""),
-            eq("user.id", user_id ?? ""),
-          ),
-        )
-    : locals.pb
-        .from("shamiri_rick_and_morty_notes")
-        .createFilter(eq("user.id", user_id ?? ""));
+  function generateQueryFilters({}: {
+    character_id?: string;
+    user_id?: string;
+  }) {
+    if (view === "user") {
+      return eq("user.id", user_id ?? "");
+    }
+    if (view === "character") {
+      return eq("character_id", character_id ?? "");
+    }
 
+    return "";
+  }
   const query = useQuery(
     query_key,
     () => {
@@ -145,7 +149,7 @@ export function useCharacterNotes({ character_id }: UseCharacterNotesProps) {
               user: true,
             },
           },
-          filter: notes_filter?.toString(),
+          filter: generateQueryFilters({ character_id, user_id }).toString(),
         }),
         // .getList(1, 20, {
         //   filter: notes_filter?.toString(),

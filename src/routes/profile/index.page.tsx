@@ -14,7 +14,7 @@ const{data:{user}}=useViewer()
     <div className="w-full h-full  flex flex-col  gap-3">
       <ProfileDetails profile={profile} />
       <Suspense fallback={<GridSuspenseFallback/>}>
-        <CharacterNoteList/>
+        <CharacterNoteList view="user"/>
       </Suspense>
     </div>
   );
