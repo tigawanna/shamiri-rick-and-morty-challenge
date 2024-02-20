@@ -37,6 +37,7 @@ export function LocationRouteList({
               key={key}
               id={location.id}
               name={location.name}
+              type={location.type}
               href={`/locations/${location.id}`}
             />
           );
@@ -63,6 +64,7 @@ export const locationsQuery = graphql`
         created
         id
         name
+        type
       }
     }
     # end of episodes query

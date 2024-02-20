@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf700d60b96dc8aa7c763f456cb937a2>>
+ * @generated SignedSource<<286a018abd6a78585c33dcce22c2e6c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,7 @@ export type SearchListLocationsQuery$data = {
       readonly location: {
         readonly id: string | null | undefined;
         readonly name: string | null | undefined;
+        readonly type: string | null | undefined;
       } | null | undefined;
       readonly name: string | null | undefined;
     } | null | undefined> | null | undefined;
@@ -43,6 +44,7 @@ export type SearchListLocationsQuery$data = {
         readonly location: {
           readonly id: string | null | undefined;
           readonly name: string | null | undefined;
+          readonly type: string | null | undefined;
         } | null | undefined;
       } | null | undefined>;
       readonly created: string | null | undefined;
@@ -153,7 +155,18 @@ v4 = {
   "name": "name",
   "storageKey": null
 },
-v5 = {
+v5 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "type",
+    "storageKey": null
+  }
+],
+v6 = {
   "alias": null,
   "args": (v1/*: any*/),
   "concreteType": "Locations",
@@ -169,36 +182,23 @@ v5 = {
       "kind": "LinkedField",
       "name": "results",
       "plural": true,
-      "selections": [
-        (v3/*: any*/),
-        (v4/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "type",
-          "storageKey": null
-        }
-      ],
+      "selections": (v5/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "concreteType": "Location",
   "kind": "LinkedField",
   "name": "location",
   "plural": false,
-  "selections": [
-    (v3/*: any*/),
-    (v4/*: any*/)
-  ],
+  "selections": (v5/*: any*/),
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": (v1/*: any*/),
   "concreteType": "Characters",
@@ -217,21 +217,21 @@ v7 = {
       "selections": [
         (v3/*: any*/),
         (v4/*: any*/),
-        (v6/*: any*/)
+        (v7/*: any*/)
       ],
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "created",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -245,8 +245,8 @@ return {
     "metadata": null,
     "name": "SearchListLocationsQuery",
     "selections": [
-      (v5/*: any*/),
-      (v7/*: any*/),
+      (v6/*: any*/),
+      (v8/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
@@ -266,8 +266,8 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -276,7 +276,7 @@ return {
                 "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v6/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -296,8 +296,8 @@ return {
     "kind": "Operation",
     "name": "SearchListLocationsQuery",
     "selections": [
-      (v5/*: any*/),
-      (v7/*: any*/),
+      (v6/*: any*/),
+      (v8/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
@@ -317,8 +317,8 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -327,7 +327,7 @@ return {
                 "name": "characters",
                 "plural": true,
                 "selections": [
-                  (v6/*: any*/),
+                  (v7/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -341,16 +341,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a384434ece7608b769df53ee64b3aa7d",
+    "cacheID": "04262ebe34d1aaa954f3c7615fea5b2f",
     "id": null,
     "metadata": {},
     "name": "SearchListLocationsQuery",
     "operationKind": "query",
-    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      type\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      created\n      air_date\n      characters {\n        location {\n          id\n          name\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query SearchListLocationsQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      type\n    }\n  }\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      location {\n        id\n        name\n        type\n      }\n    }\n  }\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      id\n      name\n      created\n      air_date\n      characters {\n        location {\n          id\n          name\n          type\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b98ead05e68d0c405807e07d42f354e8";
+(node as any).hash = "7b9568a7c5748186ff5728ca6fbcde24";
 
 export default node;

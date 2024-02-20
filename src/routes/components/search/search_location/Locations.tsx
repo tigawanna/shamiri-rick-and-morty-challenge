@@ -32,6 +32,7 @@ export function Locations({ locations }: LocationsProps) {
               key={key}
               id={loc.id}
               name={loc?.name}
+              type={loc.type}
             />
           );
         })}

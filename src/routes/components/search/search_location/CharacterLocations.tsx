@@ -49,6 +49,7 @@ export function CharacterLocations({ characters }: CharacterLocationsProps) {
                 key={key}
                 id={one_episode?.id}
                 name={one_episode?.name}
+                type={one_episode?.type}
               />
             </ItemWrapper>
           );

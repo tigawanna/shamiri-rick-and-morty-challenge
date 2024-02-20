@@ -168,6 +168,7 @@ export const searchLocationsQuery = graphql`
         location {
           id
           name
+          type
           #     residents {
           #      id
           #     image
@@ -199,6 +200,7 @@ export const searchLocationsQuery = graphql`
           location {
             id
             name
+            type
           }
         }
       }

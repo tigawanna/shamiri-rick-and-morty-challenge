@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7f5da83c5dff1c5711421747e9d3fe95>>
+ * @generated SignedSource<<75263d98b83d140108a1826d9d450324>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,7 @@ export type LocationRouteListQuery$data = {
       readonly created: string | null | undefined;
       readonly id: string | null | undefined;
       readonly name: string | null | undefined;
+      readonly type: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
 };
@@ -139,6 +140,13 @@ v1 = [
             "kind": "ScalarField",
             "name": "name",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "type",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -165,16 +173,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "5df674bfe0944af7373f834f98500829",
+    "cacheID": "bafc4631f584114d661f9bdb9adb75ef",
     "id": null,
     "metadata": {},
     "name": "LocationRouteListQuery",
     "operationKind": "query",
-    "text": "query LocationRouteListQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query LocationRouteListQuery(\n  $name: String!\n  $page: Int\n) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      count\n      next\n      pages\n      prev\n    }\n    results {\n      created\n      id\n      name\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2ce3ac2941a961edc5c9bb201d6b93cc";
+(node as any).hash = "fe8739b49246c0b63a99e838aad9f064";
 
 export default node;

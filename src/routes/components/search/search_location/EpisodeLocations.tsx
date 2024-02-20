@@ -53,6 +53,7 @@ const episode_locations = React.useMemo(() => {
                   key={key}
                   id={one_episode?.id}
                   name={one_episode?.name}
+                  type={one_episode?.type}
                 />
               </ItemWrapper>
             );
