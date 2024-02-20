@@ -53,9 +53,9 @@ export function CharacterNoteList({ character_id }: CharacterNoteListProps) {
              gap-1 min-h-24 w-fit min-w-[25%] max-w-[90%] relative"
             >
               <div className="absolute top-[2%] right-[2%]">
-                {(note.character_id &&
+                {note.character_id &&
                   note.character_name &&
-                  user?.username === note.expand?.user?.username) && (
+                  user?.username === note.expand?.user?.username && (
                     <CharachterNoteModal
                       character_id={note.character_id}
                       character_name={note.character_name}
@@ -71,7 +71,16 @@ export function CharacterNoteList({ character_id }: CharacterNoteListProps) {
               </div>
               <p className="text-lg w-full p-2 h-full">{note.note}</p>
               <div className={is_me_tw_styles}>
-                <div className="text-sm">@{note.expand?.user?.username}div</div>
+                <img
+                  src={note.expand?.user?.avatarUrl ?? "/placeholder.webp"}
+                  loading="lazy"
+                  className="h-6 w-6 rounded-full"
+                  height={100}
+                  width={100}
+                />
+                <div className="text-sm">
+                  @{note.expand?.user?.username}divi
+                </div>
                 <div className="text-xs">
                   {dayjs(note.created).format("DD-MM-YYYY")}
                 </div>

@@ -12,10 +12,11 @@ interface ProfileDetailsProps {
 
 export function ProfileDetails({ profile }: ProfileDetailsProps) {
   return (
-    <div className="w-full flex flex-wrap items-center justify-center md:justify-between">
-      <div className="flex gap-3 min-w-fit items-center justify-center">
+    <div className="w-full flex flex-col sm:flex-row items-center justify-center md:justify-between gap-1">
+      <div className="w-full  h-full flex gap-4  items-center justify-between p-2 bg-base-200 rounded-lg">
+      <div className="flex flex-col gap-3 items-center justify-center">
         <h1 className="text-3xl font-bold">@{profile?.username}</h1>
-          <EditUserProfile id={profile?.id} username={profile?.username} />
+        <EditUserProfile id={profile?.id} username={profile?.username} />
       </div>
       <div className="">
         <ProfileEmailStatus
@@ -25,6 +26,15 @@ export function ProfileDetails({ profile }: ProfileDetailsProps) {
 
         <h1 className="">joined: {dayjs(profile?.created).fromNow()}</h1>
       </div>
+      </div>
+      <img
+        className="w-full max-w-[300px] h-auto max-h-[200px] sm:max-h-auto sm:w-auto sm:h-full aspect-square object-cover"
+        src={profile?.avatarUrl ?? "/placeholder.webp"}
+        loading="lazy"
+        alt={profile?.username ?? "user profile"}
+        height={"200px"}
+        width={"200px"}
+      />
     </div>
   );
 }

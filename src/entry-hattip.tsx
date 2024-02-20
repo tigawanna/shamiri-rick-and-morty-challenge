@@ -22,9 +22,9 @@ function createRelayEnvironment(ctx: RequestContext) {
 }
 
 function pocketbaseMiddleware(ctx: RequestContext) {
-  ctx.locals.pb = new PocketBase(
+  ctx.locals.pb = new TypedPocketBase<Schema>(
     import.meta.env.RAKKAS_PB_URL,
-  ) as PocketBaseClient;
+  );
   // load the store data from the request cookie string
   ctx.locals.pb.authStore.loadFromCookie(
     ctx.request.headers.get("cookie") || "",

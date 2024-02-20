@@ -14,7 +14,7 @@ interface PbTheImagePickerProps {
   setFileImage?: (file: File | null) => void;
 }
 
-export function PbTheImagePicker({
+export function PBTheImagePicker({
   label,
   label_classname,
   show_preview = true,
