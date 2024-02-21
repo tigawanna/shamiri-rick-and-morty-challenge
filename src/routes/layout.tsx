@@ -22,7 +22,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <ErrorBoundaryComponent>
-      <div className="w-full h-[dvh]   flex flex-col items-center ">
+      <div className="w-full h-screen  overflow-y-hidden  flex flex-col items-center ">
         <ClientSuspense fallback={null}>
           <Nprogress
             isAnimating={location && location?.pending ? true : false}
@@ -34,13 +34,13 @@ function Layout({ children }: LayoutProps) {
             {open && (
               <div
                 onClick={() => setOpen(!open)}
-                className="sm:hidden w-full flex z-40 h-[99dvh] gap-2 animate-in fade-in zoom-in"
+                className="sm:hidden w-full flex z-40 h-screen gap-2 animate-in fade-in zoom-in"
               >
                 <Sidebar />
               </div>
             )}
           </div>
-          <div className="hidden  min-w-[5%] w-fit sm:flex  gap-2 h-[99dvh]">
+          <div className="hidden  min-w-[5%] w-fit sm:flex h-screen gap-2">
             <Sidebar />
           </div>
           <div className="w-full flex flex-col gap-2">
@@ -56,7 +56,7 @@ function Layout({ children }: LayoutProps) {
                 <BreadCrumbs />
               </ClientSuspense>
             </div>
-            <div className="w-full h-[95dvh]  overflow-y-auto md:pl-4  px-2  flex flex-col  gap-2 ">
+            <div className="w-full h-[95vh]  overflow-y-auto md:pl-4  px-2  flex flex-col  gap-2 ">
               <ErrorBoundaryComponent>{children}</ErrorBoundaryComponent>
             </div>
           </div>
