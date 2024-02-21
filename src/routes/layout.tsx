@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import "./index.css";
 
-import "../components/shared/pagination/pagination.css"
+import "../components/shared/pagination/pagination.css";
 
 function Layout({ children }: LayoutProps) {
   const location = useLocation();
