@@ -70,14 +70,14 @@ export function SearchList({
         }
         className="w-full h-full "
       >
-        <TabsList className="grid w-full grid-cols-3 sticky top-0 z-50">
-          <TabsTrigger value="LOCATION">
+        <TabsList className="grid w-full sm:grid-cols-3 sticky top-0 z-50">
+          <TabsTrigger value="LOCATION" >
             Location name {location_locations.length}
           </TabsTrigger>
-          <TabsTrigger value="CHARACTER">
+          <TabsTrigger value="CHARACTER" >
             Character name {character_locations.length}
           </TabsTrigger>
-          <TabsTrigger value="EPISODE">
+          <TabsTrigger value="EPISODE" >
             Episode name {episode_locations.length}
           </TabsTrigger>
         </TabsList>
