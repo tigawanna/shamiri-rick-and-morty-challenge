@@ -31,7 +31,7 @@ Features:
 - view other people's notes
 - sharing URL's will maintain activity state  using search parameters
 - Authentication with Email-Password , password reset and email verification + google and github OAuth sign-in.
-  - light and dark mode powered by `TailwindCSS` and `DaisyUI` , new themes can be added with a single line addition to `tailwind.config.js`
+  responsive design with light and dark mode powered by `TailwindCSS` and `DaisyUI` , new themes can be added with a single line addition to `tailwind.config.js`
 
 
 Challenges:

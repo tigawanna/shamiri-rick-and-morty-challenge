@@ -7,6 +7,16 @@
   - 4 business days  [37 hours  24 mins Wakatime stats](https://wakatime.com/@018cc20e-ad5a-4d40-ad76-7d398731446f/projects/kfmptouvxp?start=2024-02-14&end=2024-02-20)
   
 
+## Features:
+- Search through  for Rick and Morty AOI, locations , episodes and characters all in one view with tabs synchronized with URL search parameters
+- View the episodes , locations and characters of Rick and Morty with a search bar and filtering options.
+- View character details and notes.
+- add notes to characters.
+- view other people's notes
+- sharing URL's will maintain activity state  using search parameters
+- Authentication with Email-Password , password reset and email verification + google and github OAuth sign-in.
+  responsive design with light and dark mode powered by `TailwindCSS` and `DaisyUI` , new themes can be added with a single line addition to `tailwind.config.js`
+
 
 ## Tech stack
 
