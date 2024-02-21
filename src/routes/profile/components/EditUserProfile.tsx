@@ -32,7 +32,7 @@ export function EditUserProfile({
   const { locals } = usePageContext();
   const qc = useQueryClient();
 
-  const { handleChange, input, error, setError, setInput, validateInputs } =
+  const { handleChange, input, error, setError } =
     useFormHook<ShamiriUsersUpdate>({
       initialValues: {
         username,
