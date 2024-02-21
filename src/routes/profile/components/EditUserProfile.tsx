@@ -1,6 +1,14 @@
 import { useFormHook } from "@/components/form/useForm";
 import { Button } from "@/components/shadcn/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/shadcn/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/shadcn/ui/dialog";
 import { hotToast } from "@/components/wrappers/toast";
 import { updateUser } from "@/lib/pb/auth";
 import { PbTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
@@ -10,14 +18,17 @@ import { Edit, Loader } from "lucide-react";
 import { useMutation, usePageContext, useQueryClient } from "rakkasjs";
 import { PBTheImageURLInput } from "@/lib/pb/components/form/PBTheImageURLInput";
 
-
 interface EditUserProfileProps {
   id: string;
   username: string;
   avatarUrl?: string;
 }
 
-export function EditUserProfile({ id, username,avatarUrl }: EditUserProfileProps) {
+export function EditUserProfile({
+  id,
+  username,
+  avatarUrl,
+}: EditUserProfileProps) {
   const { locals } = usePageContext();
   const qc = useQueryClient();
 
@@ -25,45 +36,47 @@ export function EditUserProfile({ id, username,avatarUrl }: EditUserProfileProps
     useFormHook<ShamiriUsersUpdate>({
       initialValues: {
         username,
-        avatarUrl:avatarUrl??""
+        avatarUrl: avatarUrl ?? "",
       },
     });
-  const update_user_mutation = useMutation((data: ShamiriUsersUpdate) => {
-    return tryCatchWrapper(
-      updateUser({
-        pb: locals.pb,
-        collection: "shamiri_users",
-
-        id,
-        data,
-      }),
-    );
-  }, {
-    onSuccess(data) {
-      if (data && data?.data) {
-        qc.invalidateQueries(["viewer"]);
-        hotToast({
-          type: "success",
-          title: "Username updated",
-        });
-      }
-      if (data && data?.error) {
-        setError(data.error);
+  const update_user_mutation = useMutation(
+    (data: ShamiriUsersUpdate) => {
+      return tryCatchWrapper(
+        updateUser({
+          pb: locals.pb,
+          collection: "shamiri_users",
+          id,
+          data,
+        }),
+      );
+    },
+    {
+      onSuccess(data) {
+        if (data && data?.data) {
+          qc.invalidateQueries(["viewer"]);
+          hotToast({
+            type: "success",
+            title: "Username updated",
+          });
+        }
+        if (data && data?.error) {
+          setError(data.error);
+          hotToast({
+            type: "error",
+            title: "Something went wrong",
+            description: data?.error?.message,
+          });
+        }
+      },
+      onError(error: any) {
         hotToast({
           type: "error",
           title: "Something went wrong",
-          description: data?.error?.message,
+          description: error?.message,
         });
-      }
+      },
     },
-    onError(error:any) {
-      hotToast({
-        type: "error",
-        title: "Something went wrong",
-        description: error?.message,
-      });
-    },
-  });
+  );
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -80,7 +93,10 @@ export function EditUserProfile({ id, username,avatarUrl }: EditUserProfileProps
           className="w-full h-full flex flex-col items-center justify-center gap-4"
           onSubmit={(e) => {
             e.preventDefault();
-            update_user_mutation.mutate({ username: input.username,avatarUrl:input.avatarUrl });
+            update_user_mutation.mutate({
+              username: input.username,
+              avatarUrl: input.avatarUrl,
+            });
           }}
         >
           <PBTheImageURLInput
@@ -97,7 +113,6 @@ export function EditUserProfile({ id, username,avatarUrl }: EditUserProfileProps
           <PbTheTextInput
             field_key={"username"}
             field_name="Username"
-      
             required
             val={input.username}
             onChange={handleChange}

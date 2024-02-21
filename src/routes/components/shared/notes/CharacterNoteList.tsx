@@ -5,6 +5,8 @@ import { ErrorOutput } from "@/components/wrappers/ErrorOutput";
 import { useViewer } from "@/lib/pb/hooks/useViewer";
 import { CharachterNoteModal } from "./CharachterNoteModal";
 import { Edit } from "lucide-react";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 interface CharacterNoteListProps {
   character_id?: string;
@@ -51,9 +53,9 @@ export function CharacterNoteList({ character_id,view }: CharacterNoteListProps)
             <div
               key={note.id}
               className="flex flex-col jusiify-between rounded-lg bg-base-300
-             gap-1 min-h-24 w-fit min-w-[25%] max-w-[90%] relative"
+             gap-1 min-h-24 w-full sm:w-fit  min-w-[25%] max-w-[90%] relative"
             >
-              <div className="absolute top-[2%] right-[2%]">
+              <div className="absolute bottom-[2%] right-[2%]">
                 {note.character_id &&
                   note.character_name &&
                   user?.username === note.expand?.user?.username && (
@@ -64,28 +66,20 @@ export function CharacterNoteList({ character_id,view }: CharacterNoteListProps)
                       note={note.note}
                       icon={
                         <div className="">
-                          <Edit />
+                          <Edit className="h-4 w-4" />
                         </div>
                       }
                     />
                   )}
               </div>
-              <p className="text-lg w-full p-2 h-full">{note.note}</p>
               <div className={is_me_tw_styles}>
-                <img
-                  src={note.expand?.user?.avatarUrl ?? "/placeholder.webp"}
-                  loading="lazy"
-                  className="h-6 w-6 rounded-full"
-                  height={100}
-                  width={100}
-                />
                 <div className="text-sm">
                   @{note.expand?.user?.username}divi
                 </div>
-                <div className="text-xs">
-                  {dayjs(note.created).format("DD-MM-YYYY")}
-                </div>
+                <div className="text-xs">{dayjs(note.created).fromNow()}</div>
               </div>
+              <p className="text-lg w-full p-2 h-full">{note.note}</p>
+              <div className="flex flex-col"></div>
             </div>
           );
         })}
