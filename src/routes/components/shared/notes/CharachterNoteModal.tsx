@@ -18,6 +18,7 @@ import {
   ShamiriRickAndMortyNotesResponse,
   ShamiriUsersResponse,
 } from "@/lib/pb/database";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/shadcn/ui/select";
 
 interface CharachterNoteModalProps {
 
@@ -45,7 +46,9 @@ export function CharachterNoteModal({
     update_note_mutation,
     input,
     handleChange,
-  } = useUpsertCharacterNote({ note: note?.note });
+    setInput
+
+  } = useUpsertCharacterNote({ note });
 
   if (!user) {
     const auth_url = new URL("/auth", current.origin);
@@ -90,12 +93,12 @@ export function CharachterNoteModal({
         <DialogHeader>
           <DialogTitle>{note_id ? "Edit Note" : "Add Note"}</DialogTitle>
         </DialogHeader>
-        <div className="flex gap-4 py-4">
+        <div className="flex flex-col gap-4 py-4">
           <PbTheTextAreaInput
             field_key={"note"}
             field_name="Note"
             required
-            value={input.note}
+            value={input?.note}
             onChange={handleChange}
             // @ts-expect-error
             pb_error={
@@ -103,9 +106,26 @@ export function CharachterNoteModal({
               update_note_mutation.data?.error
             }
           />
+          <Select defaultValue={input?.status} onValueChange={(e:"visible"|"hidden")=>{
+            setInput((prev)=>{
+              return {...prev, status:e}
+            })
+          }}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select visibility" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Status</SelectLabel>
+                <SelectItem value="visible">visible</SelectItem>
+                <SelectItem value="hidden">Hidden</SelectItem>
+
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
         <DialogFooter className="flex items-center justify-center gap-2">
-          {note_id && note ? (
+          {note_id && note  ? (
             <Button
               type="button"
               className="flex gap-2 items-center justify-center"
@@ -129,9 +149,9 @@ export function CharachterNoteModal({
               disabled={create_note_mutation.isLoading}
               onClick={() =>
                 create_note_mutation.mutate({
-                  character_id:note?.character_id!,
-                  character_name:note?.character_name!,
-                  note: input?.note,
+                  character_id: note?.character_id!,
+                  character_name: note?.character_name!,
+                  note: input?.note!,
                   user: user_id,
                   status: "visible",
                 })

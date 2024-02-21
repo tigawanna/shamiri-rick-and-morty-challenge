@@ -2,7 +2,9 @@ import { useFormHook } from "@/components/form/useForm";
 import { hotToast } from "@/components/wrappers/toast";
 import {
   ShamiriRickAndMortyNotesCreate,
+  ShamiriRickAndMortyNotesResponse,
   ShamiriRickAndMortyNotesUpdate,
+  ShamiriUsersResponse,
 } from "@/lib/pb/database";
 import { tryCatchWrapper } from "@/utils/helpers/async";
 import { pageNumberParser } from "@/utils/helpers/others";
@@ -14,15 +16,20 @@ import {
   useQueryClient,
 } from "rakkasjs";
 import { useState } from "react";
-import { and, eq } from "typed-pocketbase";
+import { TypedRecord, and, eq,neq } from "typed-pocketbase";
 
-export function useUpsertCharacterNote({ note }: { note?: string }) {
+export function useUpsertCharacterNote({
+  note,
+}: {
+  note?: TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>;
+}) {
   const { locals } = usePageContext();
   const [open, setOpen] = useState(false);
   const { handleChange, input, setError, setInput, validateInputs } =
-    useFormHook<{ note: string }>({
+    useFormHook<Partial<typeof note>>({
       initialValues: {
-        note: note ?? "",
+        note: note?.note ?? "",
+        status: note?.status ?? "visible",
       },
     });
   const qc = useQueryClient();
@@ -62,7 +69,7 @@ export function useUpsertCharacterNote({ note }: { note?: string }) {
     },
   );
   const update_note_mutation = useMutation(
-    ({ id, data }: { id: string; data: ShamiriRickAndMortyNotesUpdate }) => {
+    ({ id, data }: { id: string; data?: ShamiriRickAndMortyNotesUpdate }) => {
       return tryCatchWrapper(
         locals.pb.collection("shamiri_rick_and_morty_notes").update(id, data),
       );
@@ -103,6 +110,7 @@ export function useUpsertCharacterNote({ note }: { note?: string }) {
     update_note_mutation,
     input,
     handleChange,
+    setInput,
   };
 }
 
@@ -125,15 +133,21 @@ export function useCharacterNotes({
     ? `character_notes/${character_id}/${user_id}`
     : `character_notes/${character_id}`;
 
-  function generateQueryFilters({}: {
+  function generateQueryFilters({character_id,user_id}: {
     character_id?: string;
     user_id?: string;
   }) {
     if (view === "user") {
-      return eq("user.id", user_id ?? "");
+      return locals.pb
+        .from("shamiri_rick_and_morty_notes")
+        .createFilter(eq("user.id", user_id ?? ""));
     }
     if (view === "character") {
-      return eq("character_id", character_id ?? "");
+      return locals.pb
+        .from("shamiri_rick_and_morty_notes")
+        .createFilter(
+          and(eq("character_id", character_id ?? ""), neq("status", "hidden")),
+        );
     }
 
     return "";
@@ -149,7 +163,7 @@ export function useCharacterNotes({
               user: true,
             },
           },
-          filter: generateQueryFilters({ character_id, user_id }).toString(),
+          filter: generateQueryFilters({ character_id, user_id })?.toString(),
         }),
         // .getList(1, 20, {
         //   filter: notes_filter?.toString(),

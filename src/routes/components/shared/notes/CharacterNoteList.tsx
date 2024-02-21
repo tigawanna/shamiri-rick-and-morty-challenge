@@ -6,22 +6,23 @@ import { useViewer } from "@/lib/pb/hooks/useViewer";
 import { CharachterNoteModal } from "./CharachterNoteModal";
 import { Edit } from "lucide-react";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { ShamiriUsersResponse } from "@/lib/pb/database";
+
 import { Link } from "rakkasjs";
 dayjs.extend(relativeTime);
 
 interface CharacterNoteListProps {
   character_id?: string;
   view: "character" | "user";
-  user?: ShamiriUsersResponse | null;
 }
 
 export function CharacterNoteList({
   character_id,
   view,
-  user,
 }: CharacterNoteListProps) {
   const query = useCharacterNotes({ character_id, view });
+  const {
+    data: { user: viewer },
+  } = useViewer();
 
   const data = query.data?.data;
 
@@ -51,18 +52,20 @@ export function CharacterNoteList({
     <div className="w-full h-full min-h-fit flex flex-col  overflow-auto gap-3">
       <ul className="flex flex-wrap justify-center w-full  gap-2 ">
         {data?.items?.map((note) => {
-          const is_viewer = user?.id === note.expand?.user?.id;
+          const is_viewer = viewer?.id === note?.user;
+
           const is_me_tw_styles = is_viewer
             ? " w-full flex justify-between items-center  p-1 bg-secondary/5"
             : "w-full flex justify-between items-center bg-base-200 p-1";
           return (
             <div
               key={note.id}
-              className="flex flex-col jusiify-between rounded-lg bg-base-300
-             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative"
+              className={note?.status==="hidden"?`flex flex-col jusiify-between rounded-lg 
+             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative brightness-75`:`flex flex-col jusiify-between rounded-lg bg-base-300
+             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative`}
             >
-              <div className="absolute bottom-[2%] right-[2%]">
-                {note && user?.username === note.expand?.user?.username && (
+              <div className="absolute bottom-[2%] right-[2%] flex gap-2 justify-center items-center">
+                {note && is_viewer && (
                   <CharachterNoteModal
                     // @ts-expect-error
                     note={note}
@@ -72,6 +75,9 @@ export function CharacterNoteList({
                       </div>
                     }
                   />
+                )}
+                {note?.status === "hidden" && (
+                  <span className="badge badge-sm">{note?.status}</span>
                 )}
               </div>
               <div className={is_me_tw_styles}>
