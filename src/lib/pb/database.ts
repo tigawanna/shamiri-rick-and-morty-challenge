@@ -137,13 +137,13 @@ type MaybeArray<T> = T | T[];
 
 // ===== shamiri_rick_and_morty_notes =====
 
-export interface ShamiriRickAndMortyNotesResponse
-  extends BaseCollectionResponse {
+export interface ShamiriRickAndMortyNotesResponse extends BaseCollectionResponse {
   collectionName: "shamiri_rick_and_morty_notes";
   character_name: string;
   character_id: string;
   user: string;
   note: string;
+  status: "hidden" | "visible";
 }
 
 export interface ShamiriRickAndMortyNotesCreate extends BaseCollectionCreate {
@@ -151,6 +151,7 @@ export interface ShamiriRickAndMortyNotesCreate extends BaseCollectionCreate {
   character_id: string;
   user: string;
   note: string;
+  status: "hidden" | "visible";
 }
 
 export interface ShamiriRickAndMortyNotesUpdate extends BaseCollectionUpdate {
@@ -158,6 +159,7 @@ export interface ShamiriRickAndMortyNotesUpdate extends BaseCollectionUpdate {
   character_id?: string;
   user?: string;
   note?: string;
+  status?:"hidden"|"visible"
 }
 
 export interface ShamiriRickAndMortyNotesCollection {

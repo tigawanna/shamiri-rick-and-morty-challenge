@@ -62,21 +62,17 @@ export function CharacterNoteList({
              gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative"
             >
               <div className="absolute bottom-[2%] right-[2%]">
-                {note.character_id &&
-                  note.character_name &&
-                  user?.username === note.expand?.user?.username && (
-                    <CharachterNoteModal
-                      character_id={note.character_id}
-                      character_name={note.character_name}
-                      note_id={note.id}
-                      note={note.note}
-                      icon={
-                        <div className="">
-                          <Edit className="h-4 w-4" />
-                        </div>
-                      }
-                    />
-                  )}
+                {note && user?.username === note.expand?.user?.username && (
+                  <CharachterNoteModal
+                    // @ts-expect-error
+                    note={note}
+                    icon={
+                      <div className="">
+                        <Edit className="h-4 w-4" />
+                      </div>
+                    }
+                  />
+                )}
               </div>
               <div className={is_me_tw_styles}>
                 {is_viewer ? (
