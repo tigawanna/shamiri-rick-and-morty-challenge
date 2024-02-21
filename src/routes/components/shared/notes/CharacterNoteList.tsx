@@ -6,7 +6,6 @@ import { useViewer } from "@/lib/pb/hooks/useViewer";
 import { CharachterNoteModal } from "./CharachterNoteModal";
 import { Edit } from "lucide-react";
 import relativeTime from "dayjs/plugin/relativeTime";
-
 import { Link } from "rakkasjs";
 dayjs.extend(relativeTime);
 
@@ -60,9 +59,13 @@ export function CharacterNoteList({
           return (
             <div
               key={note.id}
-              className={note?.status==="hidden"?`flex flex-col jusiify-between rounded-lg 
-             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative brightness-75`:`flex flex-col jusiify-between rounded-lg bg-base-300
-             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative`}
+              className={
+                note?.status === "hidden"
+                  ? `flex flex-col jusiify-between rounded-lg 
+             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative brightness-75`
+                  : `flex flex-col jusiify-between rounded-lg bg-base-300
+             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative`
+              }
             >
               <div className="absolute bottom-[2%] right-[2%] flex gap-2 justify-center items-center">
                 {note && is_viewer && (
@@ -93,7 +96,7 @@ export function CharacterNoteList({
                 )}
                 <div className="text-xs">{dayjs(note.created).fromNow()}</div>
               </div>
-              <p className="text-lg w-full p-2 h-full">{note.note}</p>
+              <p className="w-full p-2 h-full">{note.note}</p>
               <div className="flex flex-col"></div>
             </div>
           );

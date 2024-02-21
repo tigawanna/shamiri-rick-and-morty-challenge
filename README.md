@@ -13,6 +13,8 @@
 - View character details and notes.
 - add notes to characters.
 - view other people's notes
+- Spam prevention with read only access to unverified emails
+- hiding your notes from the characters page
 - sharing URL's will maintain activity state  using search parameters
 - Authentication with Email-Password , password reset and email verification + google and github OAuth sign-in.
   responsive design with light and dark mode powered by `TailwindCSS` and `DaisyUI` , new themes can be added with a single line addition to `tailwind.config.js`
