@@ -23,7 +23,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <ErrorBoundaryComponent>
       <div className="w-full h-screen  overflow-y-hidden  flex flex-col items-center ">
-        <ClientSuspense fallback={null}>
+        <ClientSuspense fallback={<div className="h-8 "></div>}>
           <Nprogress
             isAnimating={location && location?.pending ? true : false}
           />
@@ -61,7 +61,7 @@ function Layout({ children }: LayoutProps) {
             </div>
           </div>
         </div>
-        <ClientSuspense fallback={null}>
+        <ClientSuspense fallback={<div className="h-8 "></div>}>
           <Toaster />
         </ClientSuspense>
       </div>
