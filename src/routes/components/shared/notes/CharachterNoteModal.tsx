@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/shadcn/ui/dialog";
-import { useUpsertCharacterNote } from "./hooks";
+import { CreateOrDeletNote, useUpsertCharacterNote } from "./hooks";
 import { useViewer } from "@/lib/pb/hooks/useViewer";
 import { PbTheTextAreaInput } from "@/lib/pb/components/form/PBTheTextAreaInput";
 import { Loader } from "lucide-react";
@@ -29,24 +29,14 @@ import {
 } from "@/components/shadcn/ui/select";
 
 interface CharachterNoteModalProps {
-  character_id: string;
-  character_name: string;
   icon: React.ReactNode;
-  note?: TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>;
+  data: CreateOrDeletNote;
+  viewer: ShamiriUsersResponse | null;
 }
 
-export function CharachterNoteModal({
-  icon,
-  note,
-  character_id,
-  character_name,
-}: CharachterNoteModalProps) {
-  const {
-    data: { user },
-  } = useViewer();
-  const user_id = user?.id!;
+export function CharachterNoteModal({ icon, data,viewer }: CharachterNoteModalProps) {
+  const { action, note } = data;
   const { current } = useLocation();
-  const note_id = note?.id;
 
   const {
     open,
@@ -56,17 +46,9 @@ export function CharachterNoteModal({
     input,
     handleChange,
     setInput,
-  } = useUpsertCharacterNote({
-    note: note
-      ? note
-      : {
-          character_name,
-          note: "",
-          character_id,
-        },
-  });
-
-  if (!user) {
+  } = useUpsertCharacterNote(data);
+  // console.log(" ===  input  ===== ",input)
+  if (!viewer) {
     const auth_url = new URL("/auth", current.origin);
     auth_url.searchParams.set("return_to", current.pathname);
     return (
@@ -83,7 +65,7 @@ export function CharachterNoteModal({
       </Dialog>
     );
   }
-  if (user && !user?.verified) {
+  if (viewer && !viewer?.verified) {
     const auth_url = new URL(current.origin + "/profile");
     auth_url.searchParams.set("return_to", current.pathname);
     return (
@@ -94,7 +76,7 @@ export function CharachterNoteModal({
             <DialogTitle>Please verify your email</DialogTitle>
           </DialogHeader>
           <div className="btn btn-wide">
-            <ProfileEmailStatus email={user.email} verified={user.verified} />
+            <ProfileEmailStatus email={viewer.email} verified={viewer.verified} />
           </div>
         </DialogContent>
       </Dialog>
@@ -107,7 +89,9 @@ export function CharachterNoteModal({
 
       <DialogContent className="sm:max-w-[625px]">
         <DialogHeader>
-          <DialogTitle>{note_id ? "Edit Note" : "Add Note"}</DialogTitle>
+          <DialogTitle>
+            {action === "update" ? "Edit Note" : "Add Note"}
+          </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
           <PbTheTextAreaInput
@@ -143,35 +127,38 @@ export function CharachterNoteModal({
           </Select>
         </div>
         <DialogFooter className="flex items-center justify-center gap-2">
-          {note_id && note ? (
+          {action === "update" && note && (
             <Button
               type="button"
               className="flex gap-2 items-center justify-center"
               disabled={update_note_mutation.isLoading}
-              onClick={() =>
-                update_note_mutation.mutate({
-                  id: note_id,
-                  data: input,
-                })
-              }
+              onClick={() => update_note_mutation.mutate({
+                id: note.id,
+                data: {
+                  note: input?.note,
+                  status: input?.status ?? "visible",
+                }
+              })}
             >
               Update
               {update_note_mutation.isLoading && (
                 <Loader className="animate-spin" />
               )}
             </Button>
-          ) : (
+          )}
+
+          {action === "create" && viewer?.id  &&  (
             <Button
               type="button"
               className="flex gap-2 items-center justify-center"
               disabled={create_note_mutation.isLoading}
               onClick={() =>
                 create_note_mutation.mutate({
-                  character_id: note?.character_id!,
-                  character_name: note?.character_name!,
-                  note: input?.note!,
-                  user: user_id,
-                  status: "visible",
+                  note: input?.note ?? "",
+                  character_id:data.note.character_id,
+                  character_name:data.note.character_name,
+                  status: input?.status ?? "visible",
+                  user: viewer?.id,
                 })
               }
             >

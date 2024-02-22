@@ -2,18 +2,23 @@ import { graphql, useLazyLoadQuery } from "@/lib/relay/modules";
 import { OneCharacterRouteComponentQuery } from "./__generated__/OneCharacterRouteComponentQuery.graphql";
 import { CharachterNoteModal } from "@/routes/components/shared/notes/CharachterNoteModal";
 import { Plus } from "lucide-react";
+import { useViewer } from "@/lib/pb/hooks/useViewer";
 
 interface OneCharacterRouteComponentProps {
   id: string;
 }
 
-export function OneCharacterComponent({
-  id,
-}: OneCharacterRouteComponentProps) {
-  const query = useLazyLoadQuery<OneCharacterRouteComponentQuery>(oneCharacterQuery, {
-    id,
-  });
+export function OneCharacterComponent({ id }: OneCharacterRouteComponentProps) {
+  const query = useLazyLoadQuery<OneCharacterRouteComponentQuery>(
+    oneCharacterQuery,
+    {
+      id,
+    },
+  );
   const character = query?.character;
+  const {
+    data: { user: viewer },
+  } = useViewer();
 
   if (!character) {
     return (
@@ -24,7 +29,7 @@ export function OneCharacterComponent({
       </div>
     );
   }
-  const status_badge_styles = (status?: string|null) => {
+  const status_badge_styles = (status?: string | null) => {
     switch (status) {
       case "Alive":
         return "badge-success";
@@ -59,10 +64,19 @@ export function OneCharacterComponent({
               </h3>
             </span>
             <div className="btn btn-sm btn-wide">
-              {character.id && character.name && (
+              {character.id && character.name && viewer?.id && (
                 <CharachterNoteModal
-                  character_id={character.id}
-                  character_name={character.name}
+                  viewer={viewer}
+                  data={{
+                    action: "create",
+                    note: {
+                      character_id: character.id,
+                      character_name: character.name,
+                      note: "",
+                      status: "visible",
+                      user: viewer.id!,
+                    },
+                  }}
                   icon={
                     <div className="flex gap-2 justify-center items-center ">
                       <Plus /> Add note

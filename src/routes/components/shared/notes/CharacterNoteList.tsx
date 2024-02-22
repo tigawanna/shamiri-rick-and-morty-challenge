@@ -11,16 +11,23 @@ dayjs.extend(relativeTime);
 
 interface CharacterNoteListProps {
   character_id?: string;
+  character_name?: string;
   view: "character" | "user";
   is_viewer?: boolean;
 }
 
 export function CharacterNoteList({
   character_id,
+  character_name,
   view,
-  is_viewer=false
+  is_viewer = false,
 }: CharacterNoteListProps) {
-  const query = useCharacterNotes({ character_id, view,is_viewer });
+  const query = useCharacterNotes({
+    character_id,
+    character_name,
+    view,
+    is_viewer,
+  });
   const {
     data: { user: viewer },
   } = useViewer();
@@ -66,14 +73,21 @@ export function CharacterNoteList({
                   ? `flex flex-col jusiify-between rounded-lg 
              gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative brightness-75`
                   : `flex flex-col jusiify-between rounded-lg bg-base-300
-             gap-1 min-h-24 w-full sm:w-[47%] md:w-[30%] lg:w-[23%] relative`
+             gap-1 min-h-24 w-full sm:w-fit sm:min-w-[47%] md:min-w-[30%] lg:min-w-[23%] relative`
               }
             >
               <div className="absolute bottom-[2%] right-[2%] flex gap-2 justify-center items-center">
                 {note && is_viewer && (
                   <CharachterNoteModal
-                    // @ts-expect-error
-                    note={note}
+                  viewer={viewer}
+                    data={{
+                      action: "update",
+                      note: {
+                        id: note.id,
+                        note: note.note,
+                        status: note.status,
+                      },
+                    }}
                     icon={
                       <div className="">
                         <Edit className="h-4 w-4" />

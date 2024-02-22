@@ -16,23 +16,31 @@ import {
   useQueryClient,
 } from "rakkasjs";
 import { useState } from "react";
-import { TypedRecord, and, eq,neq } from "typed-pocketbase";
+import { TypedRecord, and, eq, neq } from "typed-pocketbase";
 
-export function useUpsertCharacterNote({
-  note,
-}: {
-  note?: Partial<TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>>
-}) {
+export type UseCreateCharacterNote = {
+  action: "create";
+  note: ShamiriRickAndMortyNotesCreate;
+};
+export type UseUpdateCharacterNote = {
+  action: "update";
+  note: ShamiriRickAndMortyNotesUpdate & { id: string };
+};
+
+export type CreateOrDeletNote = UseCreateCharacterNote | UseUpdateCharacterNote;
+export function useUpsertCharacterNote({ action, note }: CreateOrDeletNote) {
   const { locals } = usePageContext();
   const [open, setOpen] = useState(false);
-  const { handleChange, input, setInput } =
-    useFormHook<Partial<typeof note>>({
-      initialValues: {
-        note: note?.note ?? "",
-        status: note?.status ?? "visible",
-      },
-    });
-  const qc = useQueryClient();
+  const { handleChange, input, setInput } = useFormHook<{
+    note: string;
+    status: "visible" | "hidden";
+  }>({
+    initialValues: {
+      note: note?.note ?? "",
+      status: note?.status ?? "visible",
+    },
+  });
+
   const create_note_mutation = useMutation(
     (data: ShamiriRickAndMortyNotesCreate) => {
       return tryCatchWrapper(
@@ -48,7 +56,11 @@ export function useUpsertCharacterNote({
             type: "success",
           });
 
-          setInput({ note: "" });
+          setInput((prev) => {
+            return {
+              ...prev,note: "",
+            };
+          });
           setOpen(false);
         }
         if (data && data.error) {
@@ -82,7 +94,12 @@ export function useUpsertCharacterNote({
             title: "Note updated",
             type: "success",
           });
-          setInput({ note: "" });
+         setInput((prev) => {
+           return {
+             ...prev,
+             note: "",
+           };
+         });
           setOpen(false);
         }
         if (data && data.error) {
@@ -116,13 +133,15 @@ export function useUpsertCharacterNote({
 
 interface UseCharacterNotesProps {
   character_id?: string;
+  character_name?: string;
   view: "character" | "user";
   is_viewer: boolean;
 }
 export function useCharacterNotes({
   character_id,
+  character_name,
   view,
-  is_viewer
+  is_viewer,
 }: UseCharacterNotesProps) {
   const { search_param: page_no } = useCustomSearchParams({
     key: "pbnp",
@@ -135,7 +154,10 @@ export function useCharacterNotes({
     ? `character_notes/${character_id}/${user_id}`
     : `character_notes/${character_id}`;
 
-  function generateQueryFilters({character_id,user_id}: {
+  function generateQueryFilters({
+    character_id,
+    user_id,
+  }: {
     character_id?: string;
     user_id?: string;
   }) {
@@ -147,7 +169,9 @@ export function useCharacterNotes({
     if (view === "user" && !is_viewer) {
       return locals.pb
         .from("shamiri_rick_and_morty_notes")
-        .createFilter(and(eq("user.id", user_id ?? ""),neq("status", "hidden")));
+        .createFilter(
+          and(eq("user.id", user_id ?? ""), neq("status", "hidden")),
+        );
     }
     if (view === "character") {
       return locals.pb

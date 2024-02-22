@@ -15,7 +15,7 @@ export function ProfileInfo({ profile }: ProfileInfoProps) {
   const{data}= useViewer()
   const current_user_id = data?.user?.id
   return (
-    <div className="w-full flex min-h-[200px] h-full flex-col-reverse sm:flex-row items-center justify-center md:justify-between gap-1">
+    <div className="w-full flex h-fit flex-col-reverse sm:flex-row items-center justify-center md:justify-between gap-1">
       <div className="w-full  h-full flex flex-col sm:flex-row gap-4  items-center justify-between p-2 bg-base-200 rounded-lg">
         <div className="flex flex-wrap gap-3 items-center justify-center">
           <h1 className="text-lg md:text-3xl font-bold line-clamp-1">
