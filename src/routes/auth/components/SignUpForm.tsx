@@ -52,7 +52,8 @@ export function SignUpForm({}: SignupFormProps) {
             title: `Welcome ${data?.data?.record?.username}`,
             type: "success",
           });
-          navigate("/dashboard");
+           const return_to = current.searchParams.get("return_to");
+           navigate(return_to ?? "/");
         }
         if (data && data?.error) {
           hotToast({
