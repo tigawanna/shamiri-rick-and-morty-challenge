@@ -439,6 +439,26 @@ export function SearchComponentParet() {
 
 This way , we'll maintain the view of the old results as the new ones are fetched in between typing giving us better UX overall
 
+
+
+### Reasoning behind some of the design decisions 
+
+ 1. URL Search parameters for basic state management: I've observed patterns like using routers that save data in some internal state manager or local storage before navigating and reading this data on the new page  this approach was great for client only SPAs and would allow you to pass in complex data ranging from objects to arrays , But it's limitations was in the SSR step where that data won't be available on the server causing hydration errors or incorrect behavior , I've structured the data to rely on the URL `parsm`  and `searchparams`  and use that data to fetch the data the page will need .
+ This approach enables us to have URLs that can be shared and load correctly , down to the redirects that happen when you visit a protected route like the `/profile` route , once you're done authenticating you get redirected back to the page you were redirected from 
+
+ 2. `[id]/index.page.tsx` instead of `[id].page.tsx` : These 2 approaches accomplish the same thing (dynamic route) but the first one is great when you won't have an index route for that segment which will break our breadcrumbs section which assumes every URL pathname is a valid route that has an index page
+ 
+3. No redux : Most apps don;t need it and you'll be just fine with a data fetching library that caches it's results
+
+4. TailwindCSS + DaisyUI + shadcn : Nice styling combo for quick iterations and maintainable styles with a minimal runtime cost (i`tailwind-merge` for some of the dynamic stuff) 
+   - The ability to know what your styles are doing a ta single glance
+   - eliminating hard to pin point cascading issues
+   - bootstrap like utility classes + pre built themes with DaisyUi
+   - Accessible and easily customizable components with shadcn
+
+5. Pocketbase for the notes:
+    One of the requirements was adding notes to characters , assuming this would be accessible over the internet it would be cool to let others view the notes too eliminating local storage , a full postgres database felt like overkill so I went wit Pocketbase an amazing wrapper around SQlite , that auto generates crud endpoint to tables and does authentication and user management for me.
+
 ### Possible improvements:
 
 1. Add unit and end to end tests : Right now am mostly relying on Typescript `tsc` to check for broken typescript code and types but that doesn't cover logical bugs .
