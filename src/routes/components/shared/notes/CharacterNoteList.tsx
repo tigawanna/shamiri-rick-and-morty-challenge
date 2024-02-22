@@ -12,13 +12,15 @@ dayjs.extend(relativeTime);
 interface CharacterNoteListProps {
   character_id?: string;
   view: "character" | "user";
+  is_viewer?: boolean;
 }
 
 export function CharacterNoteList({
   character_id,
   view,
+  is_viewer=false
 }: CharacterNoteListProps) {
-  const query = useCharacterNotes({ character_id, view });
+  const query = useCharacterNotes({ character_id, view,is_viewer });
   const {
     data: { user: viewer },
   } = useViewer();

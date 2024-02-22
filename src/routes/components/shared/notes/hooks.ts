@@ -21,11 +21,11 @@ import { TypedRecord, and, eq,neq } from "typed-pocketbase";
 export function useUpsertCharacterNote({
   note,
 }: {
-  note?: TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>;
+  note?: Partial<TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>>
 }) {
   const { locals } = usePageContext();
   const [open, setOpen] = useState(false);
-  const { handleChange, input, setError, setInput, validateInputs } =
+  const { handleChange, input, setInput } =
     useFormHook<Partial<typeof note>>({
       initialValues: {
         note: note?.note ?? "",
@@ -117,10 +117,12 @@ export function useUpsertCharacterNote({
 interface UseCharacterNotesProps {
   character_id?: string;
   view: "character" | "user";
+  is_viewer: boolean;
 }
 export function useCharacterNotes({
   character_id,
   view,
+  is_viewer
 }: UseCharacterNotesProps) {
   const { search_param: page_no } = useCustomSearchParams({
     key: "pbnp",
@@ -137,10 +139,15 @@ export function useCharacterNotes({
     character_id?: string;
     user_id?: string;
   }) {
-    if (view === "user") {
+    if (view === "user" && is_viewer) {
       return locals.pb
         .from("shamiri_rick_and_morty_notes")
         .createFilter(eq("user.id", user_id ?? ""));
+    }
+    if (view === "user" && !is_viewer) {
+      return locals.pb
+        .from("shamiri_rick_and_morty_notes")
+        .createFilter(and(eq("user.id", user_id ?? ""),neq("status", "hidden")));
     }
     if (view === "character") {
       return locals.pb

@@ -18,26 +18,35 @@ import {
   ShamiriRickAndMortyNotesResponse,
   ShamiriUsersResponse,
 } from "@/lib/pb/database";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/shadcn/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shadcn/ui/select";
 
 interface CharachterNoteModalProps {
-
+  character_id: string;
+  character_name: string;
   icon: React.ReactNode;
   note?: TypedRecord<ShamiriRickAndMortyNotesResponse, ShamiriUsersResponse>;
 }
 
 export function CharachterNoteModal({
-
   icon,
   note,
+  character_id,
+  character_name,
 }: CharachterNoteModalProps) {
   const {
     data: { user },
   } = useViewer();
   const user_id = user?.id!;
   const { current } = useLocation();
-  const note_id = note?.id
-
+  const note_id = note?.id;
 
   const {
     open,
@@ -46,9 +55,16 @@ export function CharachterNoteModal({
     update_note_mutation,
     input,
     handleChange,
-    setInput
-
-  } = useUpsertCharacterNote({ note });
+    setInput,
+  } = useUpsertCharacterNote({
+    note: note
+      ? note
+      : {
+          character_name,
+          note: "",
+          character_id,
+        },
+  });
 
   if (!user) {
     const auth_url = new URL("/auth", current.origin);
@@ -106,11 +122,14 @@ export function CharachterNoteModal({
               update_note_mutation.data?.error
             }
           />
-          <Select defaultValue={input?.status} onValueChange={(e:"visible"|"hidden")=>{
-            setInput((prev)=>{
-              return {...prev, status:e}
-            })
-          }}>
+          <Select
+            defaultValue={input?.status}
+            onValueChange={(e: "visible" | "hidden") => {
+              setInput((prev) => {
+                return { ...prev, status: e };
+              });
+            }}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select visibility" />
             </SelectTrigger>
@@ -119,13 +138,12 @@ export function CharachterNoteModal({
                 <SelectLabel>Status</SelectLabel>
                 <SelectItem value="visible">visible</SelectItem>
                 <SelectItem value="hidden">Hidden</SelectItem>
-
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
         <DialogFooter className="flex items-center justify-center gap-2">
-          {note_id && note  ? (
+          {note_id && note ? (
             <Button
               type="button"
               className="flex gap-2 items-center justify-center"

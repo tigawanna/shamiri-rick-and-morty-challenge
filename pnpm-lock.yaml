@@ -26,9 +26,6 @@ dependencies:
   '@radix-ui/react-checkbox':
     specifier: ^1.0.4
     version: 1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.51)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-collapsible':
-    specifier: ^1.0.3
-    version: 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.51)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-context-menu':
     specifier: ^2.1.5
     version: 2.1.5(@types/react-dom@18.2.18)(@types/react@18.2.51)(react-dom@18.2.0)(react@18.2.0)
@@ -65,9 +62,6 @@ dependencies:
   '@tanem/react-nprogress':
     specifier: ^5.0.51
     version: 5.0.51(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/react-virtual':
-    specifier: ^3.0.0
-    version: 3.0.4(react-dom@18.2.0)(react@18.2.0)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -77,9 +71,6 @@ dependencies:
   cmdk:
     specifier: ^0.2.1
     version: 0.2.1(@types/react@18.2.51)(react-dom@18.2.0)(react@18.2.0)
-  cookie-es:
-    specifier: ^1.0.0
-    version: 1.0.0
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -92,15 +83,9 @@ dependencies:
   pocketbase:
     specifier: ^0.21.1
     version: 0.21.1
-  radash:
-    specifier: ^11.0.0
-    version: 11.0.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
-  react-day-picker:
-    specifier: ^8.10.0
-    version: 8.10.0(date-fns@3.3.1)(react@18.2.0)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -2511,21 +2496,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-virtual@3.0.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-tiqKW/e2MJVCr7/pRUXulpkyxllaOclkHNfhKTo4pmHjJIqnhMfwIjc1Q1R0Un3PI3kQywywu/791c8z9u0qeA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@tanstack/virtual-core': 3.0.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/virtual-core@3.0.0:
-    resolution: {integrity: sha512-SYXOBTjJb05rXa2vl55TTwO40A6wKu0R5i1qQwhJYNDIqaIGF7D0HsLw+pJAyi2OvntlEIVusx3xtbbgSUi6zg==}
-    dev: false
-
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
     dependencies:
@@ -3349,10 +3319,6 @@ packages:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
     dev: true
 
-  /cookie-es@1.0.0:
-    resolution: {integrity: sha512-mWYvfOLrfEc996hlKcdABeIiPHUPC6DM2QYZdGGOvhOTbA3tjm2eBwqlJpoFdjC89NI4Qt6h0Pu06Mp+1Pj5OQ==}
-    dev: false
-
   /cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
@@ -3469,10 +3435,6 @@ packages:
     transitivePeerDependencies:
       - postcss
     dev: true
-
-  /date-fns@3.3.1:
-    resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
-    dev: false
 
   /dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
@@ -5493,11 +5455,6 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /radash@11.0.0:
-    resolution: {integrity: sha512-CRWxTFTDff0IELGJ/zz58yY4BDgyI14qSM5OLNKbCItJrff7m7dXbVF0kWYVCXQtPb3SXIVhXvAImH6eT7VLSg==}
-    engines: {node: '>=14.18.0'}
-    dev: false
-
   /rakkasjs@0.7.0-next.38(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(vite@5.0.12):
     resolution: {integrity: sha512-vgE2qDxaz0/urlQ8QmEbml0SNOiVlrJROlal6W0eH7BrVeeGcXaIJgYp6HWhAZiAq2+IZQCxjIwEqRaa9Av5TQ==}
     hasBin: true
@@ -5544,16 +5501,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /react-day-picker@8.10.0(date-fns@3.3.1)(react@18.2.0):
-    resolution: {integrity: sha512-mz+qeyrOM7++1NCb1ARXmkjMkzWVh2GL9YiPbRjKe0zHccvekk4HE+0MPOZOrosn8r8zTHIIeOUXTmXRqmkRmg==}
-    peerDependencies:
-      date-fns: ^2.28.0 || ^3.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      date-fns: 3.3.1
-      react: 18.2.0
-    dev: false
 
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}

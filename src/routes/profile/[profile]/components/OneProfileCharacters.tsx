@@ -10,9 +10,10 @@ import {
 
 interface neProfileComponentProps {
   profile_id: string;
+  is_viewer:boolean;
 }
 
-export function OneProfileComponent({ profile_id }: neProfileComponentProps) {
+export function OneProfileComponent({ profile_id,is_viewer }: neProfileComponentProps) {
   const { locals } = usePageContext();
   const query = useQuery({
     tags: ["viewer"],
@@ -34,7 +35,7 @@ export function OneProfileComponent({ profile_id }: neProfileComponentProps) {
         <ProfileInfo profile={profile} />
       </Suspense>
       <Suspense fallback={<GridSuspenseFallback />}>
-        <CharacterNoteList view="user" user={profile} />
+        <CharacterNoteList view="user" is_viewer={is_viewer} />
       </Suspense>
     </div>
   );
