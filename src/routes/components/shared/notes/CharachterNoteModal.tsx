@@ -8,14 +8,13 @@ import {
   DialogTrigger,
 } from "@/components/shadcn/ui/dialog";
 import { CreateOrDeletNote, useUpsertCharacterNote } from "./hooks";
-import { useViewer } from "@/lib/pb/hooks/useViewer";
 import { PbTheTextAreaInput } from "@/lib/pb/components/form/PBTheTextAreaInput";
 import { Loader } from "lucide-react";
 import { Link, useLocation } from "rakkasjs";
 import { ProfileEmailStatus } from "@/routes/profile/components/ProfileEmailStatus";
-import { TypedRecord } from "typed-pocketbase";
+
 import {
-  ShamiriRickAndMortyNotesResponse,
+
   ShamiriUsersResponse,
 } from "@/lib/pb/database";
 import {

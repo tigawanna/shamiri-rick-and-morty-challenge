@@ -39,6 +39,7 @@ export function PasswordResetForm({}: PasswordResetFormProps) {
       });
     },
     {
+      invalidateTags: ["viewer"],
       onError(error: any) {
         hotToast({
           title: "Something went wrong",
@@ -76,6 +77,7 @@ export function PasswordResetForm({}: PasswordResetFormProps) {
       });
     },
     {
+      invalidateTags: ["viewer"],
       onSuccess(data) {
         if (data && data?.data) {
           qc.invalidateQueries(["viewer"]);

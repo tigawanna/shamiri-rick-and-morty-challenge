@@ -11,20 +11,21 @@ dayjs.extend(relativeTime);
 
 interface CharacterNoteListProps {
   character_id?: string;
-  character_name?: string;
+  profile_viewer_id?: string;
   view: "character" | "user";
   is_viewer?: boolean;
 }
 
 export function CharacterNoteList({
   character_id,
-  character_name,
+  profile_viewer_id,
   view,
   is_viewer = false,
 }: CharacterNoteListProps) {
+
   const query = useCharacterNotes({
     character_id,
-    character_name,
+    profile_viewer_id,
     view,
     is_viewer,
   });
@@ -77,14 +78,15 @@ export function CharacterNoteList({
               }
             >
               <div className="absolute bottom-[2%] right-[2%] flex gap-2 justify-center items-center">
-                {note && is_viewer && (
+                {(note && is_viewer && note?.note)&& (
                   <CharachterNoteModal
-                  viewer={viewer}
+                   key={JSON.stringify(note)}
+                    viewer={viewer}
                     data={{
                       action: "update",
                       note: {
                         id: note.id,
-                        note: note.note,
+                        note: note?.note,
                         status: note.status,
                       },
                     }}

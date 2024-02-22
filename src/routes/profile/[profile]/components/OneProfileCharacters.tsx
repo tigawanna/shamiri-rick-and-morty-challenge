@@ -29,13 +29,15 @@ export function OneProfileComponent({ profile_id,is_viewer }: neProfileComponent
     return <Redirect href=".." />;
   }
 
+
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-3">
       <Suspense fallback={<ProfileInfoSuspenseFallback />}>
         <ProfileInfo profile={profile} />
       </Suspense>
       <Suspense fallback={<GridSuspenseFallback />}>
-        <CharacterNoteList view="user" is_viewer={is_viewer} />
+        <CharacterNoteList view="user" is_viewer={is_viewer} profile_viewer_id={profile.id}/>
       </Suspense>
     </div>
   );

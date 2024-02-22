@@ -35,6 +35,7 @@ export function SignInForm({}: SignInFormProps) {
       });
     },
     {
+      invalidateTags: ["viewer"],
       onError(error: any) {
         hotToast({
           title: "Something went wrong",
@@ -45,7 +46,7 @@ export function SignInForm({}: SignInFormProps) {
       onSuccess(data) {
         if (data && data?.data) {
           qc.invalidateQueries(["viewer"]);
-         const return_to = current.searchParams.get("return_to");
+          const return_to = current.searchParams.get("return_to");
           navigate(return_to ?? "/");
           hotToast({
             title: `Welcome ${data?.data?.record.username}`,
@@ -72,6 +73,7 @@ export function SignInForm({}: SignInFormProps) {
       });
     },
     {
+      invalidateTags: ["viewer"],
       onError(error: any) {
         hotToast({
           title: "Something went wrong",

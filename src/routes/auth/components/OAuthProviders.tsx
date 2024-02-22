@@ -27,6 +27,7 @@ export function OAuthproviders({}: OAuthprovidersProps) {
       );
     },
     {
+      invalidateTags: ["viewer"],
       onSuccess(data) {
         if (data && data?.data) {
           hotToast({

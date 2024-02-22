@@ -28,7 +28,7 @@ export function SignUpForm({}: SignupFormProps) {
         passwordConfirm: "",
       },
     });
-  const mutation = useMutation(
+  const email_password_signup_mutation = useMutation(
     (vars: typeof input) => {
       return createUser({
         pb: page_ctx.locals.pb,
@@ -37,6 +37,7 @@ export function SignUpForm({}: SignupFormProps) {
       });
     },
     {
+      invalidateTags: ["viewer"],
       onError(error: any) {
         hotToast({
           title: "Something went wrong",
@@ -52,8 +53,8 @@ export function SignUpForm({}: SignupFormProps) {
             title: `Welcome ${data?.data?.record?.username}`,
             type: "success",
           });
-           const return_to = current.searchParams.get("return_to");
-           navigate(return_to ?? "/");
+          //  const return_to = current.searchParams.get("return_to");
+           navigate("/auth");
         }
         if (data && data?.error) {
           hotToast({
@@ -79,7 +80,7 @@ export function SignUpForm({}: SignupFormProps) {
     });
     e.preventDefault();
     if (is_valid) {
-      mutation.mutate(input);
+      email_password_signup_mutation.mutate(input);
     }
     // mutation.mutate(input);
   }
@@ -101,7 +102,7 @@ export function SignUpForm({}: SignupFormProps) {
             onChange={handleChange}
             validation_error={error}
             // @ts-expect-error
-            pb_error={mutation.data?.error}
+            pb_error={email_password_signup_mutation.data?.error}
           />
           <PbTheTextInput
             field_key={"username"}
@@ -112,7 +113,7 @@ export function SignUpForm({}: SignupFormProps) {
             onChange={handleChange}
             validation_error={error}
             // @ts-expect-error
-            pb_error={mutation.data?.error}
+            pb_error={email_password_signup_mutation.data?.error}
           />
           <PbTheTextInput
             field_key={"password"}
@@ -124,7 +125,7 @@ export function SignUpForm({}: SignupFormProps) {
             val={input.password}
             validation_error={error}
             // @ts-expect-error
-            pb_error={mutation.data?.error}
+            pb_error={email_password_signup_mutation.data?.error}
           />
           <PbTheTextInput
             field_key={"passwordConfirm"}
@@ -136,7 +137,7 @@ export function SignUpForm({}: SignupFormProps) {
             val={input.passwordConfirm}
             validation_error={error}
             // @ts-expect-error
-            pb_error={mutation.data?.error}
+            pb_error={email_password_signup_mutation.data?.error}
           />
 
           <TheTextInput
@@ -151,20 +152,23 @@ export function SignUpForm({}: SignupFormProps) {
 
           <Button
             type="submit"
-            disabled={mutation.isLoading}
+            disabled={email_password_signup_mutation.isLoading}
             className="btn btn-sm btn-outline min-w-[50%]"
             variant={"ghost"}
             size={"sm"}
           >
             {" "}
-            Sign Up {mutation.isLoading && <Loader className="animate-spin" />}
+            Sign Up{" "}
+            {email_password_signup_mutation.isLoading && (
+              <Loader className="animate-spin" />
+            )}
           </Button>
         </form>
 
-        {mutation.data?.error && (
+        {email_password_signup_mutation.data?.error && (
           <div className="w-full flex justify-center">
             <p className="bg-error-content text-error text-sm p-2 rounded-e-lg ">
-              {mutation.data.error?.message}
+              {email_password_signup_mutation.data.error?.message}
             </p>
           </div>
         )}

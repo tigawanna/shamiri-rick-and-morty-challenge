@@ -31,6 +31,7 @@ export type CreateOrDeletNote = UseCreateCharacterNote | UseUpdateCharacterNote;
 export function useUpsertCharacterNote({ action, note }: CreateOrDeletNote) {
   const { locals } = usePageContext();
   const [open, setOpen] = useState(false);
+
   const { handleChange, input, setInput } = useFormHook<{
     note: string;
     status: "visible" | "hidden";
@@ -58,7 +59,8 @@ export function useUpsertCharacterNote({ action, note }: CreateOrDeletNote) {
 
           setInput((prev) => {
             return {
-              ...prev,note: "",
+              ...prev,
+              note: "",
             };
           });
           setOpen(false);
@@ -94,12 +96,12 @@ export function useUpsertCharacterNote({ action, note }: CreateOrDeletNote) {
             title: "Note updated",
             type: "success",
           });
-         setInput((prev) => {
-           return {
-             ...prev,
-             note: "",
-           };
-         });
+          setInput((prev) => {
+            return {
+              ...prev,
+              note: "",
+            };
+          });
           setOpen(false);
         }
         if (data && data.error) {
@@ -133,13 +135,13 @@ export function useUpsertCharacterNote({ action, note }: CreateOrDeletNote) {
 
 interface UseCharacterNotesProps {
   character_id?: string;
-  character_name?: string;
+  profile_viewer_id?: string;
   view: "character" | "user";
   is_viewer: boolean;
 }
 export function useCharacterNotes({
   character_id,
-  character_name,
+  profile_viewer_id,
   view,
   is_viewer,
 }: UseCharacterNotesProps) {
@@ -150,9 +152,16 @@ export function useCharacterNotes({
   const page = pageNumberParser(page_no);
   const { locals } = usePageContext();
   const user_id = locals.pb.authStore.model?.id;
-  const query_key = user_id
-    ? `character_notes/${character_id}/${user_id}`
-    : `character_notes/${character_id}`;
+  function genQueryKey({ character_id, user_id,profile_viewer_id }: { character_id?: string; user_id?: string; profile_viewer_id?: string }) {
+    if(view === "user" && profile_viewer_id && !is_viewer){
+      return `character_notes/${profile_viewer_id}`;
+    }
+    if(view === "user" && is_viewer){
+      return `character_notes/${user_id}`;
+    }
+   return `character_notes/${character_id}`;
+  } 
+  const query_key = genQueryKey({ character_id, user_id,profile_viewer_id })
 
   function generateQueryFilters({
     character_id,
@@ -161,18 +170,19 @@ export function useCharacterNotes({
     character_id?: string;
     user_id?: string;
   }) {
+    if (view === "user" && profile_viewer_id && !is_viewer) {
+      return locals.pb
+        .from("shamiri_rick_and_morty_notes")
+        .createFilter(
+          and(eq("user.id", profile_viewer_id ?? ""), neq("status", "hidden")),
+        );
+    }
     if (view === "user" && is_viewer) {
       return locals.pb
         .from("shamiri_rick_and_morty_notes")
         .createFilter(eq("user.id", user_id ?? ""));
     }
-    if (view === "user" && !is_viewer) {
-      return locals.pb
-        .from("shamiri_rick_and_morty_notes")
-        .createFilter(
-          and(eq("user.id", user_id ?? ""), neq("status", "hidden")),
-        );
-    }
+
     if (view === "character") {
       return locals.pb
         .from("shamiri_rick_and_morty_notes")
